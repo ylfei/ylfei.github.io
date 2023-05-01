@@ -1,71 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>计算机网络中的IP地址</title>
-    <url>/posts/29942.html</url>
+    <title>UEFI+GPT与BIOS+MBR有什么区别</title>
+    <url>/posts/55889.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em></p>
-<h4 id="特殊的IP地址"><a href="#特殊的IP地址" class="headerlink" title="特殊的IP地址"></a>特殊的IP地址</h4><ol>
-<li><strong>0.0.0.0</strong> </li>
-</ol>
-<p>严格说来，这个奇葩的地址0.0.0.0已经不是一个真正意义上 的IP地址了。它表示的是这样一个集合：也就是说；所有不清 楚的主机和目的网络。这里的“不清楚”是指在本机的路由表里 没有特定条目指明如何到达。对本机来说，它就是一个“收容所”， 所有不认识的“三无”人员，一律送进去。如果你在网络设置中设 置了缺省网关，那么计算机系统会自动产生一个目的地址为0.0.0.0的缺省路由。</p>
-<ol start="2">
-<li><strong>255.255.255.255限制广播地址</strong> </li>
-</ol>
-<p>对本机来说，这个地址指本网段内(同一广播域)的所有主机。</p>
-<p>然而它的意思很明确，使用人类语言来说意思就是“这里的所 有计算机都注意了”这个地址不能被路由器所转发。</p>
-<ol start="3">
-<li><strong>127.0.0.1本机地址</strong></li>
-</ol>
-<p>主要用于测试。用汉语表示，就是“我自己”。在Windows系统 中，这个地址有一个别名“Localhost”。寻址这样一个地址， 是不能把它发到网络接口的。除非出错，否则在传输介质上永 远不应该出现目的地址为“127.0.0.1”的数据包。</p>
-<ol start="4">
-<li><strong>224.0.0.1 组播地址</strong></li>
-</ol>
-<p>注意它和广播的区别。从224.0.0.0到239.255.255.255都是 这样的地址。224.0.0.1特指所有主机，224.0.0.2特指所有 路由器。这样的地址多用于一些特定的程序以及多媒体程序。 如果你的主机开启了IRDP(Internet路由发现协议），使用组 播功能功能，那么你的主机路由表中应该有这样一条路由。</p>
-<ol start="5">
-<li><strong>169.254.x.x</strong></li>
-</ol>
-<p>如果你的主机使用了DHCP功能自动获得一个IP地址，那么 当你的DHCP服务器发生故障，或响应时间太长而超出了一 个系统规定的时间，计算机操作系统会为你分配这样一个 地址。如果你发现你的主机IP地址是一个诸如此类的地址， 很不幸的是，现在你的网络不能正常运行了。</p>
-<ol start="6">
-<li><strong>10.x.x.x；172.16.0.0—172.31.255.254；192.168.x.x；私有地址</strong></li>
-</ol>
-<p>这些地址被大量用于企业内部网络中。一些宽带路由器，也 往往使用192.168.1.1作为缺省地址。私有网络由于不与外 部互连，因而可能使用随意的IP地址。保留这样的地址供其 使用是为了避免以后接入公网时引起地址混乱。使用私有地 址的私有网络在接入Internet时，要使用地址翻译(NAT)， 将私有地址翻译成公用合法地址。在Internet上，这类地址 是不能出现的。对一台网络上的主机来说，它可以正常接收 的合法目的网络地址有三种：本机的IP地址、广播地址以及 组播地址。</p>
-<h4 id="IP地址的分类"><a href="#IP地址的分类" class="headerlink" title="IP地址的分类"></a>IP地址的分类</h4><ol>
-<li><strong>A类地址</strong></li>
-</ol>
-<p><strong>A类IP地址</strong> ：由1个字节的网络地址和3个字节的主机地址，网络地址的最高位必须是“0”。<br>如：0XXXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>A类IP地址范围</strong> ：1.0.0.1—126.255.255.254</p>
 <blockquote>
-<p><strong>A类IP地址中的私有地址和保留地址：</strong> </p>
-<ol>
-<li>10.X.X.X是私有地址（所谓的私有地址就是在互联网上不使用，而被用在局域网络中的地址）。范围（10.0.0.1—10.255.255.254）</li>
-<li>127.X.X.X是保留地址，用做循环测试用的。</li>
-</ol>
+<p>现在绝大多数系统都是UEFI+GPT或BIOS+MBR模式安装的，那么他们之间有什么区别呢?</p>
 </blockquote>
-<ol start="2">
-<li><strong>B类地址</strong></li>
+<h5 id="首先是硬盘分区GPT与MBR的区别"><a href="#首先是硬盘分区GPT与MBR的区别" class="headerlink" title="首先是硬盘分区GPT与MBR的区别"></a>首先是硬盘分区GPT与MBR的区别</h5><ol>
+<li>MBR磁盘最多支持4个主分区，再增加分区只能用逻辑分区; 微软设定GPT磁盘支持128个主分区(理论可支持无限多个)。</li>
+<li>MBR磁盘最大仅支持2TB硬盘，GPT磁盘最大支持18EB硬盘(1EB=1048576TB)</li>
+<li>GPT分区磁盘有备份分区表来提高分区数据结构的完整性。</li>
+<li>GPT只能安装64位的系统，MBR可以安装32位与64位。</li>
 </ol>
-<p><strong>B类IP地址：</strong> 由2个字节的网络地址和2个字节的主机地址，网络地址的最高位必须是“10”。</p>
-<p>如：10XXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>B类IP地址范围：</strong> 128.0.0.1—191.255.255.254。</p>
+<h5 id="UEFI与BIOS的区别"><a href="#UEFI与BIOS的区别" class="headerlink" title="UEFI与BIOS的区别"></a>UEFI与BIOS的区别</h5><p>BIOS和UEFI都是引导操作系统启动的必须介质，传统BIOS启动系统 的过程中相比与UEFI启动多了一个BIOS自检环节，所以启动速度相对比较慢。</p>
+<p>BIOS下启动操作系统之前，必须从硬盘MBR主引导记录中读取系统启动代码， 然后从活动分区中引导启动操作系统，因为BIOS不能识别GPT分区，所以BIOS 模式下不能用GPT分区安装系统。</p>
 <blockquote>
-<p><strong>B类IP地址的私有地址和保留地址：</strong></p>
-<ol>
-<li>172.16.0.0—172.31.255.254是私有地址</li>
-<li>169.254.X.X是保留地址。如果你的IP地址是自动获取IP地址， 而在网络上又没有找到可用的DHCP服务器。就会得到其中一个IP。 191.255.255.255是广播地址，不能分配。</li>
-</ol>
+<p>传统BIOS运行流程</p>
 </blockquote>
-<ol start="3">
-<li><strong>C类地址</strong></li>
-</ol>
-<p><strong>C类IP地址：</strong> 由3个字节的网络地址和1个字节的主机地址，网络地址的最高位必须是“110”。<br>如：110XXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>C类IP地址范围：</strong> 192.0.0.1—223.255.255.254。</p>
+<pre class="mermaid">    graph LR
+    A(开 机) --> B[BIOS初始化] --> C[BIOS自检] --> D[引导操作系统] --> E(进入系统)</pre>
+
+
+
+<p>在UEFI下启动操作系统，不再需要主引导记录，也不再需要活动分区， 在开机方面相比BIOS少了自检这一步，因此它的启动速度更快。</p>
+<p>操作界面上UEFI采用的图形化界面，并且支持中文。而BIOS全部都是 英语。UEFI的图形化界面可以让用户更快的了解功能。</p>
 <blockquote>
-<p><strong>C类地址中的私有地址：</strong><br>192.168.X.X是私有地址。（192.168.0.1—192.168.255.255)</p>
+<p>UEFI运行流程</p>
 </blockquote>
-<p>4、<strong>D类地址</strong></p>
-<p><strong>D类地址：</strong> 不分网络地址和主机地址，它的第1个字节的前四位固定为1110。<br>如：1110XXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>D类地址范围：</strong> 224.0.0.1—239.255.255.254</p>
-<p>5、<strong>E类地址</strong><br><strong>E类地址：</strong> 不分网络地址和主机地址，它的第1个字节的前四位固定为 1111。<br>如：1111XXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>E类地址范围：</strong> 240.0.0.1—255.255.255.254</p>
+<pre class="mermaid">    graph LR
+    A(开 机) --> B[UEFI初始化] --> D[引导操作系统]--> E(进入系统)</pre>
+
+
+<p>现在大部分新电脑都是UEFI+GPT模式了，这种模式更适合现在的win10、 win8系统，这种模式不能直接安装win7系统，这也是为什么很多新电脑 安装win7前都要调整分区与设置BIOS的原因。</p>
 ]]></content>
       <tags>
-        <tag>IP</tag>
-        <tag>网络</tag>
+        <tag>UEFI</tag>
+        <tag>BIOS</tag>
+        <tag>主板</tag>
+        <tag>MBR</tag>
+        <tag>GPT</tag>
       </tags>
   </entry>
   <entry>
@@ -341,6 +315,11 @@
       </tags>
   </entry>
   <entry>
+    <title>了解计算机物理接口</title>
+    <url>/posts/15023.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>在GitHub上搭建Hexo</title>
     <url>/posts/62306.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em> </p>
@@ -425,6 +404,22 @@
       </tags>
   </entry>
   <entry>
+    <title>神秘的C盘里面装了什么</title>
+    <url>/posts/28356.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em><br>大家刚刚接触电脑时，都会被提醒“你可千万别动C盘！”点开一看，密密麻麻的文件夹 让人不知所云。所以，神秘的C盘里面到底藏了什么东西？下面将进行全面解读。</p>
+<h4 id="C盘根目录常见文件夹"><a href="#C盘根目录常见文件夹" class="headerlink" title="C盘根目录常见文件夹"></a>C盘根目录常见文件夹</h4><p><strong>Documents and Settings/用户</strong> ：Windows 7中的“用户”文件夹其实就是XP中的Documents and Settings文件夹， 这里储存了用户的设置，包括用户、文档、上网浏览信息、配置文件等数据。</p>
+<p><strong>DownIoads</strong> ：这通常是下载软件的默认下载路径，建议修改软件设置改到其他硬盘分区。<br><strong>Drivers</strong> ：部分驱动程序的文件夹。<br><strong>Favorites</strong> ：收藏夹。<br><strong>Program Files</strong> ： 应用程序文件夹，一般软件默认都安装在这里，也有一些系统自带的应用 程序。在Windows 7系统中，64位用户会多出一个Program Files(X86） 文件夹，这是系统中32位软件的安装目录。<br><strong>Program Data</strong> ： Windows 7的系统文件夹，放置程序的使用数据、设置等文件，不建议删除。<br><strong>Windows</strong> ：存放操作系统主要文件，非常重要。<br><strong>Temp</strong> ：存放系统或其他软件临时文件，需经常清理。<br><strong>hiberfil.sys</strong> ： 系统的休眠功能所占用的硬盘空间的文件，不建议删除。<br><strong>pagefile.sys</strong> ： 虚拟内存页面文件，不建议删除。<br><strong>PerfLogs</strong> ： Windows Vista或Windows 7系统日志，记录如磁盘扫描错误等信息，没有必要删除。</p>
+<h4 id="Document-and-settings-用户常见文件夹"><a href="#Document-and-settings-用户常见文件夹" class="headerlink" title="Document and settings/用户常见文件夹"></a>Document and settings/用户常见文件夹</h4><blockquote>
+<p>默认情况下位于系统分区根目录下，包括： Administrator、All Users、Default User、用户文件夹等。All Users针对所有用户， 这里的更改对所有用户有效，Administrator针对系统管理员账户。</p>
+</blockquote>
+<p><strong>桌面</strong><br><strong>【开始】菜单</strong><br><strong>Application Data</strong> ： 通用应用程序数据文件夹。<br><strong>Favorites</strong> ：收藏夹。<br><strong>Local Settings</strong> ：保存应用程序数据、历史和临时文件，可清理。<br><strong>MyDocuments</strong> ：我的文档。<br><strong>NetHood</strong> ：网络共享目录。<br><strong>PrintHood</strong> ：打印共享目录。<br><strong>Recent</strong> ：最近打开的文档。<br><strong>SendTo</strong> ：鼠标右键的“发送到”。<br><strong>Templates</strong> ：存储着常用程序的模板文件。<br><strong>Temp</strong> : 临时文件目录，在系统和软件的运行过程中产生的临时文件就存放于此。<br><strong>Temporary Internet Files</strong> ：IE下载文件的缓存区。</p>
+<h4 id="ProgramFiles常见文件夹"><a href="#ProgramFiles常见文件夹" class="headerlink" title="ProgramFiles常见文件夹"></a>ProgramFiles常见文件夹</h4><p><strong>Common FileS</strong> ： 共用程序文件夹，用于同系列不同程序软件共同使用或调用数据，比如微软和Adobe的各种软件。<br><strong>ComPlus Applications</strong> ： 微软COM＋组件使用的文件夹，删除后可能引起COM＋组件不能运行。<br><strong>DIFX</strong> ： DIFX是一种高效的XML索引方法，此文件夹与数据索引有关，不可以删除。<br><strong>Internet Explorer</strong> ： 系统自带的IE浏览器，删除后可能导致部分程序不能正常运行。<br><strong>1nstallShield Installation Information</strong> ： 专门存储安装程序信息的文件夹，用于某些程序的卸载和更新。<br><strong>MSECache</strong> ：MS Office运行时自动创建。<br><strong>MSXML 6.0</strong> ：微软XML解析器程序的文件夹。<br><strong>microsoft frontpage</strong> ： FrontPage是微软推出的一款网页设计软件，此文件夹通常为空。<br><strong>Movie Maker</strong> ：系统自带的一款视频编辑软件。<br><strong>MSN Gaming Zone</strong> ：一些系统自带的扑克牌等小游戏，可以删除。<br><strong>Netmeeting</strong> ：系统自带的网上聊天软件。<br><strong>0utlook Express</strong> ：Outlook Express是Windows内置的邮件收发端，不用可删。<br><strong>Online Services</strong> ：网络服务文件夹，不能删。<br><strong>Windows Media Player</strong> ：系统自带的一款多媒体播放器。<br><strong>WinRAR</strong> ：一款流行的压缩解压缩软件。<br><strong>Xerox</strong> ： 用作自带的一些图像处理软件的临时空间，文件夹不能删除，但通常为空。</p>
+]]></content>
+      <tags>
+        <tag>系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>网线水晶头制作及标准接法</title>
     <url>/posts/13455.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em></p>
@@ -487,67 +482,72 @@
       </tags>
   </entry>
   <entry>
-    <title>神秘的C盘里面装了什么</title>
-    <url>/posts/28356.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em><br>大家刚刚接触电脑时，都会被提醒“你可千万别动C盘！”点开一看，密密麻麻的文件夹 让人不知所云。所以，神秘的C盘里面到底藏了什么东西？下面将进行全面解读。</p>
-<h4 id="C盘根目录常见文件夹"><a href="#C盘根目录常见文件夹" class="headerlink" title="C盘根目录常见文件夹"></a>C盘根目录常见文件夹</h4><p><strong>Documents and Settings/用户</strong> ：Windows 7中的“用户”文件夹其实就是XP中的Documents and Settings文件夹， 这里储存了用户的设置，包括用户、文档、上网浏览信息、配置文件等数据。</p>
-<p><strong>DownIoads</strong> ：这通常是下载软件的默认下载路径，建议修改软件设置改到其他硬盘分区。<br><strong>Drivers</strong> ：部分驱动程序的文件夹。<br><strong>Favorites</strong> ：收藏夹。<br><strong>Program Files</strong> ： 应用程序文件夹，一般软件默认都安装在这里，也有一些系统自带的应用 程序。在Windows 7系统中，64位用户会多出一个Program Files(X86） 文件夹，这是系统中32位软件的安装目录。<br><strong>Program Data</strong> ： Windows 7的系统文件夹，放置程序的使用数据、设置等文件，不建议删除。<br><strong>Windows</strong> ：存放操作系统主要文件，非常重要。<br><strong>Temp</strong> ：存放系统或其他软件临时文件，需经常清理。<br><strong>hiberfil.sys</strong> ： 系统的休眠功能所占用的硬盘空间的文件，不建议删除。<br><strong>pagefile.sys</strong> ： 虚拟内存页面文件，不建议删除。<br><strong>PerfLogs</strong> ： Windows Vista或Windows 7系统日志，记录如磁盘扫描错误等信息，没有必要删除。</p>
-<h4 id="Document-and-settings-用户常见文件夹"><a href="#Document-and-settings-用户常见文件夹" class="headerlink" title="Document and settings/用户常见文件夹"></a>Document and settings/用户常见文件夹</h4><blockquote>
-<p>默认情况下位于系统分区根目录下，包括： Administrator、All Users、Default User、用户文件夹等。All Users针对所有用户， 这里的更改对所有用户有效，Administrator针对系统管理员账户。</p>
-</blockquote>
-<p><strong>桌面</strong><br><strong>【开始】菜单</strong><br><strong>Application Data</strong> ： 通用应用程序数据文件夹。<br><strong>Favorites</strong> ：收藏夹。<br><strong>Local Settings</strong> ：保存应用程序数据、历史和临时文件，可清理。<br><strong>MyDocuments</strong> ：我的文档。<br><strong>NetHood</strong> ：网络共享目录。<br><strong>PrintHood</strong> ：打印共享目录。<br><strong>Recent</strong> ：最近打开的文档。<br><strong>SendTo</strong> ：鼠标右键的“发送到”。<br><strong>Templates</strong> ：存储着常用程序的模板文件。<br><strong>Temp</strong> : 临时文件目录，在系统和软件的运行过程中产生的临时文件就存放于此。<br><strong>Temporary Internet Files</strong> ：IE下载文件的缓存区。</p>
-<h4 id="ProgramFiles常见文件夹"><a href="#ProgramFiles常见文件夹" class="headerlink" title="ProgramFiles常见文件夹"></a>ProgramFiles常见文件夹</h4><p><strong>Common FileS</strong> ： 共用程序文件夹，用于同系列不同程序软件共同使用或调用数据，比如微软和Adobe的各种软件。<br><strong>ComPlus Applications</strong> ： 微软COM＋组件使用的文件夹，删除后可能引起COM＋组件不能运行。<br><strong>DIFX</strong> ： DIFX是一种高效的XML索引方法，此文件夹与数据索引有关，不可以删除。<br><strong>Internet Explorer</strong> ： 系统自带的IE浏览器，删除后可能导致部分程序不能正常运行。<br><strong>1nstallShield Installation Information</strong> ： 专门存储安装程序信息的文件夹，用于某些程序的卸载和更新。<br><strong>MSECache</strong> ：MS Office运行时自动创建。<br><strong>MSXML 6.0</strong> ：微软XML解析器程序的文件夹。<br><strong>microsoft frontpage</strong> ： FrontPage是微软推出的一款网页设计软件，此文件夹通常为空。<br><strong>Movie Maker</strong> ：系统自带的一款视频编辑软件。<br><strong>MSN Gaming Zone</strong> ：一些系统自带的扑克牌等小游戏，可以删除。<br><strong>Netmeeting</strong> ：系统自带的网上聊天软件。<br><strong>0utlook Express</strong> ：Outlook Express是Windows内置的邮件收发端，不用可删。<br><strong>Online Services</strong> ：网络服务文件夹，不能删。<br><strong>Windows Media Player</strong> ：系统自带的一款多媒体播放器。<br><strong>WinRAR</strong> ：一款流行的压缩解压缩软件。<br><strong>Xerox</strong> ： 用作自带的一些图像处理软件的临时空间，文件夹不能删除，但通常为空。</p>
-]]></content>
-      <tags>
-        <tag>系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UEFI+GPT与BIOS+MBR有什么区别</title>
-    <url>/posts/55889.html</url>
+    <title>计算机网络中的IP地址</title>
+    <url>/posts/29942.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em></p>
-<blockquote>
-<p>现在绝大多数系统都是UEFI+GPT或BIOS+MBR模式安装的，那么他们之间有什么区别呢?</p>
-</blockquote>
-<h5 id="首先是硬盘分区GPT与MBR的区别"><a href="#首先是硬盘分区GPT与MBR的区别" class="headerlink" title="首先是硬盘分区GPT与MBR的区别"></a>首先是硬盘分区GPT与MBR的区别</h5><ol>
-<li>MBR磁盘最多支持4个主分区，再增加分区只能用逻辑分区; 微软设定GPT磁盘支持128个主分区(理论可支持无限多个)。</li>
-<li>MBR磁盘最大仅支持2TB硬盘，GPT磁盘最大支持18EB硬盘(1EB=1048576TB)</li>
-<li>GPT分区磁盘有备份分区表来提高分区数据结构的完整性。</li>
-<li>GPT只能安装64位的系统，MBR可以安装32位与64位。</li>
+<h4 id="特殊的IP地址"><a href="#特殊的IP地址" class="headerlink" title="特殊的IP地址"></a>特殊的IP地址</h4><ol>
+<li><strong>0.0.0.0</strong> </li>
 </ol>
-<h5 id="UEFI与BIOS的区别"><a href="#UEFI与BIOS的区别" class="headerlink" title="UEFI与BIOS的区别"></a>UEFI与BIOS的区别</h5><p>BIOS和UEFI都是引导操作系统启动的必须介质，传统BIOS启动系统 的过程中相比与UEFI启动多了一个BIOS自检环节，所以启动速度相对比较慢。</p>
-<p>BIOS下启动操作系统之前，必须从硬盘MBR主引导记录中读取系统启动代码， 然后从活动分区中引导启动操作系统，因为BIOS不能识别GPT分区，所以BIOS 模式下不能用GPT分区安装系统。</p>
+<p>严格说来，这个奇葩的地址0.0.0.0已经不是一个真正意义上 的IP地址了。它表示的是这样一个集合：也就是说；所有不清 楚的主机和目的网络。这里的“不清楚”是指在本机的路由表里 没有特定条目指明如何到达。对本机来说，它就是一个“收容所”， 所有不认识的“三无”人员，一律送进去。如果你在网络设置中设 置了缺省网关，那么计算机系统会自动产生一个目的地址为0.0.0.0的缺省路由。</p>
+<ol start="2">
+<li><strong>255.255.255.255限制广播地址</strong> </li>
+</ol>
+<p>对本机来说，这个地址指本网段内(同一广播域)的所有主机。</p>
+<p>然而它的意思很明确，使用人类语言来说意思就是“这里的所 有计算机都注意了”这个地址不能被路由器所转发。</p>
+<ol start="3">
+<li><strong>127.0.0.1本机地址</strong></li>
+</ol>
+<p>主要用于测试。用汉语表示，就是“我自己”。在Windows系统 中，这个地址有一个别名“Localhost”。寻址这样一个地址， 是不能把它发到网络接口的。除非出错，否则在传输介质上永 远不应该出现目的地址为“127.0.0.1”的数据包。</p>
+<ol start="4">
+<li><strong>224.0.0.1 组播地址</strong></li>
+</ol>
+<p>注意它和广播的区别。从224.0.0.0到239.255.255.255都是 这样的地址。224.0.0.1特指所有主机，224.0.0.2特指所有 路由器。这样的地址多用于一些特定的程序以及多媒体程序。 如果你的主机开启了IRDP(Internet路由发现协议），使用组 播功能功能，那么你的主机路由表中应该有这样一条路由。</p>
+<ol start="5">
+<li><strong>169.254.x.x</strong></li>
+</ol>
+<p>如果你的主机使用了DHCP功能自动获得一个IP地址，那么 当你的DHCP服务器发生故障，或响应时间太长而超出了一 个系统规定的时间，计算机操作系统会为你分配这样一个 地址。如果你发现你的主机IP地址是一个诸如此类的地址， 很不幸的是，现在你的网络不能正常运行了。</p>
+<ol start="6">
+<li><strong>10.x.x.x；172.16.0.0—172.31.255.254；192.168.x.x；私有地址</strong></li>
+</ol>
+<p>这些地址被大量用于企业内部网络中。一些宽带路由器，也 往往使用192.168.1.1作为缺省地址。私有网络由于不与外 部互连，因而可能使用随意的IP地址。保留这样的地址供其 使用是为了避免以后接入公网时引起地址混乱。使用私有地 址的私有网络在接入Internet时，要使用地址翻译(NAT)， 将私有地址翻译成公用合法地址。在Internet上，这类地址 是不能出现的。对一台网络上的主机来说，它可以正常接收 的合法目的网络地址有三种：本机的IP地址、广播地址以及 组播地址。</p>
+<h4 id="IP地址的分类"><a href="#IP地址的分类" class="headerlink" title="IP地址的分类"></a>IP地址的分类</h4><ol>
+<li><strong>A类地址</strong></li>
+</ol>
+<p><strong>A类IP地址</strong> ：由1个字节的网络地址和3个字节的主机地址，网络地址的最高位必须是“0”。<br>如：0XXXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>A类IP地址范围</strong> ：1.0.0.1—126.255.255.254</p>
 <blockquote>
-<p>传统BIOS运行流程</p>
+<p><strong>A类IP地址中的私有地址和保留地址：</strong> </p>
+<ol>
+<li>10.X.X.X是私有地址（所谓的私有地址就是在互联网上不使用，而被用在局域网络中的地址）。范围（10.0.0.1—10.255.255.254）</li>
+<li>127.X.X.X是保留地址，用做循环测试用的。</li>
+</ol>
 </blockquote>
-<pre class="mermaid">    graph LR
-    A(开 机) --> B[BIOS初始化] --> C[BIOS自检] --> D[引导操作系统] --> E(进入系统)</pre>
-
-
-
-<p>在UEFI下启动操作系统，不再需要主引导记录，也不再需要活动分区， 在开机方面相比BIOS少了自检这一步，因此它的启动速度更快。</p>
-<p>操作界面上UEFI采用的图形化界面，并且支持中文。而BIOS全部都是 英语。UEFI的图形化界面可以让用户更快的了解功能。</p>
+<ol start="2">
+<li><strong>B类地址</strong></li>
+</ol>
+<p><strong>B类IP地址：</strong> 由2个字节的网络地址和2个字节的主机地址，网络地址的最高位必须是“10”。</p>
+<p>如：10XXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>B类IP地址范围：</strong> 128.0.0.1—191.255.255.254。</p>
 <blockquote>
-<p>UEFI运行流程</p>
+<p><strong>B类IP地址的私有地址和保留地址：</strong></p>
+<ol>
+<li>172.16.0.0—172.31.255.254是私有地址</li>
+<li>169.254.X.X是保留地址。如果你的IP地址是自动获取IP地址， 而在网络上又没有找到可用的DHCP服务器。就会得到其中一个IP。 191.255.255.255是广播地址，不能分配。</li>
+</ol>
 </blockquote>
-<pre class="mermaid">    graph LR
-    A(开 机) --> B[UEFI初始化] --> D[引导操作系统]--> E(进入系统)</pre>
-
-
-<p>现在大部分新电脑都是UEFI+GPT模式了，这种模式更适合现在的win10、 win8系统，这种模式不能直接安装win7系统，这也是为什么很多新电脑 安装win7前都要调整分区与设置BIOS的原因。</p>
+<ol start="3">
+<li><strong>C类地址</strong></li>
+</ol>
+<p><strong>C类IP地址：</strong> 由3个字节的网络地址和1个字节的主机地址，网络地址的最高位必须是“110”。<br>如：110XXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>C类IP地址范围：</strong> 192.0.0.1—223.255.255.254。</p>
+<blockquote>
+<p><strong>C类地址中的私有地址：</strong><br>192.168.X.X是私有地址。（192.168.0.1—192.168.255.255)</p>
+</blockquote>
+<p>4、<strong>D类地址</strong></p>
+<p><strong>D类地址：</strong> 不分网络地址和主机地址，它的第1个字节的前四位固定为1110。<br>如：1110XXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>D类地址范围：</strong> 224.0.0.1—239.255.255.254</p>
+<p>5、<strong>E类地址</strong><br><strong>E类地址：</strong> 不分网络地址和主机地址，它的第1个字节的前四位固定为 1111。<br>如：1111XXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>E类地址范围：</strong> 240.0.0.1—255.255.255.254</p>
 ]]></content>
       <tags>
-        <tag>UEFI</tag>
-        <tag>BIOS</tag>
-        <tag>主板</tag>
-        <tag>MBR</tag>
-        <tag>GPT</tag>
+        <tag>IP</tag>
+        <tag>网络</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>了解计算机物理接口</title>
-    <url>/posts/15023.html</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>计算机硬件系统基础</title>
