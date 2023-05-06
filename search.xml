@@ -377,9 +377,7 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
 
 <p>   <img data-src="/images/node-v.png"></p>
-<ol start="3">
-<li>安装Hexo </li>
-</ol>
+<p> 安装Hexo </p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo -g </span><br></pre></td></tr></table></figure>
 
 <p><img data-src="/images/hexo.png"></p>
@@ -388,25 +386,27 @@
 
 
 <p> <img data-src="/images/hexo-v.png"></p>
-<h5 id="安装hexo依赖"><a href="#安装hexo依赖" class="headerlink" title="安装hexo依赖"></a>安装hexo依赖</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>初始化Hexo<br>新建一个blog文件夹</li>
-</ol>
+<p>  初始化Hexo<br> 新建一个blog文件夹</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
 
 <p>可以看到博客存放目录里出现了相关文件</p>
 <h5 id="生成静态网页"><a href="#生成静态网页" class="headerlink" title="生成静态网页"></a>生成静态网页</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g         # 生成静态网页</span><br><span class="line">hexo s         # 本地预览  </span><br></pre></td></tr></table></figure>
 
 <p>在本地浏览器访问：<a href="http://localhost:4000/">http://localhost:4000/</a></p>
-<h5 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h5><p>生成git公钥<br> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;you email@126.com&quot;</span><br></pre></td></tr></table></figure><br>提示输入passphrase时可直接回车</p>
-<p>使用记事本打开id_rsa.pub复制内容文件在<code>C:\Users\你的用户名\.ssh</code>目录下</p>
-<p>进入github登录点击头像→Settings→SSH and GPG keys→New SSH key→在Title中输入hexo博客在key的文本框中输入复制的内容→Add SSH key</p>
-<p>在Git Bash中输入<code>ssh -T git@github.com</code> </p>
-<p>出现Hi 用户名! You’ve successfully authenticated, but GitHub does not provide shell access.则证明成功！</p>
-<p>在blog文件夹下打开git输入</p>
+<h5 id="安装hexo依赖"><a href="#安装hexo依赖" class="headerlink" title="安装hexo依赖"></a>安装hexo依赖</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h4><p>在blog文件夹下打开git输入</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.email &quot;注册github时使用的邮箱&quot;</span><br><span class="line">git config --global user.name &quot;github的用户名&quot;</span><br></pre></td></tr></table></figure>
 
+
+<p>生成git公钥<br> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;you email@126.com&quot;</span><br></pre></td></tr></table></figure><br>提示输入passphrase时可直接回车</p>
+<p>使用记事本打开id_rsa.pub复制内容文件在<code>C:\Users\你的用户名\.ssh</code>目录下</p>
+<p>进入github登录点击头像→Settings→SSH and GPG keys→New SSH key→在Title中输入hexo博客在key的文本框中输入复制的内容→Add SSH key</p>
+<p>在Git Bash中输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com </span><br></pre></td></tr></table></figure>
+
+<p>出现Hi 用户名! You’ve successfully authenticated, but GitHub does not provide shell access.则证明成功！</p>
 <p>打开_config.yml进行修改<br>补全如下代码 repo即你的仓库https地址</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:your_name/your_name.github.io.git</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
 
