@@ -87,9 +87,11 @@
 <p><strong>注</strong> ：如果U盘需要存放 <strong>单个大于4G</strong> 的文件，建议U盘制作时选择 <strong>exFAT</strong> 或 <strong>NTFS</strong> 格式</p>
 </blockquote>
 <ol start="3">
-<li>制作成功U盘PE启动盘后，插在需要重装系统的电脑上，按下表选择启动热键启动进U盘PE系统。<font size=0.6>
-各品牌主板、笔记本、台式机启动快捷键大全</li>
+<li>制作成功U盘PE启动盘后，插在需要重装系统的电脑上，按下表选择启动热键启动进U盘PE系统。    </li>
 </ol>
+<font size=0.6>
+  各品牌主板、笔记本、台式机启动快捷键大全
+
 <table>
 <thead>
 <tr>
