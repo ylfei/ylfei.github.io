@@ -3,18 +3,18 @@
   <title>Blog</title>
   
   
-  <link href="https://ylfei.github.io/atom.xml" rel="self"/>
+  <link href="https://z00o.gitee.io/atom.xml" rel="self"/>
   
-  <link href="https://ylfei.github.io/"/>
+  <link href="https://z00o.gitee.io/"/>
   <updated>2023-05-17T15:00:03.609Z</updated>
-  <id>https://ylfei.github.io/</id>
+  <id>https://z00o.gitee.io/</id>
   
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
     <title>使用优盘安装Win10系统</title>
-    <link href="https://ylfei.github.io/posts/454.html"/>
-    <id>https://ylfei.github.io/posts/454.html</id>
+    <link href="https://z00o.gitee.io/posts/454.html"/>
+    <id>https://z00o.gitee.io/posts/454.html</id>
     <published>2023-04-27T16:00:00.000Z</published>
     <updated>2023-05-17T15:00:03.609Z</updated>
     
@@ -26,16 +26,16 @@
     
     
     
-    <category term="系统安装" scheme="https://ylfei.github.io/tags/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/"/>
+    <category term="系统安装" scheme="https://z00o.gitee.io/tags/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/"/>
     
-    <category term="win10" scheme="https://ylfei.github.io/tags/win10/"/>
+    <category term="win10" scheme="https://z00o.gitee.io/tags/win10/"/>
     
   </entry>
   
   <entry>
     <title>在GitHub上搭建Hexo</title>
-    <link href="https://ylfei.github.io/posts/62306.html"/>
-    <id>https://ylfei.github.io/posts/62306.html</id>
+    <link href="https://z00o.gitee.io/posts/62306.html"/>
+    <id>https://z00o.gitee.io/posts/62306.html</id>
     <published>2022-04-25T07:19:00.000Z</published>
     <updated>2023-05-06T13:50:45.249Z</updated>
     
@@ -47,16 +47,16 @@
     
     
     
-    <category term="Hexo" scheme="https://ylfei.github.io/tags/Hexo/"/>
+    <category term="Hexo" scheme="https://z00o.gitee.io/tags/Hexo/"/>
     
-    <category term="GitHub" scheme="https://ylfei.github.io/tags/GitHub/"/>
+    <category term="GitHub" scheme="https://z00o.gitee.io/tags/GitHub/"/>
     
   </entry>
   
   <entry>
     <title>网线水晶头制作及标准接法</title>
-    <link href="https://ylfei.github.io/posts/13455.html"/>
-    <id>https://ylfei.github.io/posts/13455.html</id>
+    <link href="https://z00o.gitee.io/posts/13455.html"/>
+    <id>https://z00o.gitee.io/posts/13455.html</id>
     <published>2021-11-16T03:12:23.000Z</published>
     <updated>2023-05-01T09:13:02.654Z</updated>
     
@@ -68,16 +68,16 @@
     
     
     
-    <category term="网线" scheme="https://ylfei.github.io/tags/%E7%BD%91%E7%BA%BF/"/>
+    <category term="网线" scheme="https://z00o.gitee.io/tags/%E7%BD%91%E7%BA%BF/"/>
     
-    <category term="水晶头" scheme="https://ylfei.github.io/tags/%E6%B0%B4%E6%99%B6%E5%A4%B4/"/>
+    <category term="水晶头" scheme="https://z00o.gitee.io/tags/%E6%B0%B4%E6%99%B6%E5%A4%B4/"/>
     
   </entry>
   
   <entry>
     <title>神秘的C盘里面装了什么</title>
-    <link href="https://ylfei.github.io/posts/28356.html"/>
-    <id>https://ylfei.github.io/posts/28356.html</id>
+    <link href="https://z00o.gitee.io/posts/28356.html"/>
+    <id>https://z00o.gitee.io/posts/28356.html</id>
     <published>2019-09-11T02:17:26.000Z</published>
     <updated>2023-05-01T09:13:02.652Z</updated>
     
@@ -89,14 +89,14 @@
     
     
     
-    <category term="系统" scheme="https://ylfei.github.io/tags/%E7%B3%BB%E7%BB%9F/"/>
+    <category term="系统" scheme="https://z00o.gitee.io/tags/%E7%B3%BB%E7%BB%9F/"/>
     
   </entry>
   
   <entry>
     <title>UEFI+GPT与BIOS+MBR有什么区别</title>
-    <link href="https://ylfei.github.io/posts/55889.html"/>
-    <id>https://ylfei.github.io/posts/55889.html</id>
+    <link href="https://z00o.gitee.io/posts/55889.html"/>
+    <id>https://z00o.gitee.io/posts/55889.html</id>
     <published>2019-09-08T16:00:00.000Z</published>
     <updated>2023-05-01T09:13:02.647Z</updated>
     
@@ -108,22 +108,22 @@
     
     
     
-    <category term="UEFI" scheme="https://ylfei.github.io/tags/UEFI/"/>
+    <category term="UEFI" scheme="https://z00o.gitee.io/tags/UEFI/"/>
     
-    <category term="BIOS" scheme="https://ylfei.github.io/tags/BIOS/"/>
+    <category term="BIOS" scheme="https://z00o.gitee.io/tags/BIOS/"/>
     
-    <category term="主板" scheme="https://ylfei.github.io/tags/%E4%B8%BB%E6%9D%BF/"/>
+    <category term="主板" scheme="https://z00o.gitee.io/tags/%E4%B8%BB%E6%9D%BF/"/>
     
-    <category term="MBR" scheme="https://ylfei.github.io/tags/MBR/"/>
+    <category term="MBR" scheme="https://z00o.gitee.io/tags/MBR/"/>
     
-    <category term="GPT" scheme="https://ylfei.github.io/tags/GPT/"/>
+    <category term="GPT" scheme="https://z00o.gitee.io/tags/GPT/"/>
     
   </entry>
   
   <entry>
     <title>计算机网络中的IP地址</title>
-    <link href="https://ylfei.github.io/posts/29942.html"/>
-    <id>https://ylfei.github.io/posts/29942.html</id>
+    <link href="https://z00o.gitee.io/posts/29942.html"/>
+    <id>https://z00o.gitee.io/posts/29942.html</id>
     <published>2019-09-07T16:00:00.000Z</published>
     <updated>2023-05-01T09:18:09.470Z</updated>
     
@@ -135,16 +135,16 @@
     
     
     
-    <category term="IP" scheme="https://ylfei.github.io/tags/IP/"/>
+    <category term="IP" scheme="https://z00o.gitee.io/tags/IP/"/>
     
-    <category term="网络" scheme="https://ylfei.github.io/tags/%E7%BD%91%E7%BB%9C/"/>
+    <category term="网络" scheme="https://z00o.gitee.io/tags/%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
   <entry>
     <title>了解计算机物理接口</title>
-    <link href="https://ylfei.github.io/posts/15023.html"/>
-    <id>https://ylfei.github.io/posts/15023.html</id>
+    <link href="https://z00o.gitee.io/posts/15023.html"/>
+    <id>https://z00o.gitee.io/posts/15023.html</id>
     <published>2019-09-05T05:16:15.000Z</published>
     <updated>2023-05-01T09:13:02.648Z</updated>
     
@@ -156,8 +156,8 @@
   
   <entry>
     <title>计算机硬件系统基础</title>
-    <link href="https://ylfei.github.io/posts/26787.html"/>
-    <id>https://ylfei.github.io/posts/26787.html</id>
+    <link href="https://z00o.gitee.io/posts/26787.html"/>
+    <id>https://z00o.gitee.io/posts/26787.html</id>
     <published>2019-09-02T04:55:36.000Z</published>
     <updated>2023-05-01T09:13:02.656Z</updated>
     
@@ -169,9 +169,9 @@
     
     
     
-    <category term="系统" scheme="https://ylfei.github.io/tags/%E7%B3%BB%E7%BB%9F/"/>
+    <category term="系统" scheme="https://z00o.gitee.io/tags/%E7%B3%BB%E7%BB%9F/"/>
     
-    <category term="硬件" scheme="https://ylfei.github.io/tags/%E7%A1%AC%E4%BB%B6/"/>
+    <category term="硬件" scheme="https://z00o.gitee.io/tags/%E7%A1%AC%E4%BB%B6/"/>
     
   </entry>
   
