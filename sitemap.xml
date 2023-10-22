@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://z00o.gitee.io/posts/49051.html</loc>
+    <loc>https://z00o.gitee.io/posts/62306.html</loc>
     
     <lastmod>2023-10-22</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://z00o.gitee.io/posts/62306.html</loc>
+    <loc>https://z00o.gitee.io/posts/49051.html</loc>
     
     <lastmod>2023-10-22</lastmod>
     
@@ -145,6 +145,27 @@
   </url>
   
   <url>
+    <loc>https://z00o.gitee.io/tags/Hexo/</loc>
+    <lastmod>2023-10-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://z00o.gitee.io/tags/GitHub/</loc>
+    <lastmod>2023-10-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://z00o.gitee.io/tags/Gitee/</loc>
+    <lastmod>2023-10-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://z00o.gitee.io/tags/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/</loc>
     <lastmod>2023-10-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -159,14 +180,7 @@
   </url>
   
   <url>
-    <loc>https://z00o.gitee.io/tags/Hexo/</loc>
-    <lastmod>2023-10-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://z00o.gitee.io/tags/GitHub/</loc>
+    <loc>https://z00o.gitee.io/tags/%E7%B3%BB%E7%BB%9F/</loc>
     <lastmod>2023-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -187,6 +201,13 @@
   </url>
   
   <url>
+    <loc>https://z00o.gitee.io/tags/%E7%A1%AC%E4%BB%B6/</loc>
+    <lastmod>2023-10-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://z00o.gitee.io/tags/IP/</loc>
     <lastmod>2023-10-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -195,27 +216,6 @@
   
   <url>
     <loc>https://z00o.gitee.io/tags/%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2023-10-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://z00o.gitee.io/tags/%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2023-10-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://z00o.gitee.io/tags/%E7%A1%AC%E4%BB%B6/</loc>
-    <lastmod>2023-10-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://z00o.gitee.io/tags/Gitee/</loc>
     <lastmod>2023-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
