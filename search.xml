@@ -69,6 +69,50 @@
       </tags>
   </entry>
   <entry>
+    <title>Gitee迁移到Gitee</title>
+    <url>/posts/49051.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em> </p>
+<h2 id="Gitee迁移到Gitee"><a href="#Gitee迁移到Gitee" class="headerlink" title="Gitee迁移到Gitee"></a>Gitee迁移到Gitee</h2><blockquote>
+</blockquote>
+<h4 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h4><p>在blog文件夹下打开git输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.email &quot;注册gitee时使用的邮箱&quot;</span><br><span class="line">git config --global user.name &quot;gitee的用户名&quot;</span><br></pre></td></tr></table></figure>
+
+
+<p>生成git公钥<br> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;you email@126.com&quot;</span><br></pre></td></tr></table></figure><br>提示输入passphrase时可直接回车</p>
+<p>可通过查看<code>.ssh/id_rsa.pub</code> 文件内容，获取你的public key</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#  此命令在本地PC上执行</span><br><span class="line">cat ~/.ssh/id_rsa.pub</span><br><span class="line"># ssh-rsa AAAB3NzaC1yc2EAAAADAQABAAABgqcp2lvm....</span><br></pre></td></tr></table></figure>
+
+
+
+<p>使用记事本打开id_rsa.pub复制内容文件在<code>C:\Users\你的用户名\.ssh</code>目录下</p>
+<p>进入gitee登录点击头像→Settings→SSH and GPG keys→New SSH key→在Title中输入hexo博客在key的文本框中输入复制的内容→Add SSH key</p>
+<p>在Git Bash中输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@gitee.com </span><br></pre></td></tr></table></figure>
+
+<p>出现Hi XXX! You’ve successfully authenticated, but Gitee.com does not provide shell access.则证明成功！</p>
+<p>打开_config.yml进行修改<br>补全如下代码 repo即你的仓库https地址</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:your_name/your_name.gitee.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<p>其中your_name需要替换为你的gitee的账号</p>
+<p>现在还需要创建一个首页访问地址不带二级目录的pages，如ipvb.gitee.io<br>新建一个仓库，仓库地址为<code>https://gitee.com/cas/cas.git</code>,gitee pages地址为<code>https://cas.gitee.io</code> 这样配置就不存在二级目录的问题</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># URL</span><br><span class="line">## If your site is put in a subdirectory, set url as &#x27;http://yoursite.com/child&#x27; and root as &#x27;/child/&#x27;</span><br><span class="line">url: https://cas.gitee.io  // 这个地址为预览地址，即为gitee page服务地址</span><br><span class="line">root: /</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://gitee.com/cas/.git</span><br><span class="line">  branch: master</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>现状需要执行以下命令 就可以发布自己的博客了。每次新建完文章之后部署，也是相同命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean         # 清除本地缓存</span><br><span class="line">hexo g             # 重新生成静态页面</span><br><span class="line">hexo d             # 部署到git</span><br></pre></td></tr></table></figure>
+
+
+
+
+]]></content>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Gitee</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用优盘安装Win10系统</title>
     <url>/posts/454.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em><br>安装系统需要对硬盘进行格式化操作，为了避免重要数据的丢失，请事先把硬盘上的重要数据 进行备份。需要备份的数据包括：个人撰写的文档，电子邮件等资料,重要的图片、音乐或视频 资料,IE的收藏夹内容办公软件生成的各种数据和报表、程序安装文件等</p>
