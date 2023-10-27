@@ -82,7 +82,7 @@
 <p>可通过查看<code>.ssh/id_rsa.pub</code> 文件内容，获取你的public key</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#  此命令在本地PC上执行</span><br><span class="line">cat ~/.ssh/id_rsa.pub</span><br><span class="line"># ssh-rsa AAAB3NzaC1yc2EAAAADAQABAAABgqcp2lvm....</span><br></pre></td></tr></table></figure>
 
-<p>#####将公钥添加到Gitee<br>首先进入<code>设置</code>页面<br>在<code>安全设置</code>中,选择<code>SSH公钥</code> ， 添加公钥后点击<code>确定</code>。</p>
+<h5 id="将公钥添加到Gitee"><a href="#将公钥添加到Gitee" class="headerlink" title="将公钥添加到Gitee"></a>将公钥添加到Gitee</h5><p>首先进入<code>设置</code>页面<br>在<code>安全设置</code>中,选择<code>SSH公钥</code> ， 添加公钥后点击<code>确定</code>。</p>
 <p>在Git Bash中输入</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh -T git@gitee.com </span><br></pre></td></tr></table></figure>
 
