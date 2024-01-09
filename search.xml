@@ -69,6 +69,61 @@
       </tags>
   </entry>
   <entry>
+    <title>批处理命令</title>
+    <url>/posts/44655.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em> </p>
+<h5 id="批处理命令"><a href="#批处理命令" class="headerlink" title="批处理命令"></a>批处理命令</h5><ol>
+<li>映射磁盘驱动器</li>
+</ol>
+<p><code>net use y: \\10.80.155.152\F /user:hp</code>  “y”指定的驱动器号; /user:”username”</p>
+<ol start="2">
+<li>使用文件资源管理器打开FTP服务器登录窗口</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@echo off</span><br><span class="line">explorer ftp://10.80.155.152</span><br></pre></td></tr></table></figure>
+<p>使用浏览器打开对应网址</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@echo off</span><br><span class="line">start www.baidu.com</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>按任意键继续</li>
+</ol>
+<p><code>pause</code>  按任意键继续</p>
+<ol start="4">
+<li>启动磁盘里的可执行程序</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/@echo off</span><br><span class="line">e:</span><br><span class="line">cd\</span><br><span class="line">cd examClient-win32–x64</span><br><span class="line">examClient.exe</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>打开共享文件夹</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@echo off</span><br><span class="line">rem 建立链接</span><br><span class="line">rem 打开共享文件夹</span><br><span class="line">explorer \\10.80.7.1\</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>运行后删除自身文件    使用   <code>del %0</code></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo 按任意键后我将删除自身</span><br><span class="line">pause</span><br><span class="line">del %0</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>万能删除文件</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@echo off</span><br><span class="line">DEL /F /A /Q \\?\%1</span><br><span class="line">RD /S /Q \\?\%1</span><br></pre></td></tr></table></figure>
+
+<p> 批处理删除文件夹下所有文件和文件夹</p>
+<blockquote>
+<ul>
+<li>1、rd命令<br>rd /s /Q c:\temp<br>会将temp文件夹也删除</li>
+<li>2、rd命令+md命令<br>rd /s /Q c:\temp<br>md c:\Temp<br>删除后再重建</li>
+<li>3、del命令<br>del /s /Q c:\temp<br>只能删除文件，而不能删除子文件夹</li>
+<li>4、del命令+rd命令，先刪除文件，再进入temp文件夹删除目录<br>del /s /Q c:\temp<br>cd C:\temp<br>rd /s /q c:\temp</li>
+</ul>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>bat</tag>
+        <tag>批处理</tag>
+        <tag>cmd</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>软件静默安装参数</title>
     <url>/posts/10106.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em> </p>
