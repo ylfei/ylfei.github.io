@@ -70,7 +70,7 @@
   </entry>
   <entry>
     <title>批处理命令</title>
-    <url>/posts/44655.html</url>
+    <url>/posts/44656.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em> </p>
 <h5 id="批处理命令"><a href="#批处理命令" class="headerlink" title="批处理命令"></a>批处理命令</h5><ol>
 <li>映射磁盘驱动器</li>
@@ -125,7 +125,7 @@
   </entry>
   <entry>
     <title>软件静默安装参数</title>
-    <url>/posts/10106.html</url>
+    <url>/posts/10107.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em> </p>
 <h4 id="软件静默参数"><a href="#软件静默参数" class="headerlink" title="软件静默参数"></a>软件静默参数</h4><p>大部分软件的安装都能采取全自动或半自动的方式进行，只需要找到对应的静默参数</p>
 <p>Microsoft Windows Installer</p>
@@ -138,7 +138,7 @@
   </entry>
   <entry>
     <title>禁止ipc默认共享</title>
-    <url>/posts/14898.html</url>
+    <url>/posts/38974.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em> </p>
 <h4 id="禁止ipc-默认共享"><a href="#禁止ipc-默认共享" class="headerlink" title="禁止ipc$默认共享"></a>禁止ipc$默认共享</h4><p>  把ipc$和默认共享都删除了。但重起后还会有。也可以放到一个批处理里面 把这个批处理文件设置开机启动 可以禁止共享</p>
 <p>在win10及以上系统中如使用的不是管理员账户 需要在批处理前添加获取管理员身份的权限<br>代码如下：</p>
@@ -155,7 +155,7 @@
   </entry>
   <entry>
     <title>Win10配置NTP服务器</title>
-    <url>/posts/14897.html</url>
+    <url>/posts/14899.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em> </p>
 <h4 id="NTP服务器配置"><a href="#NTP服务器配置" class="headerlink" title="NTP服务器配置"></a>NTP服务器配置</h4><p>1.使用组合键<code>WIN + R</code> 启动运行窗口，在打开的窗口中输入<code>regedit</code>，点击确定按钮.<br><img data-src="/images/regedit.png"></p>
 <p>2.在打开的注册表中输入<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Config</code>，找到并打开<code>Config</code>目录，双击<code>Config</code>目录下的<code>AnnounceFlags</code>。<br><img data-src="/images/regedit1.png"><br>3.把注册表项的值设定为5，点击确定按钮<br><img data-src="/images/regedit2.png"></p>

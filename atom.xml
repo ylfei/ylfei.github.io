@@ -6,17 +6,17 @@
   <link href="https://z00o.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://z00o.gitee.io/"/>
-  <updated>2024-01-09T06:28:40.819Z</updated>
+  <updated>2024-01-09T06:48:50.774Z</updated>
   <id>https://z00o.gitee.io/</id>
   
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
     <title>批处理命令</title>
-    <link href="https://z00o.gitee.io/posts/44655.html"/>
-    <id>https://z00o.gitee.io/posts/44655.html</id>
+    <link href="https://z00o.gitee.io/posts/44656.html"/>
+    <id>https://z00o.gitee.io/posts/44656.html</id>
     <published>2024-01-09T05:16:15.000Z</published>
-    <updated>2024-01-09T06:28:40.819Z</updated>
+    <updated>2024-01-09T06:48:50.774Z</updated>
     
     <content type="html"><![CDATA[<p><em><span id="more"></span></em> </p><h5 id="批处理命令"><a href="#批处理命令" class="headerlink" title="批处理命令"></a>批处理命令</h5><ol><li>映射磁盘驱动器</li></ol><p><code>net use y: \\10.80.155.152\F /user:hp</code>  “y”指定的驱动器号; /user:”username”</p><ol start="2"><li>使用文件资源管理器打开FTP服务器登录窗口</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">explorer ftp://10.80.155.152</span><br></pre></td></tr></table></figure><p>使用浏览器打开对应网址</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">start www.baidu.com</span><br></pre></td></tr></table></figure><ol start="3"><li>按任意键继续</li></ol><p><code>pause</code>  按任意键继续</p><ol start="4"><li>启动磁盘里的可执行程序</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/@echo off</span><br><span class="line">e:</span><br><span class="line">cd\</span><br><span class="line">cd examClient-win32–x64</span><br><span class="line">examClient.exe</span><br></pre></td></tr></table></figure><ol start="5"><li>打开共享文件夹</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">rem 建立链接</span><br><span class="line">rem 打开共享文件夹</span><br><span class="line">explorer \\10.80.7.1\</span><br><span class="line">exit</span><br></pre></td></tr></table></figure><ol start="6"><li>运行后删除自身文件    使用   <code>del %0</code></li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">echo 按任意键后我将删除自身</span><br><span class="line">pause</span><br><span class="line">del %0</span><br></pre></td></tr></table></figure><ol start="7"><li>万能删除文件</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">DEL /F /A /Q \\?\%1</span><br><span class="line">RD /S /Q \\?\%1</span><br></pre></td></tr></table></figure><p> 批处理删除文件夹下所有文件和文件夹</p><blockquote><ul><li>1、rd命令<br>rd /s /Q c:\temp<br>会将temp文件夹也删除</li><li>2、rd命令+md命令<br>rd /s /Q c:\temp<br>md c:\Temp<br>删除后再重建</li><li>3、del命令<br>del /s /Q c:\temp<br>只能删除文件，而不能删除子文件夹</li><li>4、del命令+rd命令，先刪除文件，再进入temp文件夹删除目录<br>del /s /Q c:\temp<br>cd C:\temp<br>rd /s /q c:\temp</li></ul></blockquote>]]></content>
     
@@ -36,10 +36,10 @@
   
   <entry>
     <title>软件静默安装参数</title>
-    <link href="https://z00o.gitee.io/posts/10106.html"/>
-    <id>https://z00o.gitee.io/posts/10106.html</id>
+    <link href="https://z00o.gitee.io/posts/10107.html"/>
+    <id>https://z00o.gitee.io/posts/10107.html</id>
     <published>2024-01-09T04:50:10.000Z</published>
-    <updated>2024-01-09T05:42:27.593Z</updated>
+    <updated>2024-01-09T06:49:07.147Z</updated>
     
     <content type="html"><![CDATA[<p><em><span id="more"></span></em> </p><h4 id="软件静默参数"><a href="#软件静默参数" class="headerlink" title="软件静默参数"></a>软件静默参数</h4><p>大部分软件的安装都能采取全自动或半自动的方式进行，只需要找到对应的静默参数</p><p>Microsoft Windows Installer</p><p>　　如果某个软件是用 Windows Installer 打包的，那你就应该能在文件夹中看到 *.msi 文件。这是最典型的特征，这些文件通常可以使用 /QB 和 /QN 参数进行自动安装。</p><p>　　/qb 会在窗口中显示一个基本的安装进程。<br>　　/qn 参数则不会显示任何窗口，直接在后台自动安装。 </p><h5 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">WinRAR.exe /S</span><br><span class="line">7-ZIP.exe /S</span><br><span class="line">搜狗输入法.exe /S</span><br><span class="line">QQ  /S</span><br><span class="line">VC++运行库  /SILENT 显示窗口直接安装</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -55,10 +55,10 @@
   
   <entry>
     <title>禁止ipc默认共享</title>
-    <link href="https://z00o.gitee.io/posts/14898.html"/>
-    <id>https://z00o.gitee.io/posts/14898.html</id>
+    <link href="https://z00o.gitee.io/posts/38974.html"/>
+    <id>https://z00o.gitee.io/posts/38974.html</id>
     <published>2024-01-09T04:35:10.000Z</published>
-    <updated>2024-01-09T05:21:03.683Z</updated>
+    <updated>2024-01-09T06:48:08.040Z</updated>
     
     <content type="html"><![CDATA[<p><em><span id="more"></span></em> </p><h4 id="禁止ipc-默认共享"><a href="#禁止ipc-默认共享" class="headerlink" title="禁止ipc$默认共享"></a>禁止ipc$默认共享</h4><p>  把ipc$和默认共享都删除了。但重起后还会有。也可以放到一个批处理里面 把这个批处理文件设置开机启动 可以禁止共享</p><p>在win10及以上系统中如使用的不是管理员账户 需要在批处理前添加获取管理员身份的权限<br>代码如下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">%1 %2</span><br><span class="line">ver|find &quot;5.&quot;&gt;nul&amp;&amp;goto :Admin</span><br><span class="line">mshta vbscript:createobject(&quot;shell.application&quot;).shellexecute(&quot;%~s0&quot;,&quot;goto :Admin&quot;,&quot;&quot;,&quot;runas&quot;,1)(window.close)&amp;goto :eof</span><br><span class="line">:Admin</span><br></pre></td></tr></table></figure><p>删除共享的代码</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">net share ipc$ /del</span><br><span class="line">net share admin$ /del</span><br><span class="line">net share c$ /del</span><br><span class="line">net share d$ /del</span><br><span class="line"># …………（有几个删几个）</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
     
@@ -78,10 +78,10 @@
   
   <entry>
     <title>Win10配置NTP服务器</title>
-    <link href="https://z00o.gitee.io/posts/14897.html"/>
-    <id>https://z00o.gitee.io/posts/14897.html</id>
+    <link href="https://z00o.gitee.io/posts/14899.html"/>
+    <id>https://z00o.gitee.io/posts/14899.html</id>
     <published>2024-01-09T04:16:15.000Z</published>
-    <updated>2024-01-09T05:11:58.587Z</updated>
+    <updated>2024-01-09T06:48:32.104Z</updated>
     
     <content type="html"><![CDATA[<p><em><span id="more"></span></em> </p><h4 id="NTP服务器配置"><a href="#NTP服务器配置" class="headerlink" title="NTP服务器配置"></a>NTP服务器配置</h4><p>1.使用组合键<code>WIN + R</code> 启动运行窗口，在打开的窗口中输入<code>regedit</code>，点击确定按钮.<br><img data-src="/images/regedit.png"></p><p>2.在打开的注册表中输入<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Config</code>，找到并打开<code>Config</code>目录，双击<code>Config</code>目录下的<code>AnnounceFlags</code>。<br><img data-src="/images/regedit1.png"><br>3.把注册表项的值设定为5，点击确定按钮<br><img data-src="/images/regedit2.png"></p><p>4.再次输入注册表路径<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpServer</code>，双击<code>NtpServer</code>下的<code>Enabled</code>文件。<br><img data-src="/images/regedit3.png"><br>5.把Enabled的值设定为<code>1</code>，点击确定按钮。</p><p>6.打开命令提示符窗口（以管理员身份运行）。开始-找到windows系统-找到命令提示符-然后鼠标右键点击命令提示符-选择以管理员身份运行。<br><img data-src="/images/cmda.png"></p><p>7.输入<code>net stop w32time</code>停止服务，再输入<code>net start w32time</code>启动服务。<br><img data-src="/images/cmdb.png"><br>8.输入命令<code>w32tm /stripchart /computer:127.0.0.1</code>，有时间回显说明配置成功。<br><img data-src="/images/cmdc.png"></p><p>在win10上配置NTP时间同步服务器的方法就介绍完了。（也可以在局域网内的其他计算机上使用ntp服务功能进行ntp校时验证)</p>]]></content>
     
