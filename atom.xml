@@ -6,10 +6,75 @@
   <link href="https://z00o.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://z00o.gitee.io/"/>
-  <updated>2023-10-27T13:52:39.284Z</updated>
+  <updated>2024-01-09T05:42:27.593Z</updated>
   <id>https://z00o.gitee.io/</id>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>软件静默安装参数</title>
+    <link href="https://z00o.gitee.io/posts/10106.html"/>
+    <id>https://z00o.gitee.io/posts/10106.html</id>
+    <published>2024-01-09T04:50:10.000Z</published>
+    <updated>2024-01-09T05:42:27.593Z</updated>
+    
+    <content type="html"><![CDATA[<p><em><span id="more"></span></em> </p><h4 id="软件静默参数"><a href="#软件静默参数" class="headerlink" title="软件静默参数"></a>软件静默参数</h4><p>大部分软件的安装都能采取全自动或半自动的方式进行，只需要找到对应的静默参数</p><p>Microsoft Windows Installer</p><p>　　如果某个软件是用 Windows Installer 打包的，那你就应该能在文件夹中看到 *.msi 文件。这是最典型的特征，这些文件通常可以使用 /QB 和 /QN 参数进行自动安装。</p><p>　　/qb 会在窗口中显示一个基本的安装进程。<br>　　/qn 参数则不会显示任何窗口，直接在后台自动安装。 </p><h5 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">WinRAR.exe /S</span><br><span class="line">7-ZIP.exe /S</span><br><span class="line">搜狗输入法.exe /S</span><br><span class="line">QQ  /S</span><br><span class="line">VC++运行库  /SILENT 显示窗口直接安装</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;em&gt;</summary>
+    
+    
+    
+    
+    <category term="windows" scheme="https://z00o.gitee.io/tags/windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>禁止ipc默认共享</title>
+    <link href="https://z00o.gitee.io/posts/14898.html"/>
+    <id>https://z00o.gitee.io/posts/14898.html</id>
+    <published>2024-01-09T04:35:10.000Z</published>
+    <updated>2024-01-09T05:21:03.683Z</updated>
+    
+    <content type="html"><![CDATA[<p><em><span id="more"></span></em> </p><h4 id="禁止ipc-默认共享"><a href="#禁止ipc-默认共享" class="headerlink" title="禁止ipc$默认共享"></a>禁止ipc$默认共享</h4><p>  把ipc$和默认共享都删除了。但重起后还会有。也可以放到一个批处理里面 把这个批处理文件设置开机启动 可以禁止共享</p><p>在win10及以上系统中如使用的不是管理员账户 需要在批处理前添加获取管理员身份的权限<br>代码如下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">%1 %2</span><br><span class="line">ver|find &quot;5.&quot;&gt;nul&amp;&amp;goto :Admin</span><br><span class="line">mshta vbscript:createobject(&quot;shell.application&quot;).shellexecute(&quot;%~s0&quot;,&quot;goto :Admin&quot;,&quot;&quot;,&quot;runas&quot;,1)(window.close)&amp;goto :eof</span><br><span class="line">:Admin</span><br></pre></td></tr></table></figure><p>删除共享的代码</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">net share ipc$ /del</span><br><span class="line">net share admin$ /del</span><br><span class="line">net share c$ /del</span><br><span class="line">net share d$ /del</span><br><span class="line"># …………（有几个删几个）</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;em&gt;</summary>
+    
+    
+    
+    
+    <category term="win10" scheme="https://z00o.gitee.io/tags/win10/"/>
+    
+    <category term="IPC" scheme="https://z00o.gitee.io/tags/IPC/"/>
+    
+    <category term="共享" scheme="https://z00o.gitee.io/tags/%E5%85%B1%E4%BA%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Win10配置NTP服务器</title>
+    <link href="https://z00o.gitee.io/posts/14897.html"/>
+    <id>https://z00o.gitee.io/posts/14897.html</id>
+    <published>2024-01-09T04:16:15.000Z</published>
+    <updated>2024-01-09T05:11:58.587Z</updated>
+    
+    <content type="html"><![CDATA[<p><em><span id="more"></span></em> </p><h4 id="NTP服务器配置"><a href="#NTP服务器配置" class="headerlink" title="NTP服务器配置"></a>NTP服务器配置</h4><p>1.使用组合键<code>WIN + R</code> 启动运行窗口，在打开的窗口中输入<code>regedit</code>，点击确定按钮.<br><img data-src="/images/regedit.png"></p><p>2.在打开的注册表中输入<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Config</code>，找到并打开<code>Config</code>目录，双击<code>Config</code>目录下的<code>AnnounceFlags</code>。<br><img data-src="/images/regedit1.png"><br>3.把注册表项的值设定为5，点击确定按钮<br><img data-src="/images/regedit2.png"></p><p>4.再次输入注册表路径<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpServer</code>，双击<code>NtpServer</code>下的<code>Enabled</code>文件。<br><img data-src="/images/regedit3.png"><br>5.把Enabled的值设定为<code>1</code>，点击确定按钮。</p><p>6.打开命令提示符窗口（以管理员身份运行）。开始-找到windows系统-找到命令提示符-然后鼠标右键点击命令提示符-选择以管理员身份运行。<br><img data-src="/images/cmda.png"></p><p>7.输入<code>net stop w32time</code>停止服务，再输入<code>net start w32time</code>启动服务。<br><img data-src="/images/cmdb.png"><br>8.输入命令<code>w32tm /stripchart /computer:127.0.0.1</code>，有时间回显说明配置成功。<br><img data-src="/images/cmdc.png"></p><p>在win10上配置NTP时间同步服务器的方法就介绍完了。（也可以在局域网内的其他计算机上使用ntp服务功能进行ntp校时验证)</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;em&gt;</summary>
+    
+    
+    
+    
+    <category term="NTP" scheme="https://z00o.gitee.io/tags/NTP/"/>
+    
+    <category term="win10" scheme="https://z00o.gitee.io/tags/win10/"/>
+    
+    <category term="服务器" scheme="https://z00o.gitee.io/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>Github迁移到Gitee</title>
@@ -47,9 +112,9 @@
     
     
     
-    <category term="系统安装" scheme="https://z00o.gitee.io/tags/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/"/>
-    
     <category term="win10" scheme="https://z00o.gitee.io/tags/win10/"/>
+    
+    <category term="系统安装" scheme="https://z00o.gitee.io/tags/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/"/>
     
   </entry>
   
