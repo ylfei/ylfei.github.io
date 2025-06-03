@@ -265,6 +265,20 @@
   </url>
   
   <url>
+    <loc>https://ylfei.github.io/tags/Hexo/</loc>
+    <lastmod>2025-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ylfei.github.io/tags/Gitee/</loc>
+    <lastmod>2025-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://ylfei.github.io/tags/hexo/</loc>
     <lastmod>2025-06-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -307,14 +321,14 @@
   </url>
   
   <url>
-    <loc>https://ylfei.github.io/tags/Hexo/</loc>
+    <loc>https://ylfei.github.io/tags/markdown/</loc>
     <lastmod>2025-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ylfei.github.io/tags/Gitee/</loc>
+    <loc>https://ylfei.github.io/tags/%E8%A1%A8%E6%A0%BC/</loc>
     <lastmod>2025-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -384,14 +398,7 @@
   </url>
   
   <url>
-    <loc>https://ylfei.github.io/tags/markdown/</loc>
-    <lastmod>2025-06-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ylfei.github.io/tags/%E8%A1%A8%E6%A0%BC/</loc>
+    <loc>https://ylfei.github.io/tags/%E7%B3%BB%E7%BB%9F/</loc>
     <lastmod>2025-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -420,13 +427,6 @@
   
   <url>
     <loc>https://ylfei.github.io/tags/%E6%B0%B4%E6%99%B6%E5%A4%B4/</loc>
-    <lastmod>2025-06-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ylfei.github.io/tags/%E7%B3%BB%E7%BB%9F/</loc>
     <lastmod>2025-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
