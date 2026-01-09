@@ -3,10 +3,10 @@
   <title>z00o</title>
   
   
-  <link href="https://ylfei.github.io/atom.xml" rel="self"/>
+  <link href="https://ylfei.github.io/rss.xml" rel="self"/>
   
   <link href="https://ylfei.github.io/"/>
-  <updated>2025-05-22T03:14:37.679Z</updated>
+  <updated>2026-01-08T05:24:28.684Z</updated>
   <id>https://ylfei.github.io/</id>
   
   <author>
@@ -15,6 +15,65 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>安知鱼主题配置</title>
+    <link href="https://ylfei.github.io/posts/38671.html"/>
+    <id>https://ylfei.github.io/posts/38671.html</id>
+    <published>2026-01-07T01:09:13.000Z</published>
+    <updated>2026-01-08T05:24:28.684Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="主题安装"><a href="#主题安装" class="headerlink" title="主题安装"></a>主题安装</h3><br>(npm安装):<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-theme-anzhiyu</span><br></pre></td></tr></tbody></table></figure><blockquote><p>此方法只支持 Hexo 5.0.0 以上版本 通过 npm 安装并不会在 themes 里生成主题文件夹，而是在 node_modules 里生成</p></blockquote><hr><h3 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h3><p>打开 Hexo 根目录下的 <code>config.yml</code>, 找到以下配置项，把主题改为<code>anzhiyu</code></p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https://hexo.io/plugins/</span><br><span class="line">## Themes: https://hexo.io/themes/</span><br><span class="line">theme: anzhiyu</span><br></pre></td></tr></tbody></table></figure><hr><h3 id="安装-pug-和-stylus-渲染插件"><a href="#安装-pug-和-stylus-渲染插件" class="headerlink" title="安装 pug 和 stylus 渲染插件"></a>安装 pug 和 stylus 渲染插件</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></tbody></table></figure><p>无法安装可以使用cnpm进行安装</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save --registry=http://registry.npmmirror.com</span><br></pre></td></tr></tbody></table></figure><p>本地启动 hexo</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo cl</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></tbody></table></figure><hr><h3 id="文章生成永久链接"><a href="#文章生成永久链接" class="headerlink" title="文章生成永久链接"></a>文章生成永久链接</h3><p>使用 hexo-abbrlink 的 Hexo 插件来实现文章生成永久链接，安装命令如下：</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-abbrlink --save</span><br></pre></td></tr></tbody></table></figure><p>在 Hexo <code>根目录下的 _config.yml</code> 文件中，新增以下的配置项：</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">abbrlink: </span><br><span class="line">    alg: crc16   #算法：</span><br><span class="line">    rep: hex     #输出进制：十进制和十六进制，默认为10进制。丨dec为十进制，hex为十六进制</span><br></pre></td></tr></tbody></table></figure><p>将 <code>_config.yml</code> 文件中的 <code>permalink</code> 的值修改为如下内容：</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">permalink: posts/:abbrlink.html  # 此处可以自己设置，也可以直接使用 :/abbrlink</span><br></pre></td></tr></tbody></table></figure><p>执行 <code>hexo clean &amp;&amp; hexo g</code> 重新生成博客文件，就可以生成永久链接。生成完后，原 md 文件的 Front-matter 内会增加 abbrlink 字段，值为生成的 ID 。</p><hr><h3 id="字数统计"><a href="#字数统计" class="headerlink" title="字数统计"></a>字数统计</h3><p>要为 AnZhiYu 配上字数统计特性, 你需要如下几个步骤:</p><p>打开 hexo 工作目录</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-wordcount --save or yarn add hexo-wordcount</span><br></pre></td></tr></tbody></table></figure><p>修改 主题配置文件:</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wordcount:</span><br><span class="line">  enable: true</span><br><span class="line">  post_wordcount: true</span><br><span class="line">  min2read: true</span><br><span class="line">  total_wordcount: true</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure><hr><h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><p>安装插件</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-search --save</span><br></pre></td></tr></tbody></table></figure><p>可以在根 _config.yml 中配置这个插件</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> ##Local Search本地搜索</span><br><span class="line">search:</span><br><span class="line">path: search.xml</span><br><span class="line">field: post</span><br><span class="line">format: html</span><br><span class="line">limit: 10000</span><br></pre></td></tr></tbody></table></figure><p>修改 主题配置文件</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">local_search:</span><br><span class="line">  enable: true</span><br><span class="line">  preload: true</span><br><span class="line">  CDN:</span><br></pre></td></tr></tbody></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;主题安装&quot;&gt;&lt;a href=&quot;#主题安装&quot; class=&quot;headerlink&quot; title=&quot;主题安装&quot;&gt;&lt;/a&gt;主题安装&lt;/h3&gt;&lt;br&gt;
+(npm安装):
+
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tbody&gt;</summary>
+      
+    
+    
+    
+    
+    <category term="hexo" scheme="https://ylfei.github.io/tags/hexo/"/>
+    
+    <category term="主题" scheme="https://ylfei.github.io/tags/%E4%B8%BB%E9%A2%98/"/>
+    
+    <category term="anzhiyu" scheme="https://ylfei.github.io/tags/anzhiyu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>添加今日诗词</title>
+    <link href="https://ylfei.github.io/posts/38054.html"/>
+    <id>https://ylfei.github.io/posts/38054.html</id>
+    <published>2025-12-02T05:39:50.000Z</published>
+    <updated>2026-01-08T04:43:21.914Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文将介绍如何增添随机诗词的展示。</p><p>具体效果如下：<br><img src="/images/sc.png"></p><br><h3 id="创建组件"><a href="#创建组件" class="headerlink" title="创建组件"></a>创建组件</h3><p>主题新建themes/anzhiyu/layout/includes/widget/card_poem.pug，内容如下</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#card-poem.card-widget</span><br><span class="line">    #poem_sentence</span><br><span class="line">    #poem_info</span><br><span class="line">        #poem_dynasty</span><br><span class="line">        #poem_author</span><br><span class="line">script(src='https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js', charset='utf-8')</span><br><span class="line">script(type='text/javascript').</span><br><span class="line">  jinrishici.load(function(result) {</span><br><span class="line">  var sentence = document.querySelector("#poem_sentence")</span><br><span class="line">  var author = document.querySelector("#poem_author")</span><br><span class="line">  var dynasty = document.querySelector("#poem_dynasty")</span><br><span class="line"></span><br><span class="line">  var sentenceText = result.data.content</span><br><span class="line">  sentenceText = sentenceText.substr(0, sentenceText.length - 1);</span><br><span class="line">  sentence.innerHTML = sentenceText</span><br><span class="line">  dynasty.innerHTML = result.data.origin.dynasty</span><br><span class="line">  author.innerHTML = result.data.origin.author + '《' + result.data.origin.title + '》'</span><br><span class="line">  });</span><br></pre></td></tr></tbody></table></figure><h3 id="引入组件"><a href="#引入组件" class="headerlink" title="引入组件"></a>引入组件</h3><p>在<code>themes/anzhiyu/layout/includes/widget/index.pug</code>中你需要的位置添加以下内容</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!=partial('includes/widget/card_poem', {}, {cache: true})</span><br></pre></td></tr></tbody></table></figure><p><img src="/images/shici.png"></p><h3 id="引入CSS"><a href="#引入CSS" class="headerlink" title="引入CSS"></a>引入CSS</h3><p>在主题配置文件中添加</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">inject:</span><br><span class="line">head:</span><br><span class="line"></span><br><span class="line">-</span><br></pre></td></tr></tbody></table></figure><p>heoMainColor.css</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css"&gt;</span><br></pre></td></tr></tbody></table></figure><p>引用主css</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css"&gt;</span><br></pre></td></tr></tbody></table></figure><br><p>这里调用的是<code>今日诗词API</code>，是一个可以返回一句古诗词名句的接口。</p><p>它可以通过图片和 JSON 格式调用。今日诗词 API 根据不同地点、时间、节日、季节、天气、景观、城市进行智能推荐。</p><p>访问链接：<a href="https://www.jinrishici.com/">https://www.jinrishici.com</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;本文将介绍如何增添随机诗词的展示。&lt;/p&gt;
+&lt;p&gt;具体效果如下：&lt;br&gt;&lt;img src=&quot;/images/sc.png&quot;&gt;&lt;/p&gt;
+&lt;br&gt;
+
+&lt;h3 id=&quot;创建组件&quot;&gt;&lt;a href=&quot;#创建组件&quot; class=&quot;headerlink&quot; title=&quot;创建组件&quot;&gt;&lt;/</summary>
+      
+    
+    
+    
+    
+    <category term="hexo" scheme="https://ylfei.github.io/tags/hexo/"/>
+    
+    <category term="主题" scheme="https://ylfei.github.io/tags/%E4%B8%BB%E9%A2%98/"/>
+    
+    <category term="诗词" scheme="https://ylfei.github.io/tags/%E8%AF%97%E8%AF%8D/"/>
+    
+  </entry>
   
   <entry>
     <title>博客文章压缩</title>
@@ -293,7 +352,7 @@
     <link href="https://ylfei.github.io/posts/62306.html"/>
     <id>https://ylfei.github.io/posts/62306.html</id>
     <published>2022-04-25T07:19:00.000Z</published>
-    <updated>2025-01-28T01:31:22.675Z</updated>
+    <updated>2026-01-07T12:41:29.825Z</updated>
     
     <content type="html"><![CDATA[<p><em><span id="more"></span></em> </p><h2 id="GitHub-Pages-是什么？"><a href="#GitHub-Pages-是什么？" class="headerlink" title="GitHub Pages 是什么？"></a>GitHub Pages 是什么？</h2><blockquote><p>GitHub Pages 是由 GitHub 官方提供的一种免费的静态站点托管服务，让我们可以在 GitHub 仓库里托管和发布自己的静态网站页面。</p></blockquote><h2 id="Hexo-是什么？"><a href="#Hexo-是什么？" class="headerlink" title="Hexo 是什么？"></a>Hexo 是什么？</h2><blockquote><p>Hexo 是一个快速、简洁且高效的静态博客框架，它基于 Node.js 运行，可以将我们撰写的 Markdown 文档解析渲染成静态的 HTML 网页。</p></blockquote><h2 id="Hexo-GitHub-文章发布原理"><a href="#Hexo-GitHub-文章发布原理" class="headerlink" title="Hexo + GitHub 文章发布原理"></a>Hexo + GitHub 文章发布原理</h2><p>在本地撰写 Markdown 格式文章后，通过 Hexo 解析文档，渲染生成具有主题样式的 HTML 静态网页，再推送到 GitHub 上完成博文的发布。</p><h5 id="Hexo部署到Ghthub"><a href="#Hexo部署到Ghthub" class="headerlink" title="Hexo部署到Ghthub"></a>Hexo部署到Ghthub</h5><blockquote><ol><li>安装git<br>官网地址：<a href="https://git-scm.com/">https://git-scm.com</a></li></ol></blockquote><ol><li><p>访问官方网站，下载对应的安装包，进行安装</p></li><li><p>安装完成后，鼠标右键可以看到：Git Bash Here,点击后打开</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></tbody></table></figure><p><img src="/images/git-v.png"></p></li></ol><blockquote><ol start="2"><li>安装nodejs<br>官网地址：<a href="https://nodejs.org/">https://nodejs.org</a></li></ol></blockquote><ol><li>访问nodejs官方网站，下载对应的安装包，进行安装</li><li> 安装完成后，配置环境变量，并在终端里面输入：</li></ol><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></tbody></table></figure><p>   <img src="/images/node-v.png"></p><p> 安装Hexo </p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo -g </span><br></pre></td></tr></tbody></table></figure><p><img src="/images/hexo.png"></p><p>测试是否安装成功</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></tbody></table></figure><p> <img src="/images/hexo-v.png"></p><p>  初始化Hexo<br> 新建一个blog文件夹</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></tbody></table></figure><p>可以看到博客存放目录里出现了相关文件</p><h5 id="生成静态网页"><a href="#生成静态网页" class="headerlink" title="生成静态网页"></a>生成静态网页</h5><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g         # 生成静态网页</span><br><span class="line">hexo s         # 本地预览  </span><br></pre></td></tr></tbody></table></figure><p>在本地浏览器访问：<a href="http://localhost:4000/">http://localhost:4000/</a></p><h5 id="安装hexo依赖"><a href="#安装hexo依赖" class="headerlink" title="安装hexo依赖"></a>安装hexo依赖</h5><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></tbody></table></figure><h4 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h4><p>在blog文件夹下打开git输入</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email "注册github时使用的邮箱"</span><br><span class="line">git config --global user.name "github的用户名"</span><br></pre></td></tr></tbody></table></figure><p>生成git公钥<br> </p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C "you email@126.com"</span><br></pre></td></tr></tbody></table></figure><br>提示输入passphrase时可直接回车<p></p><p>使用记事本打开id_rsa.pub复制内容文件在<code>C:\Users\你的用户名\.ssh</code>目录下</p><p>进入github登录点击头像→Settings→SSH and GPG keys→New SSH key→在Title中输入hexo博客在key的文本框中输入复制的内容→Add SSH key</p><p>在Git Bash中输入</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com </span><br></pre></td></tr></tbody></table></figure><p>出现Hi 用户名! You’ve successfully authenticated, but GitHub does not provide shell access.则证明成功！</p><p>打开_config.yml进行修改<br>补全如下代码 repo即你的仓库https地址</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:your_name/your_name.github.io.git</span><br><span class="line">  branch: main</span><br></pre></td></tr></tbody></table></figure><p>其中your_name需要替换为你的github的账号</p><p>现在需要执行以下命令 就可以发布自己的博客了。每次新建完文章之后部署，也是相同命令</p><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean         # 清除本地缓存</span><br><span class="line">hexo g             # 重新生成静态页面</span><br><span class="line">hexo d             # 部署到git</span><br></pre></td></tr></tbody></table></figure>]]></content>
     
@@ -407,27 +466,6 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>计算机硬件系统基础</title>
-    <link href="https://ylfei.github.io/posts/26787.html"/>
-    <id>https://ylfei.github.io/posts/26787.html</id>
-    <published>2019-09-02T04:55:36.000Z</published>
-    <updated>2023-05-01T09:13:02.656Z</updated>
-    
-    <content type="html"><![CDATA[<p><em><span id="more"></span></em><br>计算机想要正常运行，除了软件以外，硬件则显得尤为重要。这些硬件分别是主板， cpu，显卡，内存，硬盘，电源以及各种输入输出设备，例如鼠标键盘显示器音响等。</p><p><strong>CPU</strong> 是计算机的核心，用于处理计算机软件中的数据，电脑运行的快 慢与cpu的关系非常大。目前市场上的cpu主要由AMD公司和intel公司设计制造。<br><img src="/images/CPU.png"></p><p><strong>主板</strong> 一个计算机系统的基本，是计算机的主电路板。所有其他的硬 件模块都由主板上的各种接口进行连接，目前市场上的主板供应商多且杂，需要大家仔细甄别。<br><img src="/images/zb.png"></p><p><strong>显卡</strong> 用于处理计算机中的图像数据，例如视频渲染和游戏渲染，卡吧基佬便是这个卡。想要 获得更好的游戏和图像处理的性能，升级显卡是最重要的一个途径。目前主流的显卡设计商 分别是AMD公司和NVIDIA公司。一般来讲（误），AMD的显卡在图像处理的表现更好，而NVIDIA 公司的显卡在游戏性能上有着AMD显卡难以企及的表现。<br><img src="/images/xk.png"></p><p><strong>内存</strong> 用于周转硬盘与cpu要处理的数据。由于硬盘的的读取写入速度较慢，所以当cpu要处理 一个数据是，并不是直接在硬盘中处理，而是先读取在内存中，再由cpu进行处理。如果直接 在硬盘中进行处理，便会大大拖慢cpu的速度。内存不需要太大，4G或者8G便能满足日常需求。<br><img src="/images/nct.png"></p><p><strong>硬盘</strong> 就如同计算机的仓库，它速度较慢，但胜在容量大，造价便宜，所以用于存储数据再好不过。 目前主流的硬盘分为机械硬盘和固态硬盘两种，固态硬盘相较机械硬盘造价稍贵，但性能更好。<br><img src="/images/hhd.png"></p><p><strong>电源</strong> 计算机并不是直接使用220V市电，电源便是将220v市电压降压成计算机需要的电压， 好的电源是计算机稳定运行的基本。<br><img src="/images/dy.png"></p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="系统" scheme="https://ylfei.github.io/tags/%E7%B3%BB%E7%BB%9F/"/>
-    
-    <category term="硬件" scheme="https://ylfei.github.io/tags/%E7%A1%AC%E4%BB%B6/"/>
     
   </entry>
   
