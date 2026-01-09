@@ -172,7 +172,7 @@
     <url>/posts/38054.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em></p>
 <p>本文将介绍如何增添随机诗词的展示。</p>
-<p>具体效果如下：<br><img data-src="/images/sc.png"></p>
+<p>具体效果如下：<br><img src="/images/sc.png"></p>
 <br>
 
 <h3 id="创建组件"><a href="#创建组件" class="headerlink" title="创建组件"></a>创建组件</h3><p>主题新建themes/anzhiyu/layout/includes/widget/card_poem.pug，内容如下</p>
@@ -182,7 +182,7 @@
 <h3 id="引入组件"><a href="#引入组件" class="headerlink" title="引入组件"></a>引入组件</h3><p>在<code>themes/anzhiyu/layout/includes/widget/index.pug</code>中你需要的位置添加以下内容</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">!=partial('includes/widget/card_poem', {}, {cache: true})</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img data-src="/images/shici.png"></p>
+<p><img src="/images/shici.png"></p>
 <h3 id="引入CSS"><a href="#引入CSS" class="headerlink" title="引入CSS"></a>引入CSS</h3><p>在主题配置文件中添加</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">inject:</span><br><span class="line">head:</span><br><span class="line"></span><br><span class="line">-</span><br></pre></td></tr></tbody></table></figure>
 
@@ -576,11 +576,11 @@
     <title>Win10配置NTP服务器</title>
     <url>/posts/14899.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em> </p>
-<h4 id="NTP服务器配置"><a href="#NTP服务器配置" class="headerlink" title="NTP服务器配置"></a>NTP服务器配置</h4><p>1.使用组合键<code>WIN + R</code> 启动运行窗口，在打开的窗口中输入<code>regedit</code>，点击确定按钮.<br><img data-src="/images/regedit.png"></p>
-<p>2.在打开的注册表中输入<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Config</code>，找到并打开<code>Config</code>目录，双击<code>Config</code>目录下的<code>AnnounceFlags</code>。<br><img data-src="/images/regedit1.png"><br>3.把注册表项的值设定为5，点击确定按钮<br><img data-src="/images/regedit2.png"></p>
-<p>4.再次输入注册表路径<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpServer</code>，双击<code>NtpServer</code>下的<code>Enabled</code>文件。<br><img data-src="/images/regedit3.png"><br>5.把Enabled的值设定为<code>1</code>，点击确定按钮。</p>
-<p>6.打开命令提示符窗口（以管理员身份运行）。开始-找到windows系统-找到命令提示符-然后鼠标右键点击命令提示符-选择以管理员身份运行。<br><img data-src="/images/cmda.png"></p>
-<p>7.输入<code>net stop w32time</code>停止服务，再输入<code>net start w32time</code>启动服务。<br><img data-src="/images/cmdb.png"><br>8.输入命令<code>w32tm /stripchart /computer:127.0.0.1</code>，有时间回显说明配置成功。<br><img data-src="/images/cmdc.png"></p>
+<h4 id="NTP服务器配置"><a href="#NTP服务器配置" class="headerlink" title="NTP服务器配置"></a>NTP服务器配置</h4><p>1.使用组合键<code>WIN + R</code> 启动运行窗口，在打开的窗口中输入<code>regedit</code>，点击确定按钮.<br><img src="/images/regedit.png"></p>
+<p>2.在打开的注册表中输入<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Config</code>，找到并打开<code>Config</code>目录，双击<code>Config</code>目录下的<code>AnnounceFlags</code>。<br><img src="/images/regedit1.png"><br>3.把注册表项的值设定为5，点击确定按钮<br><img src="/images/regedit2.png"></p>
+<p>4.再次输入注册表路径<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpServer</code>，双击<code>NtpServer</code>下的<code>Enabled</code>文件。<br><img src="/images/regedit3.png"><br>5.把Enabled的值设定为<code>1</code>，点击确定按钮。</p>
+<p>6.打开命令提示符窗口（以管理员身份运行）。开始-找到windows系统-找到命令提示符-然后鼠标右键点击命令提示符-选择以管理员身份运行。<br><img src="/images/cmda.png"></p>
+<p>7.输入<code>net stop w32time</code>停止服务，再输入<code>net start w32time</code>启动服务。<br><img src="/images/cmdb.png"><br>8.输入命令<code>w32tm /stripchart /computer:127.0.0.1</code>，有时间回显说明配置成功。<br><img src="/images/cmdc.png"></p>
 <p>在win10上配置NTP时间同步服务器的方法就介绍完了。（也可以在局域网内的其他计算机上使用ntp服务功能进行ntp校时验证)</p>
 ]]></content>
       <tags>
@@ -642,7 +642,7 @@
 </li>
 </ul>
 <h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><h4 id="首先制作一个U盘PE启动盘"><a href="#首先制作一个U盘PE启动盘" class="headerlink" title="首先制作一个U盘PE启动盘"></a>首先制作一个U盘PE启动盘</h4><p>本文以IT天空出品的“优启通”为 示例（PE及工具不唯一，大家可根据自己需要选择纯净无捆绑的即可）</p>
-<h4 id="制作U盘PE启动盘"><a href="#制作U盘PE启动盘" class="headerlink" title="制作U盘PE启动盘"></a>制作U盘PE启动盘</h4><p>具体步骤如下图示<br><img data-src="/images/easyu1.png"></p>
+<h4 id="制作U盘PE启动盘"><a href="#制作U盘PE启动盘" class="headerlink" title="制作U盘PE启动盘"></a>制作U盘PE启动盘</h4><p>具体步骤如下图示<br><img src="/images/easyu1.png"></p>
 <blockquote>
 <p><strong>注</strong> ：如果U盘需要存放 <strong>单个大于4G</strong> 的文件，建议U盘制作时选择 <strong>exFAT</strong> 或 <strong>NTFS</strong> 格式</p>
 </blockquote>
@@ -866,53 +866,53 @@
 </font><p><font size="0.6">  注：其他机型请尝试或参考以上品牌常用启动热键<br></font></p>
 </blockquote>
 <h4 id="选择PE启动"><a href="#选择PE启动" class="headerlink" title="选择PE启动"></a>选择PE启动</h4><p>选择从Win10 PE启动（一般UEFI启动会自动进）</p>
-<p><img data-src="/images/easyu2.jpg"></p>
+<p><img src="/images/easyu2.jpg"></p>
 <h4 id="EXI系统安装"><a href="#EXI系统安装" class="headerlink" title="EXI系统安装"></a>EXI系统安装</h4><p>进PE系统后，双击运行桌面的“EIX系统安装”工具（EasyImageX）</p>
-<p><img data-src="/images/eix.jpg"></p>
+<p><img src="/images/eix.jpg"></p>
 <blockquote>
 <p>也可以在PE中手动Ghost还原安装</p>
 </blockquote>
 <h4 id="选择安装位置"><a href="#选择安装位置" class="headerlink" title="选择安装位置"></a>选择安装位置</h4><p>按照下图顺序选择”安装位置”和”镜像文件”，然后点”一键恢复”.</p>
-<p><img data-src="/images/eix1.png"></p>
+<p><img src="/images/eix1.png"></p>
 <blockquote>
 <p>在弹出确认窗口中，去掉”<code>自动运行万能驱动</code>“和”<code>操作完成后自动重启计算机</code>“</p>
 </blockquote>
-<p><img data-src="/images/easyu6.png"></p>
+<p><img src="/images/easyu6.png"></p>
 <blockquote>
 <p>注：一定要取消勾选操作完成后自动重启计算机 这一项 ，否则装好系统后U盘在系统里也占用了 一个盘符，会导致盘符错乱。</p>
 </blockquote>
 <h4 id="系统恢复中"><a href="#系统恢复中" class="headerlink" title="系统恢复中"></a>系统恢复中</h4><p>恢复中，等待完成后根据需要运行万能驱动程序。 然后手动重启计算机 等屏幕熄灭的同时迅速拔掉U 盘，否则会再次进入PE系统。</p>
-<p><img data-src="/images/easyu7.png"><br><img data-src="/images/easyu8.png"></p>
-<h4 id="进入安装过程"><a href="#进入安装过程" class="headerlink" title="进入安装过程"></a>进入安装过程</h4><p><img data-src="/images/easyu10.png"></p>
-<p><img data-src="/images/win1101.png"></p>
-<p><img data-src="/images/win1102.png"></p>
-<p><img data-src="/images/win1103.png"></p>
+<p><img src="/images/easyu7.png"><br><img src="/images/easyu8.png"></p>
+<h4 id="进入安装过程"><a href="#进入安装过程" class="headerlink" title="进入安装过程"></a>进入安装过程</h4><p><img src="/images/easyu10.png"></p>
+<p><img src="/images/win1101.png"></p>
+<p><img src="/images/win1102.png"></p>
+<p><img src="/images/win1103.png"></p>
 <h4 id="国家地区选择"><a href="#国家地区选择" class="headerlink" title="国家地区选择"></a>国家地区选择</h4><p>选择相应的 <code>国家地区</code> 点<code>是</code></p>
-<p><img data-src="/images/win1110.png"></p>
-<h4 id="键盘布局选择"><a href="#键盘布局选择" class="headerlink" title="键盘布局选择"></a>键盘布局选择</h4><p>键盘布局选择 <code>微软拼音</code>或<code>微软五笔</code><br><img data-src="/images/win1111.png"></p>
-<h4 id="其他键盘布局"><a href="#其他键盘布局" class="headerlink" title="其他键盘布局"></a>其他键盘布局</h4><p>其他键盘布局点击<code>跳过</code><br><img data-src="/images/win1112.png"></p>
+<p><img src="/images/win1110.png"></p>
+<h4 id="键盘布局选择"><a href="#键盘布局选择" class="headerlink" title="键盘布局选择"></a>键盘布局选择</h4><p>键盘布局选择 <code>微软拼音</code>或<code>微软五笔</code><br><img src="/images/win1111.png"></p>
+<h4 id="其他键盘布局"><a href="#其他键盘布局" class="headerlink" title="其他键盘布局"></a>其他键盘布局</h4><p>其他键盘布局点击<code>跳过</code><br><img src="/images/win1112.png"></p>
 <blockquote>
 <p>跳过网络账户登录，使用本地账户登录方法： 按住<code>shift+F10</code>或者<code>Fn+shift+F10</code> 打开命令提示窗口，然后输入<code>oobe\bypassnro</code>   回车 会自动重启，重启后就可以使用本地账户登录了</p>
 </blockquote>
-<p><img data-src="/images/win1113.png"></p>
-<p><img data-src="/images/win1114.png"></p>
+<p><img src="/images/win1113.png"></p>
+<p><img src="/images/win1114.png"></p>
 <h4 id="本地账户登录"><a href="#本地账户登录" class="headerlink" title="本地账户登录"></a>本地账户登录</h4><p>系统重启后，再次回到网络连接页面，<br>选择<code>我没有internet链接</code></p>
-<p><img data-src="/images/win1121.png"></p>
+<p><img src="/images/win1121.png"></p>
 <p>点击<code>继续执行受限设置</code></p>
-<p><img data-src="/images/win1122.png"></p>
-<h4 id="接受许可协议"><a href="#接受许可协议" class="headerlink" title="接受许可协议"></a>接受许可协议</h4><p>点击<code>接受</code>许可协议<br><img data-src="/images/win1123.png"></p>
+<p><img src="/images/win1122.png"></p>
+<h4 id="接受许可协议"><a href="#接受许可协议" class="headerlink" title="接受许可协议"></a>接受许可协议</h4><p>点击<code>接受</code>许可协议<br><img src="/images/win1123.png"></p>
 <h4 id="输入用户名"><a href="#输入用户名" class="headerlink" title="输入用户名"></a>输入用户名</h4><p>输入非中文字符的用户名</p>
-<p><img data-src="/images/win1124.png"></p>
+<p><img src="/images/win1124.png"></p>
 <h4 id="输入密码"><a href="#输入密码" class="headerlink" title="输入密码"></a>输入密码</h4><p>密码可以先不设置，直接点击<code>下一页</code>，等系统优化过后再设置密码</p>
-<p><img data-src="/images/win1125.png"></p>
+<p><img src="/images/win1125.png"></p>
 <h4 id="隐私设置"><a href="#隐私设置" class="headerlink" title="隐私设置"></a>隐私设置</h4><p>只保留前两项 <code>位置</code>、<code>查找我的设备</code>,其他全部关闭，点击<code>接受</code>进入下一步</p>
-<p><img data-src="/images/win1126.png"></p>
-<p><img data-src="/images/win1127.png"></p>
-<h4 id="即将完成"><a href="#即将完成" class="headerlink" title="即将完成"></a>即将完成</h4><p><img data-src="/images/win11271.png"></p>
-<p><img data-src="/images/win1128.png"></p>
+<p><img src="/images/win1126.png"></p>
+<p><img src="/images/win1127.png"></p>
+<h4 id="即将完成"><a href="#即将完成" class="headerlink" title="即将完成"></a>即将完成</h4><p><img src="/images/win11271.png"></p>
+<p><img src="/images/win1128.png"></p>
 <p>点击下一步</p>
-<p><img data-src="/images/win1129.png"></p>
-<h4 id="安装完成"><a href="#安装完成" class="headerlink" title="安装完成"></a>安装完成</h4><p>进入桌面 安装完成<br><img data-src="/images/win1130.png"></p>
+<p><img src="/images/win1129.png"></p>
+<h4 id="安装完成"><a href="#安装完成" class="headerlink" title="安装完成"></a>安装完成</h4><p>进入桌面 安装完成<br><img src="/images/win1130.png"></p>
 ]]></content>
       <tags>
         <tag>系统安装</tag>
@@ -944,7 +944,7 @@
 <li><p>安装完成后，鼠标右键可以看到：Git Bash Here,点击后打开</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img data-src="/images/git-v.png"></p>
+<p><img src="/images/git-v.png"></p>
 </li>
 </ol>
 <blockquote>
@@ -958,16 +958,16 @@
 </ol>
 <figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></tbody></table></figure>
 
-<p>   <img data-src="/images/node-v.png"></p>
+<p>   <img src="/images/node-v.png"></p>
 <p> 安装Hexo </p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">npm install hexo -g </span><br></pre></td></tr></tbody></table></figure>
 
-<p><img data-src="/images/hexo.png"></p>
+<p><img src="/images/hexo.png"></p>
 <p>测试是否安装成功</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></tbody></table></figure>
 
 
-<p> <img data-src="/images/hexo-v.png"></p>
+<p> <img src="/images/hexo-v.png"></p>
 <p>  初始化Hexo<br> 新建一个blog文件夹</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></tbody></table></figure>
 
@@ -1005,15 +1005,15 @@
     <title>网线水晶头制作及标准接法</title>
     <url>/posts/13455.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em></p>
-<h2 id="一、制作工具介绍"><a href="#一、制作工具介绍" class="headerlink" title="一、制作工具介绍"></a>一、制作工具介绍</h2><p>首先介绍一下制作水晶头需要用到的工具——网线钳。价格也不贵 普通用户都能接受，从网上或是线下都能买到。<br><img data-src="/images/rj4501.jpg"></p>
+<h2 id="一、制作工具介绍"><a href="#一、制作工具介绍" class="headerlink" title="一、制作工具介绍"></a>一、制作工具介绍</h2><p>首先介绍一下制作水晶头需要用到的工具——网线钳。价格也不贵 普通用户都能接受，从网上或是线下都能买到。<br><img src="/images/rj4501.jpg"></p>
 <p>我们主要用到网线钳的三个功能——剥线、剪线和压制水晶头。其中最后一个功能，是网线钳独有的 ，也是它的主要功能。在压制水晶头的过程中，只需要用到网线钳</p>
-<p>压制水晶头，利用的是水晶头槽这一部分。网线钳一般带有多种规格的槽（大小不同） ，但压制网线时，只需要用到8P槽。 使用时也很简单，将网线插入水晶头后，把水晶 头放入槽内，用力按压即可。<br><img data-src="/images/rj4508.jpg"><br><img data-src="/images/rj4509.jpg"><br><img data-src="/images/rj4510.jpg"></p>
+<p>压制水晶头，利用的是水晶头槽这一部分。网线钳一般带有多种规格的槽（大小不同） ，但压制网线时，只需要用到8P槽。 使用时也很简单，将网线插入水晶头后，把水晶 头放入槽内，用力按压即可。<br><img src="/images/rj4508.jpg"><br><img src="/images/rj4509.jpg"><br><img src="/images/rj4510.jpg"></p>
 <h2 id="二、水晶头的制作"><a href="#二、水晶头的制作" class="headerlink" title="二、水晶头的制作"></a>二、水晶头的制作</h2><p>网线水晶头的制作方法（共五步）</p>
-<h4 id="第一步、剥"><a href="#第一步、剥" class="headerlink" title="第一步、剥"></a>第一步、剥</h4><p>把网线外层绝缘皮剥开，露出里面的彩色绝缘皮——剥线时要注意力度，不要伤害到内层绝缘皮。<br><img data-src="/images/rj4502.jpg"></p>
+<h4 id="第一步、剥"><a href="#第一步、剥" class="headerlink" title="第一步、剥"></a>第一步、剥</h4><p>把网线外层绝缘皮剥开，露出里面的彩色绝缘皮——剥线时要注意力度，不要伤害到内层绝缘皮。<br><img src="/images/rj4502.jpg"></p>
 <h4 id="第二步、排"><a href="#第二步、排" class="headerlink" title="第二步、排"></a>第二步、排</h4><p>排线是水晶头制作的重头戏，即把网线的线色按照顺序排好。现在的网线都是”双绞线”， 就是指里面的细小电线都是两两缠绕在一起的，共有4组，也就是8根。</p>
 <p>在这8根线里，有4根线都是白色的，为了在名称上区分它们，我们在它们自身线色的 基础上加上与它相绞的线的颜色为它命名。比如和橙色线缠绕在一起的白色线，就叫 做”橙白色线”（或者”白橙色线”）；和蓝色线缠绕在一起的白色线，就叫做”蓝白色” （或”白蓝色线”）。</p>
 <p>排线顺序有两个标准，分别叫做T568A和T568B——两种排法没有本质上的区别，但是在选择 时有规定……敲黑板，这里很重要：<br>两种接线顺序在选择上有两种选法：交叉线和直通线。交叉线是指同一根网线的两个水晶头分 别选用不同接法；直通线是指同一根网线的两个水晶头选用同一种接法。</p>
-<p>交叉线一般用于同一类设备之间的连接，比如电脑和电脑、路由器和路由器（现在也有支持 直通线的设备，但保险起见，还是用交叉线比较好）。直通线用于不同类设备之间的连接， 比如电脑和路由器。<br>很明显，家庭中更适合直通线。所以，在家庭中，一般所有水晶头都只选用一种排线 方法——T568A或T568B任选其一。<br><img data-src="/images/rj4503.jpg"></p>
+<p>交叉线一般用于同一类设备之间的连接，比如电脑和电脑、路由器和路由器（现在也有支持 直通线的设备，但保险起见，还是用交叉线比较好）。直通线用于不同类设备之间的连接， 比如电脑和路由器。<br>很明显，家庭中更适合直通线。所以，在家庭中，一般所有水晶头都只选用一种排线 方法——T568A或T568B任选其一。<br><img src="/images/rj4503.jpg"></p>
 <p>T568A的排线顺序为：绿白，绿，橙白，蓝，蓝白，橙，棕白，棕；</p>
 <p>T568B的排线顺序为：橙白，橙，绿白，蓝，蓝白，绿，棕白，棕。</p>
 <p><strong>T568A 线序的适用范围</strong></p>
@@ -1033,7 +1033,7 @@
 <li>——蓝白</li>
 <li>——橙</li>
 <li>——棕白</li>
-<li>——棕<br><img data-src="/images/rj4504.jpg"></li>
+<li>——棕<br><img src="/images/rj4504.jpg"></li>
 </ol>
 <p><strong>T568B 线序的接法</strong></p>
 <p>如图所示，RJ45型网线插头各脚与网线颜色标志的对应关系是：</p>
@@ -1047,7 +1047,7 @@
 <li>——棕白</li>
 <li>——棕</li>
 </ol>
-<h4 id="第三步、剪"><a href="#第三步、剪" class="headerlink" title="第三步、剪"></a>第三步、剪</h4><p>把网线的顺序排好了，握在手里，捏住、压好——一定要压好，把线放到网线钳中，剪断。<br>剪线的目的是把8根网线剪齐，所以，如果一次没剪齐，要再次进行修剪——把网线捏紧了再剪有助于增加成功率。<br><img data-src="/images/rj4505.jpg"></p>
+<h4 id="第三步、剪"><a href="#第三步、剪" class="headerlink" title="第三步、剪"></a>第三步、剪</h4><p>把网线的顺序排好了，握在手里，捏住、压好——一定要压好，把线放到网线钳中，剪断。<br>剪线的目的是把8根网线剪齐，所以，如果一次没剪齐，要再次进行修剪——把网线捏紧了再剪有助于增加成功率。<br><img src="/images/rj4505.jpg"></p>
 <h4 id="第四步、插"><a href="#第四步、插" class="headerlink" title="第四步、插"></a>第四步、插</h4><p>把剪好的网线按顺序插入水晶头——不需要剥掉线皮。在插入水晶头时，要注意两点：</p>
 <ol>
 <li><p>应面对水晶头的背面，也就是不带卡槽按压按钮的那一面插入；</p>
@@ -1055,7 +1055,7 @@
 <li><p>网线插入水晶头后，应保证网线外绝缘皮有一部分在水晶头内，如果出现 内层绝缘皮外露，应再次重复剪线的步骤。</p>
 </li>
 </ol>
-<h4 id="第五步、压"><a href="#第五步、压" class="headerlink" title="第五步、压"></a>第五步、压</h4><p>把水晶头放入网线钳8P槽内，用力压紧即可。<br><img data-src="/images/rj4507.jpg"><br><img data-src="/images/rj4506.jpg"></p>
+<h4 id="第五步、压"><a href="#第五步、压" class="headerlink" title="第五步、压"></a>第五步、压</h4><p>把水晶头放入网线钳8P槽内，用力压紧即可。<br><img src="/images/rj4507.jpg"><br><img src="/images/rj4506.jpg"></p>
 <p>最后，需要使用测线仪测试一下，看网线是否能够使用。</p>
 ]]></content>
       <tags>
@@ -1130,12 +1130,12 @@
     <title>计算机硬件系统基础</title>
     <url>/posts/26787.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em><br>计算机想要正常运行，除了软件以外，硬件则显得尤为重要。这些硬件分别是主板， cpu，显卡，内存，硬盘，电源以及各种输入输出设备，例如鼠标键盘显示器音响等。</p>
-<p><strong>CPU</strong> 是计算机的核心，用于处理计算机软件中的数据，电脑运行的快 慢与cpu的关系非常大。目前市场上的cpu主要由AMD公司和intel公司设计制造。<br><img data-src="/images/CPU.png"></p>
-<p><strong>主板</strong> 一个计算机系统的基本，是计算机的主电路板。所有其他的硬 件模块都由主板上的各种接口进行连接，目前市场上的主板供应商多且杂，需要大家仔细甄别。<br><img data-src="/images/zb.png"></p>
-<p><strong>显卡</strong> 用于处理计算机中的图像数据，例如视频渲染和游戏渲染，卡吧基佬便是这个卡。想要 获得更好的游戏和图像处理的性能，升级显卡是最重要的一个途径。目前主流的显卡设计商 分别是AMD公司和NVIDIA公司。一般来讲（误），AMD的显卡在图像处理的表现更好，而NVIDIA 公司的显卡在游戏性能上有着AMD显卡难以企及的表现。<br><img data-src="/images/xk.png"></p>
-<p><strong>内存</strong> 用于周转硬盘与cpu要处理的数据。由于硬盘的的读取写入速度较慢，所以当cpu要处理 一个数据是，并不是直接在硬盘中处理，而是先读取在内存中，再由cpu进行处理。如果直接 在硬盘中进行处理，便会大大拖慢cpu的速度。内存不需要太大，4G或者8G便能满足日常需求。<br><img data-src="/images/nct.png"></p>
-<p><strong>硬盘</strong> 就如同计算机的仓库，它速度较慢，但胜在容量大，造价便宜，所以用于存储数据再好不过。 目前主流的硬盘分为机械硬盘和固态硬盘两种，固态硬盘相较机械硬盘造价稍贵，但性能更好。<br><img data-src="/images/hhd.png"></p>
-<p><strong>电源</strong> 计算机并不是直接使用220V市电，电源便是将220v市电压降压成计算机需要的电压， 好的电源是计算机稳定运行的基本。<br><img data-src="/images/dy.png"></p>
+<p><strong>CPU</strong> 是计算机的核心，用于处理计算机软件中的数据，电脑运行的快 慢与cpu的关系非常大。目前市场上的cpu主要由AMD公司和intel公司设计制造。<br><img src="/images/CPU.png"></p>
+<p><strong>主板</strong> 一个计算机系统的基本，是计算机的主电路板。所有其他的硬 件模块都由主板上的各种接口进行连接，目前市场上的主板供应商多且杂，需要大家仔细甄别。<br><img src="/images/zb.png"></p>
+<p><strong>显卡</strong> 用于处理计算机中的图像数据，例如视频渲染和游戏渲染，卡吧基佬便是这个卡。想要 获得更好的游戏和图像处理的性能，升级显卡是最重要的一个途径。目前主流的显卡设计商 分别是AMD公司和NVIDIA公司。一般来讲（误），AMD的显卡在图像处理的表现更好，而NVIDIA 公司的显卡在游戏性能上有着AMD显卡难以企及的表现。<br><img src="/images/xk.png"></p>
+<p><strong>内存</strong> 用于周转硬盘与cpu要处理的数据。由于硬盘的的读取写入速度较慢，所以当cpu要处理 一个数据是，并不是直接在硬盘中处理，而是先读取在内存中，再由cpu进行处理。如果直接 在硬盘中进行处理，便会大大拖慢cpu的速度。内存不需要太大，4G或者8G便能满足日常需求。<br><img src="/images/nct.png"></p>
+<p><strong>硬盘</strong> 就如同计算机的仓库，它速度较慢，但胜在容量大，造价便宜，所以用于存储数据再好不过。 目前主流的硬盘分为机械硬盘和固态硬盘两种，固态硬盘相较机械硬盘造价稍贵，但性能更好。<br><img src="/images/hhd.png"></p>
+<p><strong>电源</strong> 计算机并不是直接使用220V市电，电源便是将220v市电压降压成计算机需要的电压， 好的电源是计算机稳定运行的基本。<br><img src="/images/dy.png"></p>
 ]]></content>
       <tags>
         <tag>系统</tag>
