@@ -1,6 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>博客文章压缩</title>
+    <url>/posts/29115.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em> </p>
+<h3 id="gulp压缩静态资源"><a href="#gulp压缩静态资源" class="headerlink" title="gulp压缩静态资源"></a>gulp压缩静态资源</h3><p>gulp 能够帮助用户自动压缩静态资源，配合各类下属插件，能够压缩包括css、js、html乃至各类格式的图片文件</p>
+<h4 id="安装Gulp插件"><a href="#安装Gulp插件" class="headerlink" title="安装Gulp插件"></a>安装Gulp插件</h4><p>安装Gulp插件：在博客根目录[Blog]打开终端，输入：</p>
+<pre><code>npm install --global gulp-cli #全局安装gulp指令集
+npm install gulp --save #安装gulp插件
+</code></pre>
+<p>安装各个下属插件以实现对各类静态资源的压缩。</p>
+<h5 id="压缩HTML"><a href="#压缩HTML" class="headerlink" title="压缩HTML"></a>压缩HTML</h5><pre><code>npm install gulp-htmlclean --save-dev
+npm install gulp-html-minifier-terser --save-dev
+# 用gulp-html-minifier-terser可以压缩HTML中的ES6语法
+</code></pre>
+<h5 id="压缩CSS"><a href="#压缩CSS" class="headerlink" title="压缩CSS"></a>压缩CSS</h5><pre><code>npm install gulp-clean-css --save-dev
+</code></pre>
+<h5 id="压缩JS"><a href="#压缩JS" class="headerlink" title="压缩JS"></a>压缩JS</h5><p>使用terser来压缩js。gulp-terser只会直接压缩js代码，所以不存在因为语法变动导致的错误 。事实上，当我们使用jsdelivr的CDN服务时，只需要在css或者js的后缀前添加.min,例如example.js-&gt;example.min.js，JsDelivr就会自动使用terser帮我们压缩好代码。</p>
+<pre><code>npm install gulp-terser --save-dev
+</code></pre>
+<h5 id="压缩字体包"><a href="#压缩字体包" class="headerlink" title="压缩字体包"></a>压缩字体包</h5><p>fontmin可以遍历博客内用到的字符，并将字体包内这些字符的字体样式提取出来输出为新的字体包。fontmin仅支持压缩ttf格式的字体包</p>
+<pre><code>npm install gulp-fontmin --save-dev
+</code></pre>
+<h5 id="创建任务脚本"><a href="#创建任务脚本" class="headerlink" title="创建任务脚本"></a>创建任务脚本</h5><p>为Gulp创建gulpfile.js任务脚本。在博客根目录[Blogroot]下新建gulpfile.js,打开[Blogroot]\gulpfile.js,输入以下内容：</p>
+<pre><code>//用到的各个插件
+var gulp = require('gulp');
+var cleanCSS = require('gulp-clean-css');
+var htmlmin = require('gulp-html-minifier-terser');
+var htmlclean = require('gulp-htmlclean');
+var fontmin = require('gulp-fontmin');
+// gulp-tester
+var terser = require('gulp-terser');
+// 压缩js
+gulp.task('compress', async() =&gt;{
+gulp.src(['./public/**/*.js', '!./public/**/*.min.js'])
+.pipe(terser())
+.pipe(gulp.dest('./public'))
+});
+//压缩css
+gulp.task('minify-css', () =&gt; {
+return gulp.src(['./public/**/*.css'])
+.pipe(cleanCSS({
+compatibility: 'ie11'
+}))
+.pipe(gulp.dest('./public'));
+});
+//压缩html
+gulp.task('minify-html', () =&gt; {
+return gulp.src('./public/**/*.html')
+.pipe(htmlclean())
+.pipe(htmlmin({
+removeComments: true, //清除html注释
+collapseWhitespace: true, //压缩html
+collapseBooleanAttributes: true,
+//省略布尔属性的值，例如：&lt;input checked="true"/&gt; ==&gt; &lt;input /&gt;
+removeEmptyAttributes: true,
+//删除所有空格作属性值，例如：&lt;input id="" /&gt; ==&gt; &lt;input /&gt;
+removeScriptTypeAttributes: true,
+//删除&lt;script&gt;的type="text/javascript"
+removeStyleLinkTypeAttributes: true,
+//删除&lt;style&gt;和&lt;link&gt;的 type="text/css"
+minifyJS: true, //压缩页面 JS
+minifyCSS: true, //压缩页面 CSS
+minifyURLs: true //压缩页面URL
+}))
+.pipe(gulp.dest('./public'))
+});
+//压缩字体
+function minifyFont(text, cb) {
+gulp
+.src('./public/fonts/*.ttf') //原字体所在目录
+.pipe(fontmin({
+text: text
+}))
+.pipe(gulp.dest('./public/fontsdest/')) //压缩后的输出目录
+.on('end', cb);
+}
+
+gulp.task('mini-font', (cb) =&gt; {
+var buffers = [];
+gulp
+.src(['./public/**/*.html']) //HTML文件所在目录请根据自身情况修改
+.on('data', function(file) {
+buffers.push(file.contents);
+})
+.on('end', function() {
+var text = Buffer.concat(buffers).toString('utf-8');
+minifyFont(text, cb);
+});
+});
+// 运行gulp命令时依次执行以下任务
+gulp.task('default', gulp.parallel(
+'compress', 'minify-css', 'minify-html','mini-font'
+))
+</code></pre>
+<p>在每次运行完hexo generate生成静态页面后，运行gulp对其进行压缩。指令流程如下：</p>
+<pre><code>hexo clean
+hexo generate
+gulp
+hexo server 或 hexo deploy
+</code></pre>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>博客</tag>
+        <tag>压缩</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络中的IP地址</title>
+    <url>/posts/29942.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em></p>
+<h4 id="特殊的IP地址"><a href="#特殊的IP地址" class="headerlink" title="特殊的IP地址"></a>特殊的IP地址</h4><ol>
+<li><strong>0.0.0.0</strong> </li>
+</ol>
+<p>严格说来，这个奇葩的地址0.0.0.0已经不是一个真正意义上 的IP地址了。它表示的是这样一个集合：也就是说；所有不清 楚的主机和目的网络。这里的“不清楚”是指在本机的路由表里 没有特定条目指明如何到达。对本机来说，它就是一个“收容所”， 所有不认识的“三无”人员，一律送进去。如果你在网络设置中设 置了缺省网关，那么计算机系统会自动产生一个目的地址为0.0.0.0的缺省路由。</p>
+<ol start="2">
+<li><strong>255.255.255.255限制广播地址</strong> </li>
+</ol>
+<p>对本机来说，这个地址指本网段内(同一广播域)的所有主机。</p>
+<p>然而它的意思很明确，使用人类语言来说意思就是“这里的所 有计算机都注意了”这个地址不能被路由器所转发。</p>
+<ol start="3">
+<li><strong>127.0.0.1本机地址</strong></li>
+</ol>
+<p>主要用于测试。用汉语表示，就是“我自己”。在Windows系统 中，这个地址有一个别名“Localhost”。寻址这样一个地址， 是不能把它发到网络接口的。除非出错，否则在传输介质上永 远不应该出现目的地址为“127.0.0.1”的数据包。</p>
+<ol start="4">
+<li><strong>224.0.0.1 组播地址</strong></li>
+</ol>
+<p>注意它和广播的区别。从224.0.0.0到239.255.255.255都是 这样的地址。224.0.0.1特指所有主机，224.0.0.2特指所有 路由器。这样的地址多用于一些特定的程序以及多媒体程序。 如果你的主机开启了IRDP(Internet路由发现协议），使用组 播功能功能，那么你的主机路由表中应该有这样一条路由。</p>
+<ol start="5">
+<li><strong>169.254.x.x</strong></li>
+</ol>
+<p>如果你的主机使用了DHCP功能自动获得一个IP地址，那么 当你的DHCP服务器发生故障，或响应时间太长而超出了一 个系统规定的时间，计算机操作系统会为你分配这样一个 地址。如果你发现你的主机IP地址是一个诸如此类的地址， 很不幸的是，现在你的网络不能正常运行了。</p>
+<ol start="6">
+<li><strong>10.x.x.x；172.16.0.0—172.31.255.254；192.168.x.x；私有地址</strong></li>
+</ol>
+<p>这些地址被大量用于企业内部网络中。一些宽带路由器，也 往往使用192.168.1.1作为缺省地址。私有网络由于不与外 部互连，因而可能使用随意的IP地址。保留这样的地址供其 使用是为了避免以后接入公网时引起地址混乱。使用私有地 址的私有网络在接入Internet时，要使用地址翻译(NAT)， 将私有地址翻译成公用合法地址。在Internet上，这类地址 是不能出现的。对一台网络上的主机来说，它可以正常接收 的合法目的网络地址有三种：本机的IP地址、广播地址以及 组播地址。</p>
+<h4 id="IP地址的分类"><a href="#IP地址的分类" class="headerlink" title="IP地址的分类"></a>IP地址的分类</h4><ol>
+<li><strong>A类地址</strong></li>
+</ol>
+<p><strong>A类IP地址</strong> ：由1个字节的网络地址和3个字节的主机地址，网络地址的最高位必须是“0”。<br>如：0XXXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>A类IP地址范围</strong> ：1.0.0.1—126.255.255.254</p>
+<blockquote>
+<p><strong>A类IP地址中的私有地址和保留地址：</strong> </p>
+<ol>
+<li>10.X.X.X是私有地址（所谓的私有地址就是在互联网上不使用，而被用在局域网络中的地址）。范围（10.0.0.1—10.255.255.254）</li>
+<li>127.X.X.X是保留地址，用做循环测试用的。</li>
+</ol>
+</blockquote>
+<ol start="2">
+<li><strong>B类地址</strong></li>
+</ol>
+<p><strong>B类IP地址：</strong> 由2个字节的网络地址和2个字节的主机地址，网络地址的最高位必须是“10”。</p>
+<p>如：10XXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>B类IP地址范围：</strong> 128.0.0.1—191.255.255.254。</p>
+<blockquote>
+<p><strong>B类IP地址的私有地址和保留地址：</strong></p>
+<ol>
+<li>172.16.0.0—172.31.255.254是私有地址</li>
+<li>169.254.X.X是保留地址。如果你的IP地址是自动获取IP地址， 而在网络上又没有找到可用的DHCP服务器。就会得到其中一个IP。 191.255.255.255是广播地址，不能分配。</li>
+</ol>
+</blockquote>
+<ol start="3">
+<li><strong>C类地址</strong></li>
+</ol>
+<p><strong>C类IP地址：</strong> 由3个字节的网络地址和1个字节的主机地址，网络地址的最高位必须是“110”。<br>如：110XXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>C类IP地址范围：</strong> 192.0.0.1—223.255.255.254。</p>
+<blockquote>
+<p><strong>C类地址中的私有地址：</strong><br>192.168.X.X是私有地址。（192.168.0.1—192.168.255.255)</p>
+</blockquote>
+<p>4、<strong>D类地址</strong></p>
+<p><strong>D类地址：</strong> 不分网络地址和主机地址，它的第1个字节的前四位固定为1110。<br>如：1110XXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>D类地址范围：</strong> 224.0.0.1—239.255.255.254</p>
+<p>5、<strong>E类地址</strong><br><strong>E类地址：</strong> 不分网络地址和主机地址，它的第1个字节的前四位固定为 1111。<br>如：1111XXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>E类地址范围：</strong> 240.0.0.1—255.255.255.254</p>
+]]></content>
+      <categories>
+        <category>IP</category>
+      </categories>
+      <tags>
+        <tag>IP</tag>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Cloudfare Page 部署静态网站</title>
     <url>/posts/15696.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em></p>
@@ -15,110 +196,6 @@
         <tag>page</tag>
         <tag>git</tag>
         <tag>Cloudfare</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UEFI+GPT与BIOS+MBR有什么区别</title>
-    <url>/posts/55889.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em></p>
-<blockquote>
-<p>现在绝大多数系统都是UEFI+GPT或BIOS+MBR模式安装的，那么他们之间有什么区别呢?</p>
-</blockquote>
-<h5 id="首先是硬盘分区GPT与MBR的区别"><a href="#首先是硬盘分区GPT与MBR的区别" class="headerlink" title="首先是硬盘分区GPT与MBR的区别"></a>首先是硬盘分区GPT与MBR的区别</h5><ol>
-<li>MBR磁盘最多支持4个主分区，再增加分区只能用逻辑分区; 微软设定GPT磁盘支持128个主分区(理论可支持无限多个)。</li>
-<li>MBR磁盘最大仅支持2TB硬盘，GPT磁盘最大支持18EB硬盘(1EB=1048576TB)</li>
-<li>GPT分区磁盘有备份分区表来提高分区数据结构的完整性。</li>
-<li>GPT只能安装64位的系统，MBR可以安装32位与64位。</li>
-</ol>
-<h5 id="UEFI与BIOS的区别"><a href="#UEFI与BIOS的区别" class="headerlink" title="UEFI与BIOS的区别"></a>UEFI与BIOS的区别</h5><p>BIOS和UEFI都是引导操作系统启动的必须介质，传统BIOS启动系统 的过程中相比与UEFI启动多了一个BIOS自检环节，所以启动速度相对比较慢。</p>
-<p>BIOS下启动操作系统之前，必须从硬盘MBR主引导记录中读取系统启动代码， 然后从活动分区中引导启动操作系统，因为BIOS不能识别GPT分区，所以BIOS 模式下不能用GPT分区安装系统。</p>
-<blockquote>
-<p>传统BIOS运行流程</p>
-</blockquote>
-<pre class="mermaid">    graph LR
-    A(开 机) --&gt; B[BIOS初始化] --&gt; C[BIOS自检] --&gt; D[引导操作系统] --&gt; E(进入系统)</pre>
-
-
-
-<p>在UEFI下启动操作系统，不再需要主引导记录，也不再需要活动分区， 在开机方面相比BIOS少了自检这一步，因此它的启动速度更快。</p>
-<p>操作界面上UEFI采用的图形化界面，并且支持中文。而BIOS全部都是 英语。UEFI的图形化界面可以让用户更快的了解功能。</p>
-<blockquote>
-<p>UEFI运行流程</p>
-</blockquote>
-<pre class="mermaid">    graph LR
-    A(开 机) --&gt; B[UEFI初始化] --&gt; D[引导操作系统]--&gt; E(进入系统)</pre>
-
-
-<p>现在大部分新电脑都是UEFI+GPT模式了，这种模式更适合现在的win10、 win8系统，这种模式不能直接安装win7系统，这也是为什么很多新电脑 安装win7前都要调整分区与设置BIOS的原因。</p>
-]]></content>
-      <categories>
-        <category>windows</category>
-      </categories>
-      <tags>
-        <tag>UEFI</tag>
-        <tag>BIOS</tag>
-        <tag>主板</tag>
-        <tag>MBR</tag>
-        <tag>GPT</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Win10配置NTP服务器</title>
-    <url>/posts/14899.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em> </p>
-<h4 id="NTP服务器配置"><a href="#NTP服务器配置" class="headerlink" title="NTP服务器配置"></a>NTP服务器配置</h4><p>1.使用组合键<code>WIN + R</code> 启动运行窗口，在打开的窗口中输入<code>regedit</code>，点击确定按钮.<br><img src="/images/regedit.png"></p>
-<p>2.在打开的注册表中输入<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Config</code>，找到并打开<code>Config</code>目录，双击<code>Config</code>目录下的<code>AnnounceFlags</code>。<br><img src="/images/regedit1.png"><br>3.把注册表项的值设定为5，点击确定按钮<br><img src="/images/regedit2.png"></p>
-<p>4.再次输入注册表路径<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpServer</code>，双击<code>NtpServer</code>下的<code>Enabled</code>文件。<br><img src="/images/regedit3.png"><br>5.把Enabled的值设定为<code>1</code>，点击确定按钮。</p>
-<p>6.打开命令提示符窗口（以管理员身份运行）。开始-找到windows系统-找到命令提示符-然后鼠标右键点击命令提示符-选择以管理员身份运行。<br><img src="/images/cmda.png"></p>
-<p>7.输入<code>net stop w32time</code>停止服务，再输入<code>net start w32time</code>启动服务。<br><img src="/images/cmdb.png"><br>8.输入命令<code>w32tm /stripchart /computer:127.0.0.1</code>，有时间回显说明配置成功。<br><img src="/images/cmdc.png"></p>
-<p>在win10上配置NTP时间同步服务器的方法就介绍完了。（也可以在局域网内的其他计算机上使用ntp服务功能进行ntp校时验证)</p>
-]]></content>
-      <categories>
-        <category>windows</category>
-      </categories>
-      <tags>
-        <tag>NTP</tag>
-        <tag>win10</tag>
-        <tag>服务器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>便携小空调设置</title>
-    <url>/posts/45943.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em></p>
-<h3 id="部署方案"><a href="#部署方案" class="headerlink" title="部署方案"></a>部署方案</h3><p>在博客根目录执行命令:</p>
-<pre><code>hexo new page air-conditioner
-</code></pre>
-<p>会生成<code>source/air-conditioner/index.md</code>, 将以下内容替换原内容</p>
-<pre><code>---
-title: 便携小空调 - 为你的夏日带去清凉!
-date: 2022-10-20 22:06:17
-comments: true
-aside: false
-top_img: false
----
-
-&gt; 终于为博客安装上了便携小空调
-
-&lt;style&gt;
-.copyright-box a {
-  border-bottom: none !important;
-  padding: 0 !important;
-}
-&lt;/style&gt;
-
-&lt;div id="air-conditioner-vue"&gt;&lt;/div&gt;
-&lt;script defer data-pjax src='https://npm.elemecdn.com/anzhiyu-air-conditioner@1.0.1/index.3f125bc6.js'&gt;&lt;/script&gt;
-</code></pre>
-<p>然后访问<a href="https://你的博客域名/air-conditioner">https://你的博客域名/air-conditioner</a>就可以得到一个没有风的空调 ❄️</p>
-<h3 id="其他部署方案"><a href="#其他部署方案" class="headerlink" title="其他部署方案"></a>其他部署方案</h3><p>如果使用的是其他的，部署也一样简单，只需加入以下代码嵌入网站即可</p>
-<pre><code>&lt;iframe height="740" src="https://loquacious-bienenstitch-58539b.netlify.app/"&gt;&lt;/iframe&gt;
-</code></pre>
-]]></content>
-      <tags>
-        <tag>hexo</tag>
-        <tag>html</tag>
-        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -221,6 +298,452 @@ limit: 10000
         <tag>hexo</tag>
         <tag>anzhiyu</tag>
         <tag>主题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>添加今日诗词</title>
+    <url>/posts/38054.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em></p>
+<p>本文将介绍如何增添随机诗词的展示。</p>
+<p>具体效果如下：<br><img src="/images/sc.png"></p>
+<br>
+
+<h3 id="创建组件"><a href="#创建组件" class="headerlink" title="创建组件"></a>创建组件</h3><p>主题新建themes/anzhiyu/layout/includes/widget/card_poem.pug，内容如下</p>
+<pre><code>#card-poem.card-widget
+    #poem_sentence
+    #poem_info
+        #poem_dynasty
+        #poem_author
+script(src='https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js', charset='utf-8')
+script(type='text/javascript').
+  jinrishici.load(function(result) {
+  var sentence = document.querySelector("#poem_sentence")
+  var author = document.querySelector("#poem_author")
+  var dynasty = document.querySelector("#poem_dynasty")
+
+  var sentenceText = result.data.content
+  sentenceText = sentenceText.substr(0, sentenceText.length - 1);
+  sentence.innerHTML = sentenceText
+  dynasty.innerHTML = result.data.origin.dynasty
+  author.innerHTML = result.data.origin.author + '《' + result.data.origin.title + '》'
+  });
+</code></pre>
+<h3 id="引入组件"><a href="#引入组件" class="headerlink" title="引入组件"></a>引入组件</h3><p>在<code>themes/anzhiyu/layout/includes/widget/index.pug</code>中你需要的位置添加以下内容</p>
+<pre><code>!=partial('includes/widget/card_poem', {}, {cache: true})
+</code></pre>
+<p><img src="/images/shici.png"></p>
+<h3 id="引入CSS"><a href="#引入CSS" class="headerlink" title="引入CSS"></a>引入CSS</h3><p>在主题配置文件中添加</p>
+<pre><code>inject:
+head:
+
+-
+</code></pre>
+<p>heoMainColor.css</p>
+<pre><code>&lt;link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css"&gt;
+</code></pre>
+<p>引用主css</p>
+<pre><code>&lt;link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css"&gt;
+</code></pre>
+<br>
+
+
+<p>这里调用的是<code>今日诗词API</code>，是一个可以返回一句古诗词名句的接口。</p>
+<p>它可以通过图片和 JSON 格式调用。今日诗词 API 根据不同地点、时间、节日、季节、天气、景观、城市进行智能推荐。</p>
+<p>访问链接：<a href="https://www.jinrishici.com/">https://www.jinrishici.com</a></p>
+]]></content>
+      <categories>
+        <category>诗词</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>主题</tag>
+        <tag>诗词</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>今日诗词</title>
+    <url>/posts/7850.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em></p>
+<div class="poem-wrap">
+  <div class="poem-border poem-left"></div>
+  <div class="poem-border poem-right"></div>
+    <h2>念两句诗</h2>
+    <p id="poem">挑选中...</p>
+    <p id="info">
+
+  <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    jinrishici.load(function(result) {
+      poem.innerHTML = result.data.content
+      info.innerHTML = '【' + result.data.origin.dynasty + '】' + result.data.origin.author + '《' + result.data.origin.title + '》'
+      document.getElementById("poem").value(poem);
+      document.getElementById("info").value(info);  
+  });
+  </script>
+</p></div>
+
+<h3 id="添加每日一言"><a href="#添加每日一言" class="headerlink" title="添加每日一言"></a>添加每日一言</h3><p id="hitokoto">获取中...</p>
+<script src="https://v1.hitokoto.cn/?encode=js&amp;select=%23hitokoto" defer=""></script>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>诗词</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>next 主题配置</title>
+    <url>/posts/15660.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em></p>
+<h4 id="主题下载安装"><a href="#主题下载安装" class="headerlink" title="主题下载安装"></a>主题下载安装</h4><p>进入命令行，下载 NexT 主题，输入：</p>
+<pre><code>git clone https://github.com/theme-next/hexo-theme-next themes/next
+</code></pre>
+<p>修改站点配置文件<code>_config.yml</code>，找到如下代码：</p>
+<pre><code>## Themes: https://hexo.io/themes/
+theme: landscape
+</code></pre>
+<p>将 landscape 修改为 next </p>
+<h4 id="切换主题"><a href="#切换主题" class="headerlink" title="切换主题"></a>切换主题</h4><p>next 主题自带四种样式。</p>
+<p>在主题配置文件<code>/next/_config.yml</code>中查找：<code>scheme</code>，找到如下代码：</p>
+<pre><code># Schemes
+scheme: Muse
+#scheme: Mist
+#scheme: Pisces
+#scheme: Gemini
+选择一种样式，去掉前面的 #，其他主题前加上 # 
+</code></pre>
+<h4 id="隐藏网页强力驱动"><a href="#隐藏网页强力驱动" class="headerlink" title="隐藏网页强力驱动"></a>隐藏网页强力驱动</h4><p>隐藏网页底部 powered By Hexo / 强力驱动<br>打开 <code>themes/next/layout/_partials/footer.swig</code></p>
+<p>找到</p>
+<pre><code>{% if theme.footer.powered.enable %}
+</code><div class="powered-by"><code>{#
+#}{{ __('footer.powered', '<a class="theme-link" target="_blank" '="" +="" nofollow="" href="https://hexo.io">Hexo</a>') }}{% if theme.footer.powered.version %} v{{ hexo_env('version') }}{% endif %}{#
+#}&lt;/div&gt;
+{% endif %}
+{% if theme.footer.powered.enable and theme.footer.theme.enable %}
+<span class="post-meta-divider">|</span>
+{% endif %}
+{% if theme.footer.theme.enable %}
+</code><div class="theme-info"><code>{#
+#}{{ __('footer.theme') }} – {#
+#}<a class="theme-link" target="_blank" &#123;&#123;="" nofollow="" &#125;&#125;="" href="https://theme-next.org">{#
+#}NexT.{{ theme.scheme }}{#
+#}</a>{% if theme.footer.theme.version %} v{{ version }}{% endif %}{#
+#}&lt;/div&gt;
+{% endif %}
+</code></div></div></pre>
+<p>把这段代码首尾分别加上：<!-- 和-->，或者直接删除</p>
+<h4 id="浏览进度"><a href="#浏览进度" class="headerlink" title="浏览进度"></a>浏览进度</h4><p>浏览页面显示当前浏览进度<br>打开 <code>themes/next/_config.yml</code>，搜索关键字 <code>scrollpercent</code>,把 false 改为 true</p>
+<h4 id="Local-Search本地搜索"><a href="#Local-Search本地搜索" class="headerlink" title="Local Search本地搜索"></a>Local Search本地搜索</h4><p>安装插件<code>hexo-generator-searchdb</code>,执行以下命令:</p>
+<pre><code>npm install hexo-generator-searchdb --save
+或者
+npm install -g npm@11.3.0
+</code></pre>
+<p>修改<code>hexo/_config.yml</code>站点配置文件，新增以下内容到任意位置</p>
+<pre><code>search:
+path: search.xml
+field: post
+format: html
+limit: 10000
+</code></pre>
+<p>编辑 __主题配置文件__，启用本地搜索功能：</p>
+<pre><code># Local search
+local_search:
+enable: true
+</code></pre>
+<h4 id="设置网站图标"><a href="#设置网站图标" class="headerlink" title="设置网站图标"></a>设置网站图标</h4><p>找一张（32 * 32）的 ico 图标，或者去别的网站下载或者制作，并将图标名称改为 favicon.ico，然后把图标放在 ·/themes/next/source/images· 里，并且修改主题配置文件：</p>
+<pre><code>Put your favicon.ico into `hexo-site/source/` directory.
+favicon: /favicon.ico
+</code></pre>
+<h4 id="修改文章底部标签"><a href="#修改文章底部标签" class="headerlink" title="修改文章底部标签"></a>修改文章底部标签</h4><p>修改文章底部的#号的标签，改为图标<br>修改模板<code>/themes/next/layout/_macro/post.swig</code></p>
+<p>搜索 rel=“tag”&gt;#，将 # 换成<code>&lt;i class="fa fa-tag"&gt;&lt;/i&gt;</code></p>
+<h4 id="Read-More-按钮样式"><a href="#Read-More-按钮样式" class="headerlink" title="[Read More]按钮样式"></a>[Read More]按钮样式</h4><p>修改<code>themes\next\source\css\_custom\custom.styl</code>文件，加入自定义样式</p>
+<pre><code>// [Read More]按钮样式
+.post-button .btn {
+    color: #555 !important;
+    background-color: rgb(255, 255, 255);
+    border-radius: 3px;
+    font-size: 15px;
+    box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.35);
+    border: none !important;
+    transition-property: unset;
+    padding: 0px 15px;
+}
+
+.post-button .btn:hover {
+    color: rgb(255, 255, 255) !important;
+    border-radius: 3px;
+    font-size: 15px;
+    box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.35);
+    background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);
+}
+</code></pre>
+<h4 id="阅读全文设置"><a href="#阅读全文设置" class="headerlink" title="阅读全文设置"></a>阅读全文设置</h4><p>修改 阅读全文 前显示文字数量即位置<br>打开 <code>themes/next/_config.yml</code>,搜索关键字 <code>auto_excerpt</code>， 修改length即可修改阅读全文前显示文字数量</p>
+<pre><code>auto_excerpt:
+  enable: true
+  length: 150
+</code></pre>
+<p><strong>或者在文章中任意位置添加</strong><code>&lt;!-- more --&gt;</code></p>
+<p>建议在文章中加入 <code>&lt;!-- more --&gt;</code><br>自定义 [Read More] 按钮之前要显示的内容！</p>
+<h4 id="修改链接文字样式"><a href="#修改链接文字样式" class="headerlink" title="修改链接文字样式"></a>修改链接文字样式</h4><p>打开<code>themes\next\source\css\_common\components\post\post.styl</code>添加以下代码:</p>
+<pre><code>.post-body p a{
+
+ color: #0593d3;
+ border-bottom: none;
+ &amp;:hover {
+   color: #ff106c;
+   text-decoration: underline;
+ }
+}
+</code></pre>
+<p>连接颜色已变为彩色</p>
+<h4 id="代码块复制选项"><a href="#代码块复制选项" class="headerlink" title="代码块复制选项"></a>代码块复制选项</h4><p>Next6 中自带了复制代码按钮，Next5 需要自己手动配置。</p>
+<p>搜索 <code>codeblock</code>，找到如下配置：</p>
+<pre><code>codeblock:
+border_radius: 8   # 按钮圆滑度
+copy_button:  # 设置是否开启代码块复制按钮
+    enable: true
+    show_result: true  # 是否显示复制成功信息
+</code></pre>
+<h4 id="修改加载特效"><a href="#修改加载特效" class="headerlink" title="修改加载特效"></a>修改加载特效</h4><p>由于网页不可能一直都秒进，总会等待一段时间的，所以可以设置顶部加载条。Next 已经集成了很多加载特效，可以在下面选项中在线调试测试一下。</p>
+<p>搜索<code>pace</code>，找到如下代码：</p>
+<pre><code># 页面顶部加载条
+# Progress bar in the top during page loading.
+pace: true
+# Themes list:
+#pace-theme-big-counter
+#pace-theme-bounce
+#pace-theme-barber-shop
+#pace-theme-center-atom
+#pace-theme-center-circle
+#pace-theme-center-radar
+#pace-theme-center-simple
+#pace-theme-corner-indicator
+#pace-theme-fill-left
+#pace-theme-flash
+#pace-theme-loading-bar
+#pace-theme-mac-osx
+#pace-theme-minimal
+# For example
+# pace_theme: pace-theme-center-simple
+pace_theme: pace-theme-minimal  #默认设置，可以修改为上述任何一个
+</code></pre>
+]]></content>
+      <categories>
+        <category>主题</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>主题</tag>
+        <tag>next</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>markdown 语法</title>
+    <url>/posts/23825.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em></p>
+<h3 id="Markdown-介绍"><a href="#Markdown-介绍" class="headerlink" title="Markdown 介绍"></a>Markdown 介绍</h3><p>Markdown 是一种轻量级标记语言，排版语法简洁，让人们更多地关注内容本身而非排版。它使用易读易写的纯文本格式编写文档，可与HTML混编，可导出 HTML、PDF 以及本身的 .md 格式的文件。因简洁、高效、易读、易写，Markdown被大量使用，如Github、Wikipedia、简书等。</p>
+<h3 id="常用语法"><a href="#常用语法" class="headerlink" title="常用语法"></a>常用语法</h3><ol>
+<li><code>标题</code>：使用<code>#</code>来表示不同级别的标题。例如：</li>
+</ol>
+<pre><code># 一级标题
+## 二级标题
+### 三级标题
+</code></pre>
+<ol start="2">
+<li><code>强调</code>: 使用<code>*</code>或<code>_</code>来表示斜体或加粗。例如</li>
+</ol>
+<pre><code>*斜体文本*
+**加粗文本**
+</code></pre>
+<ol start="3">
+<li><code>列表</code>：<ul>
+<li>无序列表使用<code>*</code>、<code>+</code>或<code>-</code></li>
+</ul>
+</li>
+</ol>
+<pre><code>- 项目一
+- 项目二
+</code></pre>
+<ul>
+<li>有序列表使用数字加<code>.</code></li>
+</ul>
+<pre><code>1. 第一项
+2. 第二项
+</code></pre>
+<ol start="4">
+<li><code>链接</code>:使用<code>[描述](链接)</code>来创建链接。例如：</li>
+</ol>
+<pre><code>[Google](https://www.google.com)
+</code></pre>
+<ol start="5">
+<li><code>图片</code>：类似链接，但前面加一个<code>!</code>。例如：</li>
+</ol>
+<pre><code>![图片描述](图片链接)
+</code></pre>
+<ol start="6">
+<li><code>代码块</code>：使用三个反引号（```）来表示代码块，可以指定语言进行语法高亮。例如：</li>
+</ol>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Hello, World!"</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="7">
+<li><code>引用</code>：使用<code>&gt;</code>来表示引用。例如：</li>
+</ol>
+<pre><code>&gt; 这是一个引用
+</code></pre>
+<blockquote>
+<p>这是一个引用</p>
+</blockquote>
+<ol start="8">
+<li><code>文本高亮</code>：一些Markdown解析器支持特殊语法来实现文本高亮，例如：</li>
+</ol>
+<pre><code>==这部分文本会被高亮==
+</code></pre>
+<ol start="9">
+<li><code>代码行</code>：代码行（即内联代码）是指在文本中嵌入一行或几行的代码。例如：</li>
+</ol>
+<pre><code>`代码`
+</code></pre>
+<ol start="10">
+<li><code>表格</code>：表格的每一行用<code>|</code>分隔，表头和内容行之间用<code>---</code>分隔，列对齐方式可以通过在<code>---</code>前后添加<code>:</code>来指定。例如：</li>
+</ol>
+<pre><code>| 表头1 | 表头2 | 表头3 |
+
+
+| 左对齐 | 居中对齐 | 右对齐 |
+|:-------|:-------:|-------:|
+| 文本   | 文本    | 文本   |
+</code></pre>
+<p>| 表头1 | 表头2 | 表头3 |</p>
+<table>
+<thead>
+<tr>
+<th align="left">左对齐</th>
+<th align="center">居中对齐</th>
+<th align="right">右对齐</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">文本</td>
+<td align="center">文本</td>
+<td align="right">文本</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>markdown</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>markdown 表格</title>
+    <url>/posts/22847.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em></p>
+<h2 id="Markdown-表格"><a href="#Markdown-表格" class="headerlink" title="Markdown 表格"></a>Markdown 表格</h2><p>Markdown 制作表格使用 | 来分隔不同的单元格，使用 - 分隔表头和其他行。</p>
+<p>语法格式如下：</p>
+<pre><code>|  表头   | 表头  |
+|  ----  | ----  |
+| 单元格  | 单元格 |
+| 单元格  | 单元格 |
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>表头</th>
+<th>表头</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+<tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+</tbody></table>
+<p>对齐方式</p>
+<p><strong>可以设置表格的对齐方式：</strong></p>
+<ul>
+<li>-: 设置内容和标题栏居右对齐</li>
+<li>:- 设置内容和标题栏居左对齐</li>
+<li>:-: 设置内容和标题栏居中对齐</li>
+</ul>
+<pre><code>实例如下：
+
+| 左对齐 | 右对齐 | 居中对齐 |
+| :-----| ----: | :----: |
+| 单元格 | 单元格 | 单元格 |
+| 单元格 | 单元格 | 单元格 |
+</code></pre>
+<table>
+<thead>
+<tr>
+<th align="left">左对齐</th>
+<th align="right">右对齐</th>
+<th align="center">居中对齐</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">单元格</td>
+<td align="right">单元格</td>
+<td align="center">单元格</td>
+</tr>
+<tr>
+<td align="left">单元格</td>
+<td align="right">单元格</td>
+<td align="center">单元格</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>markdown</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
+        <tag>表格</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>便携小空调设置</title>
+    <url>/posts/45943.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em></p>
+<h3 id="部署方案"><a href="#部署方案" class="headerlink" title="部署方案"></a>部署方案</h3><p>在博客根目录执行命令:</p>
+<pre><code>hexo new page air-conditioner
+</code></pre>
+<p>会生成<code>source/air-conditioner/index.md</code>, 将以下内容替换原内容</p>
+<pre><code>---
+title: 便携小空调 - 为你的夏日带去清凉!
+date: 2022-10-20 22:06:17
+comments: true
+aside: false
+top_img: false
+---
+
+&gt; 终于为博客安装上了便携小空调
+
+&lt;style&gt;
+.copyright-box a {
+  border-bottom: none !important;
+  padding: 0 !important;
+}
+&lt;/style&gt;
+
+&lt;div id="air-conditioner-vue"&gt;&lt;/div&gt;
+&lt;script defer data-pjax src='https://npm.elemecdn.com/anzhiyu-air-conditioner@1.0.1/index.3f125bc6.js'&gt;&lt;/script&gt;
+</code></pre>
+<p>然后访问<a href="https://你的博客域名/air-conditioner">https://你的博客域名/air-conditioner</a>就可以得到一个没有风的空调 ❄️</p>
+<h3 id="其他部署方案"><a href="#其他部署方案" class="headerlink" title="其他部署方案"></a>其他部署方案</h3><p>如果使用的是其他的，部署也一样简单，只需加入以下代码嵌入网站即可</p>
+<pre><code>&lt;iframe height="740" src="https://loquacious-bienenstitch-58539b.netlify.app/"&gt;&lt;/iframe&gt;
+</code></pre>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+        <tag>html</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -859,174 +1382,6 @@ rgba(24,40,72,.2));
       </tags>
   </entry>
   <entry>
-    <title>Github迁移到Gitee</title>
-    <url>/posts/49051.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em> </p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><blockquote>
-</blockquote>
-<h4 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h4><p>在blog文件夹下打开git输入</p>
-<pre><code>git config --global user.email "注册gitee时使用的邮箱"
-git config --global user.name "gitee的用户名"
-</code></pre>
-<p>生成git公钥</p>
-<pre><code>ssh-keygen -t rsa -C "you email@126.com"
-</code></pre>
-<p>提示输入passphrase时可直接回车</p>
-<p>可通过查看<code>.ssh/id_rsa.pub</code> 文件内容，获取你的public key</p>
-<pre><code>   #  此命令在本地PC上执行
-   cat ~/.ssh/id_rsa.pub
-   # ssh-rsa AAAB3NzaC1yc2EAAAADAQABAAABgqcp2lvm....
-</code></pre>
-<h5 id="将公钥添加到Gitee"><a href="#将公钥添加到Gitee" class="headerlink" title="将公钥添加到Gitee"></a>将公钥添加到Gitee</h5><p>首先进入<code>设置</code>页面<br>在<code>安全设置</code>中,选择<code>SSH公钥</code> ， 添加公钥后点击<code>确定</code>。</p>
-<p>在Git Bash中输入</p>
-<pre><code>   ssh -T git@gitee.com 
-</code></pre>
-<p>出现Hi XXX! You’ve successfully authenticated, but Gitee.com does not provide shell access.则证明成功！</p>
-<p>打开_config.yml进行修改<br>补全如下代码 repo即你的仓库https地址</p>
-<pre><code> deploy:
-   type: git
-   repo: git@github.com:your_name/your_name.gitee.io.git
-   branch: master
-</code></pre>
-<p>其中your_name需要替换为你的gitee的账号</p>
-<p>现在还需要创建一个首页访问地址不带二级目录的pages，如ipvb.gitee.io<br>新建一个仓库，仓库地址为<code>https://gitee.com/cas/cas.git</code>,gitee pages地址为<code>https://cas.gitee.io</code> 这样配置就不存在二级目录的问题</p>
-<pre><code># URL
-## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://cas.gitee.io  // 这个地址为预览地址，即为gitee page服务地址
-root: /
-
-# Deployment
-## Docs: https://hexo.io/docs/deployment.html
-deploy:
-  type: git
-  repo: https://gitee.com/cas/.git
-  branch: master
-</code></pre>
-<p>现在需要执行以下命令 就可以发布自己的博客了。每次新建完文章之后部署，也是相同命令</p>
-<pre><code>hexo clean         # 清除本地缓存
-hexo g             # 重新生成静态页面
-hexo d             # 部署到git
-</code></pre>
-]]></content>
-      <categories>
-        <category>Gitee</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Gitee</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>博客文章压缩</title>
-    <url>/posts/29115.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em> </p>
-<h3 id="gulp压缩静态资源"><a href="#gulp压缩静态资源" class="headerlink" title="gulp压缩静态资源"></a>gulp压缩静态资源</h3><p>gulp 能够帮助用户自动压缩静态资源，配合各类下属插件，能够压缩包括css、js、html乃至各类格式的图片文件</p>
-<h4 id="安装Gulp插件"><a href="#安装Gulp插件" class="headerlink" title="安装Gulp插件"></a>安装Gulp插件</h4><p>安装Gulp插件：在博客根目录[Blog]打开终端，输入：</p>
-<pre><code>npm install --global gulp-cli #全局安装gulp指令集
-npm install gulp --save #安装gulp插件
-</code></pre>
-<p>安装各个下属插件以实现对各类静态资源的压缩。</p>
-<h5 id="压缩HTML"><a href="#压缩HTML" class="headerlink" title="压缩HTML"></a>压缩HTML</h5><pre><code>npm install gulp-htmlclean --save-dev
-npm install gulp-html-minifier-terser --save-dev
-# 用gulp-html-minifier-terser可以压缩HTML中的ES6语法
-</code></pre>
-<h5 id="压缩CSS"><a href="#压缩CSS" class="headerlink" title="压缩CSS"></a>压缩CSS</h5><pre><code>npm install gulp-clean-css --save-dev
-</code></pre>
-<h5 id="压缩JS"><a href="#压缩JS" class="headerlink" title="压缩JS"></a>压缩JS</h5><p>使用terser来压缩js。gulp-terser只会直接压缩js代码，所以不存在因为语法变动导致的错误 。事实上，当我们使用jsdelivr的CDN服务时，只需要在css或者js的后缀前添加.min,例如example.js-&gt;example.min.js，JsDelivr就会自动使用terser帮我们压缩好代码。</p>
-<pre><code>npm install gulp-terser --save-dev
-</code></pre>
-<h5 id="压缩字体包"><a href="#压缩字体包" class="headerlink" title="压缩字体包"></a>压缩字体包</h5><p>fontmin可以遍历博客内用到的字符，并将字体包内这些字符的字体样式提取出来输出为新的字体包。fontmin仅支持压缩ttf格式的字体包</p>
-<pre><code>npm install gulp-fontmin --save-dev
-</code></pre>
-<h5 id="创建任务脚本"><a href="#创建任务脚本" class="headerlink" title="创建任务脚本"></a>创建任务脚本</h5><p>为Gulp创建gulpfile.js任务脚本。在博客根目录[Blogroot]下新建gulpfile.js,打开[Blogroot]\gulpfile.js,输入以下内容：</p>
-<pre><code>//用到的各个插件
-var gulp = require('gulp');
-var cleanCSS = require('gulp-clean-css');
-var htmlmin = require('gulp-html-minifier-terser');
-var htmlclean = require('gulp-htmlclean');
-var fontmin = require('gulp-fontmin');
-// gulp-tester
-var terser = require('gulp-terser');
-// 压缩js
-gulp.task('compress', async() =&gt;{
-gulp.src(['./public/**/*.js', '!./public/**/*.min.js'])
-.pipe(terser())
-.pipe(gulp.dest('./public'))
-});
-//压缩css
-gulp.task('minify-css', () =&gt; {
-return gulp.src(['./public/**/*.css'])
-.pipe(cleanCSS({
-compatibility: 'ie11'
-}))
-.pipe(gulp.dest('./public'));
-});
-//压缩html
-gulp.task('minify-html', () =&gt; {
-return gulp.src('./public/**/*.html')
-.pipe(htmlclean())
-.pipe(htmlmin({
-removeComments: true, //清除html注释
-collapseWhitespace: true, //压缩html
-collapseBooleanAttributes: true,
-//省略布尔属性的值，例如：&lt;input checked="true"/&gt; ==&gt; &lt;input /&gt;
-removeEmptyAttributes: true,
-//删除所有空格作属性值，例如：&lt;input id="" /&gt; ==&gt; &lt;input /&gt;
-removeScriptTypeAttributes: true,
-//删除&lt;script&gt;的type="text/javascript"
-removeStyleLinkTypeAttributes: true,
-//删除&lt;style&gt;和&lt;link&gt;的 type="text/css"
-minifyJS: true, //压缩页面 JS
-minifyCSS: true, //压缩页面 CSS
-minifyURLs: true //压缩页面URL
-}))
-.pipe(gulp.dest('./public'))
-});
-//压缩字体
-function minifyFont(text, cb) {
-gulp
-.src('./public/fonts/*.ttf') //原字体所在目录
-.pipe(fontmin({
-text: text
-}))
-.pipe(gulp.dest('./public/fontsdest/')) //压缩后的输出目录
-.on('end', cb);
-}
-
-gulp.task('mini-font', (cb) =&gt; {
-var buffers = [];
-gulp
-.src(['./public/**/*.html']) //HTML文件所在目录请根据自身情况修改
-.on('data', function(file) {
-buffers.push(file.contents);
-})
-.on('end', function() {
-var text = Buffer.concat(buffers).toString('utf-8');
-minifyFont(text, cb);
-});
-});
-// 运行gulp命令时依次执行以下任务
-gulp.task('default', gulp.parallel(
-'compress', 'minify-css', 'minify-html','mini-font'
-))
-</code></pre>
-<p>在每次运行完hexo generate生成静态页面后，运行gulp对其进行压缩。指令流程如下：</p>
-<pre><code>hexo clean
-hexo generate
-gulp
-hexo server 或 hexo deploy
-</code></pre>
-]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>博客</tag>
-        <tag>压缩</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux 目录结构</title>
     <url>/posts/6747.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em> </p>
@@ -1120,359 +1475,207 @@ hexo server 或 hexo deploy
       </tags>
   </entry>
   <entry>
-    <title>今日诗词</title>
-    <url>/posts/7850.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em></p>
-<div class="poem-wrap">
-  <div class="poem-border poem-left"></div>
-  <div class="poem-border poem-right"></div>
-    <h2>念两句诗</h2>
-    <p id="poem">挑选中...</p>
-    <p id="info">
-
-  <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-  <script type="text/javascript">
-    jinrishici.load(function(result) {
-      poem.innerHTML = result.data.content
-      info.innerHTML = '【' + result.data.origin.dynasty + '】' + result.data.origin.author + '《' + result.data.origin.title + '》'
-      document.getElementById("poem").value(poem);
-      document.getElementById("info").value(info);  
-  });
-  </script>
-</p></div>
-
-<h3 id="添加每日一言"><a href="#添加每日一言" class="headerlink" title="添加每日一言"></a>添加每日一言</h3><p id="hitokoto">获取中...</p>
-<script src="https://v1.hitokoto.cn/?encode=js&amp;select=%23hitokoto" defer=""></script>
-]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>诗词</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>markdown 表格</title>
-    <url>/posts/22847.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em></p>
-<h2 id="Markdown-表格"><a href="#Markdown-表格" class="headerlink" title="Markdown 表格"></a>Markdown 表格</h2><p>Markdown 制作表格使用 | 来分隔不同的单元格，使用 - 分隔表头和其他行。</p>
-<p>语法格式如下：</p>
-<pre><code>|  表头   | 表头  |
-|  ----  | ----  |
-| 单元格  | 单元格 |
-| 单元格  | 单元格 |
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>表头</th>
-<th>表头</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>单元格</td>
-<td>单元格</td>
-</tr>
-<tr>
-<td>单元格</td>
-<td>单元格</td>
-</tr>
-</tbody></table>
-<p>对齐方式</p>
-<p><strong>可以设置表格的对齐方式：</strong></p>
-<ul>
-<li>-: 设置内容和标题栏居右对齐</li>
-<li>:- 设置内容和标题栏居左对齐</li>
-<li>:-: 设置内容和标题栏居中对齐</li>
-</ul>
-<pre><code>实例如下：
-
-| 左对齐 | 右对齐 | 居中对齐 |
-| :-----| ----: | :----: |
-| 单元格 | 单元格 | 单元格 |
-| 单元格 | 单元格 | 单元格 |
-</code></pre>
-<table>
-<thead>
-<tr>
-<th align="left">左对齐</th>
-<th align="right">右对齐</th>
-<th align="center">居中对齐</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">单元格</td>
-<td align="right">单元格</td>
-<td align="center">单元格</td>
-</tr>
-<tr>
-<td align="left">单元格</td>
-<td align="right">单元格</td>
-<td align="center">单元格</td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>markdown</category>
-      </categories>
-      <tags>
-        <tag>markdown</tag>
-        <tag>表格</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>markdown 语法</title>
-    <url>/posts/23825.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em></p>
-<h3 id="Markdown-介绍"><a href="#Markdown-介绍" class="headerlink" title="Markdown 介绍"></a>Markdown 介绍</h3><p>Markdown 是一种轻量级标记语言，排版语法简洁，让人们更多地关注内容本身而非排版。它使用易读易写的纯文本格式编写文档，可与HTML混编，可导出 HTML、PDF 以及本身的 .md 格式的文件。因简洁、高效、易读、易写，Markdown被大量使用，如Github、Wikipedia、简书等。</p>
-<h3 id="常用语法"><a href="#常用语法" class="headerlink" title="常用语法"></a>常用语法</h3><ol>
-<li><code>标题</code>：使用<code>#</code>来表示不同级别的标题。例如：</li>
+    <title>批处理命令</title>
+    <url>/posts/44656.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em> </p>
+<h5 id="批处理命令"><a href="#批处理命令" class="headerlink" title="批处理命令"></a>批处理命令</h5><ol>
+<li>映射磁盘驱动器</li>
 </ol>
-<pre><code># 一级标题
-## 二级标题
-### 三级标题
-</code></pre>
+<p><code>net use y: \\10.80.155.152\F /user:hp</code>  “y”指定的驱动器号; /user:”username”</p>
 <ol start="2">
-<li><code>强调</code>: 使用<code>*</code>或<code>_</code>来表示斜体或加粗。例如</li>
+<li>使用文件资源管理器打开FTP服务器登录窗口</li>
 </ol>
-<pre><code>*斜体文本*
-**加粗文本**
+<pre><code>@echo off
+explorer ftp://10.80.155.152
+</code></pre>
+<p>使用浏览器打开对应网址</p>
+<pre><code>@echo off
+start www.baidu.com
 </code></pre>
 <ol start="3">
-<li><code>列表</code>：<ul>
-<li>无序列表使用<code>*</code>、<code>+</code>或<code>-</code></li>
-</ul>
-</li>
+<li>按任意键继续</li>
 </ol>
-<pre><code>- 项目一
-- 项目二
-</code></pre>
-<ul>
-<li>有序列表使用数字加<code>.</code></li>
-</ul>
-<pre><code>1. 第一项
-2. 第二项
-</code></pre>
+<p><code>pause</code>  按任意键继续</p>
 <ol start="4">
-<li><code>链接</code>:使用<code>[描述](链接)</code>来创建链接。例如：</li>
+<li>启动磁盘里的可执行程序</li>
 </ol>
-<pre><code>[Google](https://www.google.com)
+<pre><code>/@echo off
+e:
+cd\
+cd examClient-win32–x64
+examClient.exe
 </code></pre>
 <ol start="5">
-<li><code>图片</code>：类似链接，但前面加一个<code>!</code>。例如：</li>
+<li>打开共享文件夹</li>
 </ol>
-<pre><code>![图片描述](图片链接)
+<pre><code>@echo off
+rem 建立链接
+rem 打开共享文件夹
+explorer \\10.80.7.1\
+exit
 </code></pre>
 <ol start="6">
-<li><code>代码块</code>：使用三个反引号（```）来表示代码块，可以指定语言进行语法高亮。例如：</li>
+<li>运行后删除自身文件    使用   <code>del %0</code></li>
 </ol>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Hello, World!"</span><span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre><code>@echo off
+echo 按任意键后我将删除自身
+pause
+del %0
+</code></pre>
 <ol start="7">
-<li><code>引用</code>：使用<code>&gt;</code>来表示引用。例如：</li>
+<li>万能删除文件</li>
 </ol>
-<pre><code>&gt; 这是一个引用
+<pre><code>@echo off
+DEL /F /A /Q \\?\%1
+RD /S /Q \\?\%1
 </code></pre>
+<p> 批处理删除文件夹下所有文件和文件夹</p>
 <blockquote>
-<p>这是一个引用</p>
+<ul>
+<li>1、rd命令<br>rd /s /Q c:\temp<br>会将temp文件夹也删除</li>
+<li>2、rd命令+md命令<br>rd /s /Q c:\temp<br>md c:\Temp<br>删除后再重建</li>
+<li>3、del命令<br>del /s /Q c:\temp<br>只能删除文件，而不能删除子文件夹</li>
+<li>4、del命令+rd命令，先刪除文件，再进入temp文件夹删除目录<br>del /s /Q c:\temp<br>cd C:\temp<br>rd /s /q c:\temp</li>
+</ul>
 </blockquote>
-<ol start="8">
-<li><code>文本高亮</code>：一些Markdown解析器支持特殊语法来实现文本高亮，例如：</li>
-</ol>
-<pre><code>==这部分文本会被高亮==
-</code></pre>
-<ol start="9">
-<li><code>代码行</code>：代码行（即内联代码）是指在文本中嵌入一行或几行的代码。例如：</li>
-</ol>
-<pre><code>`代码`
-</code></pre>
-<ol start="10">
-<li><code>表格</code>：表格的每一行用<code>|</code>分隔，表头和内容行之间用<code>---</code>分隔，列对齐方式可以通过在<code>---</code>前后添加<code>:</code>来指定。例如：</li>
-</ol>
-<pre><code>| 表头1 | 表头2 | 表头3 |
-
-
-| 左对齐 | 居中对齐 | 右对齐 |
-|:-------|:-------:|-------:|
-| 文本   | 文本    | 文本   |
-</code></pre>
-<p>| 表头1 | 表头2 | 表头3 |</p>
-<table>
-<thead>
-<tr>
-<th align="left">左对齐</th>
-<th align="center">居中对齐</th>
-<th align="right">右对齐</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">文本</td>
-<td align="center">文本</td>
-<td align="right">文本</td>
-</tr>
-</tbody></table>
 ]]></content>
       <categories>
-        <category>markdown</category>
+        <category>bat</category>
       </categories>
       <tags>
-        <tag>markdown</tag>
+        <tag>bat</tag>
+        <tag>批处理</tag>
+        <tag>cmd</tag>
       </tags>
   </entry>
   <entry>
-    <title>next 主题配置</title>
-    <url>/posts/15660.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em></p>
-<h4 id="主题下载安装"><a href="#主题下载安装" class="headerlink" title="主题下载安装"></a>主题下载安装</h4><p>进入命令行，下载 NexT 主题，输入：</p>
-<pre><code>git clone https://github.com/theme-next/hexo-theme-next themes/next
-</code></pre>
-<p>修改站点配置文件<code>_config.yml</code>，找到如下代码：</p>
-<pre><code>## Themes: https://hexo.io/themes/
-theme: landscape
-</code></pre>
-<p>将 landscape 修改为 next </p>
-<h4 id="切换主题"><a href="#切换主题" class="headerlink" title="切换主题"></a>切换主题</h4><p>next 主题自带四种样式。</p>
-<p>在主题配置文件<code>/next/_config.yml</code>中查找：<code>scheme</code>，找到如下代码：</p>
-<pre><code># Schemes
-scheme: Muse
-#scheme: Mist
-#scheme: Pisces
-#scheme: Gemini
-选择一种样式，去掉前面的 #，其他主题前加上 # 
-</code></pre>
-<h4 id="隐藏网页强力驱动"><a href="#隐藏网页强力驱动" class="headerlink" title="隐藏网页强力驱动"></a>隐藏网页强力驱动</h4><p>隐藏网页底部 powered By Hexo / 强力驱动<br>打开 <code>themes/next/layout/_partials/footer.swig</code></p>
-<p>找到</p>
-<pre><code>{% if theme.footer.powered.enable %}
-</code><div class="powered-by"><code>{#
-#}{{ __('footer.powered', '<a class="theme-link" target="_blank" '="" +="" nofollow="" href="https://hexo.io">Hexo</a>') }}{% if theme.footer.powered.version %} v{{ hexo_env('version') }}{% endif %}{#
-#}&lt;/div&gt;
-{% endif %}
-{% if theme.footer.powered.enable and theme.footer.theme.enable %}
-<span class="post-meta-divider">|</span>
-{% endif %}
-{% if theme.footer.theme.enable %}
-</code><div class="theme-info"><code>{#
-#}{{ __('footer.theme') }} – {#
-#}<a class="theme-link" target="_blank" &#123;&#123;="" nofollow="" &#125;&#125;="" href="https://theme-next.org">{#
-#}NexT.{{ theme.scheme }}{#
-#}</a>{% if theme.footer.theme.version %} v{{ version }}{% endif %}{#
-#}&lt;/div&gt;
-{% endif %}
-</code></div></div></pre>
-<p>把这段代码首尾分别加上：<!-- 和-->，或者直接删除</p>
-<h4 id="浏览进度"><a href="#浏览进度" class="headerlink" title="浏览进度"></a>浏览进度</h4><p>浏览页面显示当前浏览进度<br>打开 <code>themes/next/_config.yml</code>，搜索关键字 <code>scrollpercent</code>,把 false 改为 true</p>
-<h4 id="Local-Search本地搜索"><a href="#Local-Search本地搜索" class="headerlink" title="Local Search本地搜索"></a>Local Search本地搜索</h4><p>安装插件<code>hexo-generator-searchdb</code>,执行以下命令:</p>
-<pre><code>npm install hexo-generator-searchdb --save
-或者
-npm install -g npm@11.3.0
-</code></pre>
-<p>修改<code>hexo/_config.yml</code>站点配置文件，新增以下内容到任意位置</p>
-<pre><code>search:
-path: search.xml
-field: post
-format: html
-limit: 10000
-</code></pre>
-<p>编辑 __主题配置文件__，启用本地搜索功能：</p>
-<pre><code># Local search
-local_search:
-enable: true
-</code></pre>
-<h4 id="设置网站图标"><a href="#设置网站图标" class="headerlink" title="设置网站图标"></a>设置网站图标</h4><p>找一张（32 * 32）的 ico 图标，或者去别的网站下载或者制作，并将图标名称改为 favicon.ico，然后把图标放在 ·/themes/next/source/images· 里，并且修改主题配置文件：</p>
-<pre><code>Put your favicon.ico into `hexo-site/source/` directory.
-favicon: /favicon.ico
-</code></pre>
-<h4 id="修改文章底部标签"><a href="#修改文章底部标签" class="headerlink" title="修改文章底部标签"></a>修改文章底部标签</h4><p>修改文章底部的#号的标签，改为图标<br>修改模板<code>/themes/next/layout/_macro/post.swig</code></p>
-<p>搜索 rel=“tag”&gt;#，将 # 换成<code>&lt;i class="fa fa-tag"&gt;&lt;/i&gt;</code></p>
-<h4 id="Read-More-按钮样式"><a href="#Read-More-按钮样式" class="headerlink" title="[Read More]按钮样式"></a>[Read More]按钮样式</h4><p>修改<code>themes\next\source\css\_custom\custom.styl</code>文件，加入自定义样式</p>
-<pre><code>// [Read More]按钮样式
-.post-button .btn {
-    color: #555 !important;
-    background-color: rgb(255, 255, 255);
-    border-radius: 3px;
-    font-size: 15px;
-    box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.35);
-    border: none !important;
-    transition-property: unset;
-    padding: 0px 15px;
-}
-
-.post-button .btn:hover {
-    color: rgb(255, 255, 255) !important;
-    border-radius: 3px;
-    font-size: 15px;
-    box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.35);
-    background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);
-}
-</code></pre>
-<h4 id="阅读全文设置"><a href="#阅读全文设置" class="headerlink" title="阅读全文设置"></a>阅读全文设置</h4><p>修改 阅读全文 前显示文字数量即位置<br>打开 <code>themes/next/_config.yml</code>,搜索关键字 <code>auto_excerpt</code>， 修改length即可修改阅读全文前显示文字数量</p>
-<pre><code>auto_excerpt:
-  enable: true
-  length: 150
-</code></pre>
-<p><strong>或者在文章中任意位置添加</strong><code>&lt;!-- more --&gt;</code></p>
-<p>建议在文章中加入 <code>&lt;!-- more --&gt;</code><br>自定义 [Read More] 按钮之前要显示的内容！</p>
-<h4 id="修改链接文字样式"><a href="#修改链接文字样式" class="headerlink" title="修改链接文字样式"></a>修改链接文字样式</h4><p>打开<code>themes\next\source\css\_common\components\post\post.styl</code>添加以下代码:</p>
-<pre><code>.post-body p a{
-
- color: #0593d3;
- border-bottom: none;
- &amp;:hover {
-   color: #ff106c;
-   text-decoration: underline;
- }
-}
-</code></pre>
-<p>连接颜色已变为彩色</p>
-<h4 id="代码块复制选项"><a href="#代码块复制选项" class="headerlink" title="代码块复制选项"></a>代码块复制选项</h4><p>Next6 中自带了复制代码按钮，Next5 需要自己手动配置。</p>
-<p>搜索 <code>codeblock</code>，找到如下配置：</p>
-<pre><code>codeblock:
-border_radius: 8   # 按钮圆滑度
-copy_button:  # 设置是否开启代码块复制按钮
-    enable: true
-    show_result: true  # 是否显示复制成功信息
-</code></pre>
-<h4 id="修改加载特效"><a href="#修改加载特效" class="headerlink" title="修改加载特效"></a>修改加载特效</h4><p>由于网页不可能一直都秒进，总会等待一段时间的，所以可以设置顶部加载条。Next 已经集成了很多加载特效，可以在下面选项中在线调试测试一下。</p>
-<p>搜索<code>pace</code>，找到如下代码：</p>
-<pre><code># 页面顶部加载条
-# Progress bar in the top during page loading.
-pace: true
-# Themes list:
-#pace-theme-big-counter
-#pace-theme-bounce
-#pace-theme-barber-shop
-#pace-theme-center-atom
-#pace-theme-center-circle
-#pace-theme-center-radar
-#pace-theme-center-simple
-#pace-theme-corner-indicator
-#pace-theme-fill-left
-#pace-theme-flash
-#pace-theme-loading-bar
-#pace-theme-mac-osx
-#pace-theme-minimal
-# For example
-# pace_theme: pace-theme-center-simple
-pace_theme: pace-theme-minimal  #默认设置，可以修改为上述任何一个
+    <title>软件静默安装参数</title>
+    <url>/posts/10107.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em> </p>
+<h4 id="软件静默参数"><a href="#软件静默参数" class="headerlink" title="软件静默参数"></a>软件静默参数</h4><p>大部分软件的安装都能采取全自动或半自动的方式进行，只需要找到对应的静默参数</p>
+<p>Microsoft Windows Installer</p>
+<p>　　如果某个软件是用 Windows Installer 打包的，那你就应该能在文件夹中看到 *.msi 文件。这是最典型的特征，这些文件通常可以使用 /QB 和 /QN 参数进行自动安装。</p>
+<p>　　/qb 会在窗口中显示一个基本的安装进程。<br>　　/qn 参数则不会显示任何窗口，直接在后台自动安装。 </p>
+<h5 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h5><pre><code>WinRAR.exe /S
+7-ZIP.exe /S
+搜狗输入法.exe /S
+QQ  /S
+VC++运行库  /SILENT 显示窗口直接安装
 </code></pre>
 ]]></content>
       <categories>
-        <category>主题</category>
+        <category>windows</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
-        <tag>主题</tag>
-        <tag>next</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>了解计算机物理接口</title>
-    <url>/posts/15023.html</url>
-    <content><![CDATA[]]></content>
-      <tags>
-        <tag>PC</tag>
         <tag>windows</tag>
+        <tag>bat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禁止ipc默认共享</title>
+    <url>/posts/38974.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em> </p>
+<h4 id="禁止ipc-默认共享"><a href="#禁止ipc-默认共享" class="headerlink" title="禁止ipc$默认共享"></a>禁止ipc$默认共享</h4><p>  把ipc$和默认共享都删除了。但重起后还会有。也可以放到一个批处理里面 把这个批处理文件设置开机启动 可以禁止共享</p>
+<p>在win10及以上系统中如使用的不是管理员账户 需要在批处理前添加获取管理员身份的权限<br>代码如下：</p>
+<pre><code>%1 %2
+ver|find "5."&gt;nul&amp;&amp;goto :Admin
+mshta vbscript:createobject("shell.application").shellexecute("%~s0","goto :Admin","","runas",1)(window.close)&amp;goto :eof
+:Admin
+</code></pre>
+<p>删除共享的代码</p>
+<pre><code>net share ipc$ /del
+net share admin$ /del
+net share c$ /del
+net share d$ /del
+# …………（有几个删几个）
+</code></pre>
+]]></content>
+      <categories>
+        <category>windows</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+        <tag>IPC</tag>
+        <tag>IP</tag>
+        <tag>共享</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Win10配置NTP服务器</title>
+    <url>/posts/14899.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em> </p>
+<h4 id="NTP服务器配置"><a href="#NTP服务器配置" class="headerlink" title="NTP服务器配置"></a>NTP服务器配置</h4><p>1.使用组合键<code>WIN + R</code> 启动运行窗口，在打开的窗口中输入<code>regedit</code>，点击确定按钮.<br><img src="/images/regedit.png"></p>
+<p>2.在打开的注册表中输入<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Config</code>，找到并打开<code>Config</code>目录，双击<code>Config</code>目录下的<code>AnnounceFlags</code>。<br><img src="/images/regedit1.png"><br>3.把注册表项的值设定为5，点击确定按钮<br><img src="/images/regedit2.png"></p>
+<p>4.再次输入注册表路径<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpServer</code>，双击<code>NtpServer</code>下的<code>Enabled</code>文件。<br><img src="/images/regedit3.png"><br>5.把Enabled的值设定为<code>1</code>，点击确定按钮。</p>
+<p>6.打开命令提示符窗口（以管理员身份运行）。开始-找到windows系统-找到命令提示符-然后鼠标右键点击命令提示符-选择以管理员身份运行。<br><img src="/images/cmda.png"></p>
+<p>7.输入<code>net stop w32time</code>停止服务，再输入<code>net start w32time</code>启动服务。<br><img src="/images/cmdb.png"><br>8.输入命令<code>w32tm /stripchart /computer:127.0.0.1</code>，有时间回显说明配置成功。<br><img src="/images/cmdc.png"></p>
+<p>在win10上配置NTP时间同步服务器的方法就介绍完了。（也可以在局域网内的其他计算机上使用ntp服务功能进行ntp校时验证)</p>
+]]></content>
+      <categories>
+        <category>windows</category>
+      </categories>
+      <tags>
+        <tag>NTP</tag>
+        <tag>win10</tag>
+        <tag>服务器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Github迁移到Gitee</title>
+    <url>/posts/49051.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em> </p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><blockquote>
+</blockquote>
+<h4 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h4><p>在blog文件夹下打开git输入</p>
+<pre><code>git config --global user.email "注册gitee时使用的邮箱"
+git config --global user.name "gitee的用户名"
+</code></pre>
+<p>生成git公钥</p>
+<pre><code>ssh-keygen -t rsa -C "you email@126.com"
+</code></pre>
+<p>提示输入passphrase时可直接回车</p>
+<p>可通过查看<code>.ssh/id_rsa.pub</code> 文件内容，获取你的public key</p>
+<pre><code>   #  此命令在本地PC上执行
+   cat ~/.ssh/id_rsa.pub
+   # ssh-rsa AAAB3NzaC1yc2EAAAADAQABAAABgqcp2lvm....
+</code></pre>
+<h5 id="将公钥添加到Gitee"><a href="#将公钥添加到Gitee" class="headerlink" title="将公钥添加到Gitee"></a>将公钥添加到Gitee</h5><p>首先进入<code>设置</code>页面<br>在<code>安全设置</code>中,选择<code>SSH公钥</code> ， 添加公钥后点击<code>确定</code>。</p>
+<p>在Git Bash中输入</p>
+<pre><code>   ssh -T git@gitee.com 
+</code></pre>
+<p>出现Hi XXX! You’ve successfully authenticated, but Gitee.com does not provide shell access.则证明成功！</p>
+<p>打开_config.yml进行修改<br>补全如下代码 repo即你的仓库https地址</p>
+<pre><code> deploy:
+   type: git
+   repo: git@github.com:your_name/your_name.gitee.io.git
+   branch: master
+</code></pre>
+<p>其中your_name需要替换为你的gitee的账号</p>
+<p>现在还需要创建一个首页访问地址不带二级目录的pages，如ipvb.gitee.io<br>新建一个仓库，仓库地址为<code>https://gitee.com/cas/cas.git</code>,gitee pages地址为<code>https://cas.gitee.io</code> 这样配置就不存在二级目录的问题</p>
+<pre><code># URL
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+url: https://cas.gitee.io  // 这个地址为预览地址，即为gitee page服务地址
+root: /
+
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+  type: git
+  repo: https://gitee.com/cas/.git
+  branch: master
+</code></pre>
+<p>现在需要执行以下命令 就可以发布自己的博客了。每次新建完文章之后部署，也是相同命令</p>
+<pre><code>hexo clean         # 清除本地缓存
+hexo g             # 重新生成静态页面
+hexo d             # 部署到git
+</code></pre>
+]]></content>
+      <categories>
+        <category>Gitee</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Gitee</tag>
       </tags>
   </entry>
   <entry>
@@ -1763,83 +1966,9 @@ pace_theme: pace-theme-minimal  #默认设置，可以修改为上述任何一�
         <category>PE</category>
       </categories>
       <tags>
-        <tag>windows</tag>
         <tag>系统安装</tag>
+        <tag>windows</tag>
         <tag>PE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>批处理命令</title>
-    <url>/posts/44656.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em> </p>
-<h5 id="批处理命令"><a href="#批处理命令" class="headerlink" title="批处理命令"></a>批处理命令</h5><ol>
-<li>映射磁盘驱动器</li>
-</ol>
-<p><code>net use y: \\10.80.155.152\F /user:hp</code>  “y”指定的驱动器号; /user:”username”</p>
-<ol start="2">
-<li>使用文件资源管理器打开FTP服务器登录窗口</li>
-</ol>
-<pre><code>@echo off
-explorer ftp://10.80.155.152
-</code></pre>
-<p>使用浏览器打开对应网址</p>
-<pre><code>@echo off
-start www.baidu.com
-</code></pre>
-<ol start="3">
-<li>按任意键继续</li>
-</ol>
-<p><code>pause</code>  按任意键继续</p>
-<ol start="4">
-<li>启动磁盘里的可执行程序</li>
-</ol>
-<pre><code>/@echo off
-e:
-cd\
-cd examClient-win32–x64
-examClient.exe
-</code></pre>
-<ol start="5">
-<li>打开共享文件夹</li>
-</ol>
-<pre><code>@echo off
-rem 建立链接
-rem 打开共享文件夹
-explorer \\10.80.7.1\
-exit
-</code></pre>
-<ol start="6">
-<li>运行后删除自身文件    使用   <code>del %0</code></li>
-</ol>
-<pre><code>@echo off
-echo 按任意键后我将删除自身
-pause
-del %0
-</code></pre>
-<ol start="7">
-<li>万能删除文件</li>
-</ol>
-<pre><code>@echo off
-DEL /F /A /Q \\?\%1
-RD /S /Q \\?\%1
-</code></pre>
-<p> 批处理删除文件夹下所有文件和文件夹</p>
-<blockquote>
-<ul>
-<li>1、rd命令<br>rd /s /Q c:\temp<br>会将temp文件夹也删除</li>
-<li>2、rd命令+md命令<br>rd /s /Q c:\temp<br>md c:\Temp<br>删除后再重建</li>
-<li>3、del命令<br>del /s /Q c:\temp<br>只能删除文件，而不能删除子文件夹</li>
-<li>4、del命令+rd命令，先刪除文件，再进入temp文件夹删除目录<br>del /s /Q c:\temp<br>cd C:\temp<br>rd /s /q c:\temp</li>
-</ul>
-</blockquote>
-]]></content>
-      <categories>
-        <category>bat</category>
-      </categories>
-      <tags>
-        <tag>bat</tag>
-        <tag>批处理</tag>
-        <tag>cmd</tag>
       </tags>
   </entry>
   <entry>
@@ -1960,115 +2089,6 @@ hexo d             # 部署到git
       </tags>
   </entry>
   <entry>
-    <title>添加今日诗词</title>
-    <url>/posts/38054.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em></p>
-<p>本文将介绍如何增添随机诗词的展示。</p>
-<p>具体效果如下：<br><img src="/images/sc.png"></p>
-<br>
-
-<h3 id="创建组件"><a href="#创建组件" class="headerlink" title="创建组件"></a>创建组件</h3><p>主题新建themes/anzhiyu/layout/includes/widget/card_poem.pug，内容如下</p>
-<pre><code>#card-poem.card-widget
-    #poem_sentence
-    #poem_info
-        #poem_dynasty
-        #poem_author
-script(src='https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js', charset='utf-8')
-script(type='text/javascript').
-  jinrishici.load(function(result) {
-  var sentence = document.querySelector("#poem_sentence")
-  var author = document.querySelector("#poem_author")
-  var dynasty = document.querySelector("#poem_dynasty")
-
-  var sentenceText = result.data.content
-  sentenceText = sentenceText.substr(0, sentenceText.length - 1);
-  sentence.innerHTML = sentenceText
-  dynasty.innerHTML = result.data.origin.dynasty
-  author.innerHTML = result.data.origin.author + '《' + result.data.origin.title + '》'
-  });
-</code></pre>
-<h3 id="引入组件"><a href="#引入组件" class="headerlink" title="引入组件"></a>引入组件</h3><p>在<code>themes/anzhiyu/layout/includes/widget/index.pug</code>中你需要的位置添加以下内容</p>
-<pre><code>!=partial('includes/widget/card_poem', {}, {cache: true})
-</code></pre>
-<p><img src="/images/shici.png"></p>
-<h3 id="引入CSS"><a href="#引入CSS" class="headerlink" title="引入CSS"></a>引入CSS</h3><p>在主题配置文件中添加</p>
-<pre><code>inject:
-head:
-
--
-</code></pre>
-<p>heoMainColor.css</p>
-<pre><code>&lt;link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css"&gt;
-</code></pre>
-<p>引用主css</p>
-<pre><code>&lt;link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css"&gt;
-</code></pre>
-<br>
-
-
-<p>这里调用的是<code>今日诗词API</code>，是一个可以返回一句古诗词名句的接口。</p>
-<p>它可以通过图片和 JSON 格式调用。今日诗词 API 根据不同地点、时间、节日、季节、天气、景观、城市进行智能推荐。</p>
-<p>访问链接：<a href="https://www.jinrishici.com/">https://www.jinrishici.com</a></p>
-]]></content>
-      <categories>
-        <category>诗词</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>主题</tag>
-        <tag>诗词</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>神秘的C盘里面装了什么</title>
-    <url>/posts/28356.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em><br>大家刚刚接触电脑时，都会被提醒“你可千万别动C盘！”点开一看，密密麻麻的文件夹 让人不知所云。所以，神秘的C盘里面到底藏了什么东西？下面将进行全面解读。</p>
-<h4 id="C盘根目录常见文件夹"><a href="#C盘根目录常见文件夹" class="headerlink" title="C盘根目录常见文件夹"></a>C盘根目录常见文件夹</h4><p><strong>Documents and Settings/用户</strong> ：Windows 7中的“用户”文件夹其实就是XP中的Documents and Settings文件夹， 这里储存了用户的设置，包括用户、文档、上网浏览信息、配置文件等数据。</p>
-<p><strong>DownIoads</strong> ：这通常是下载软件的默认下载路径，建议修改软件设置改到其他硬盘分区。<br><strong>Drivers</strong> ：部分驱动程序的文件夹。<br><strong>Favorites</strong> ：收藏夹。<br><strong>Program Files</strong> ： 应用程序文件夹，一般软件默认都安装在这里，也有一些系统自带的应用 程序。在Windows 7系统中，64位用户会多出一个Program Files(X86） 文件夹，这是系统中32位软件的安装目录。<br><strong>Program Data</strong> ： Windows 7的系统文件夹，放置程序的使用数据、设置等文件，不建议删除。<br><strong>Windows</strong> ：存放操作系统主要文件，非常重要。<br><strong>Temp</strong> ：存放系统或其他软件临时文件，需经常清理。<br><strong>hiberfil.sys</strong> ： 系统的休眠功能所占用的硬盘空间的文件，不建议删除。<br><strong>pagefile.sys</strong> ： 虚拟内存页面文件，不建议删除。<br><strong>PerfLogs</strong> ： Windows Vista或Windows 7系统日志，记录如磁盘扫描错误等信息，没有必要删除。</p>
-<h4 id="Document-and-settings-用户常见文件夹"><a href="#Document-and-settings-用户常见文件夹" class="headerlink" title="Document and settings/用户常见文件夹"></a>Document and settings/用户常见文件夹</h4><blockquote>
-<p>默认情况下位于系统分区根目录下，包括： Administrator、All Users、Default User、用户文件夹等。All Users针对所有用户， 这里的更改对所有用户有效，Administrator针对系统管理员账户。</p>
-</blockquote>
-<p><strong>桌面</strong><br><strong>【开始】菜单</strong><br><strong>Application Data</strong> ： 通用应用程序数据文件夹。<br><strong>Favorites</strong> ：收藏夹。<br><strong>Local Settings</strong> ：保存应用程序数据、历史和临时文件，可清理。<br><strong>MyDocuments</strong> ：我的文档。<br><strong>NetHood</strong> ：网络共享目录。<br><strong>PrintHood</strong> ：打印共享目录。<br><strong>Recent</strong> ：最近打开的文档。<br><strong>SendTo</strong> ：鼠标右键的“发送到”。<br><strong>Templates</strong> ：存储着常用程序的模板文件。<br><strong>Temp</strong> : 临时文件目录，在系统和软件的运行过程中产生的临时文件就存放于此。<br><strong>Temporary Internet Files</strong> ：IE下载文件的缓存区。</p>
-<h4 id="ProgramFiles常见文件夹"><a href="#ProgramFiles常见文件夹" class="headerlink" title="ProgramFiles常见文件夹"></a>ProgramFiles常见文件夹</h4><p><strong>Common FileS</strong> ： 共用程序文件夹，用于同系列不同程序软件共同使用或调用数据，比如微软和Adobe的各种软件。<br><strong>ComPlus Applications</strong> ： 微软COM＋组件使用的文件夹，删除后可能引起COM＋组件不能运行。<br><strong>DIFX</strong> ： DIFX是一种高效的XML索引方法，此文件夹与数据索引有关，不可以删除。<br><strong>Internet Explorer</strong> ： 系统自带的IE浏览器，删除后可能导致部分程序不能正常运行。<br><strong>1nstallShield Installation Information</strong> ： 专门存储安装程序信息的文件夹，用于某些程序的卸载和更新。<br><strong>MSECache</strong> ：MS Office运行时自动创建。<br><strong>MSXML 6.0</strong> ：微软XML解析器程序的文件夹。<br><strong>microsoft frontpage</strong> ： FrontPage是微软推出的一款网页设计软件，此文件夹通常为空。<br><strong>Movie Maker</strong> ：系统自带的一款视频编辑软件。<br><strong>MSN Gaming Zone</strong> ：一些系统自带的扑克牌等小游戏，可以删除。<br><strong>Netmeeting</strong> ：系统自带的网上聊天软件。<br><strong>0utlook Express</strong> ：Outlook Express是Windows内置的邮件收发端，不用可删。<br><strong>Online Services</strong> ：网络服务文件夹，不能删。<br><strong>Windows Media Player</strong> ：系统自带的一款多媒体播放器。<br><strong>WinRAR</strong> ：一款流行的压缩解压缩软件。<br><strong>Xerox</strong> ： 用作自带的一些图像处理软件的临时空间，文件夹不能删除，但通常为空。</p>
-]]></content>
-      <categories>
-        <category>windows</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-        <tag>系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>禁止ipc默认共享</title>
-    <url>/posts/38974.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em> </p>
-<h4 id="禁止ipc-默认共享"><a href="#禁止ipc-默认共享" class="headerlink" title="禁止ipc$默认共享"></a>禁止ipc$默认共享</h4><p>  把ipc$和默认共享都删除了。但重起后还会有。也可以放到一个批处理里面 把这个批处理文件设置开机启动 可以禁止共享</p>
-<p>在win10及以上系统中如使用的不是管理员账户 需要在批处理前添加获取管理员身份的权限<br>代码如下：</p>
-<pre><code>%1 %2
-ver|find "5."&gt;nul&amp;&amp;goto :Admin
-mshta vbscript:createobject("shell.application").shellexecute("%~s0","goto :Admin","","runas",1)(window.close)&amp;goto :eof
-:Admin
-</code></pre>
-<p>删除共享的代码</p>
-<pre><code>net share ipc$ /del
-net share admin$ /del
-net share c$ /del
-net share d$ /del
-# …………（有几个删几个）
-</code></pre>
-]]></content>
-      <categories>
-        <category>windows</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-        <tag>IPC</tag>
-        <tag>IP</tag>
-        <tag>共享</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>网线水晶头制作及标准接法</title>
     <url>/posts/13455.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em></p>
@@ -2133,6 +2153,80 @@ net share d$ /del
       </tags>
   </entry>
   <entry>
+    <title>神秘的C盘里面装了什么</title>
+    <url>/posts/28356.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em><br>大家刚刚接触电脑时，都会被提醒“你可千万别动C盘！”点开一看，密密麻麻的文件夹 让人不知所云。所以，神秘的C盘里面到底藏了什么东西？下面将进行全面解读。</p>
+<h4 id="C盘根目录常见文件夹"><a href="#C盘根目录常见文件夹" class="headerlink" title="C盘根目录常见文件夹"></a>C盘根目录常见文件夹</h4><p><strong>Documents and Settings/用户</strong> ：Windows 7中的“用户”文件夹其实就是XP中的Documents and Settings文件夹， 这里储存了用户的设置，包括用户、文档、上网浏览信息、配置文件等数据。</p>
+<p><strong>DownIoads</strong> ：这通常是下载软件的默认下载路径，建议修改软件设置改到其他硬盘分区。<br><strong>Drivers</strong> ：部分驱动程序的文件夹。<br><strong>Favorites</strong> ：收藏夹。<br><strong>Program Files</strong> ： 应用程序文件夹，一般软件默认都安装在这里，也有一些系统自带的应用 程序。在Windows 7系统中，64位用户会多出一个Program Files(X86） 文件夹，这是系统中32位软件的安装目录。<br><strong>Program Data</strong> ： Windows 7的系统文件夹，放置程序的使用数据、设置等文件，不建议删除。<br><strong>Windows</strong> ：存放操作系统主要文件，非常重要。<br><strong>Temp</strong> ：存放系统或其他软件临时文件，需经常清理。<br><strong>hiberfil.sys</strong> ： 系统的休眠功能所占用的硬盘空间的文件，不建议删除。<br><strong>pagefile.sys</strong> ： 虚拟内存页面文件，不建议删除。<br><strong>PerfLogs</strong> ： Windows Vista或Windows 7系统日志，记录如磁盘扫描错误等信息，没有必要删除。</p>
+<h4 id="Document-and-settings-用户常见文件夹"><a href="#Document-and-settings-用户常见文件夹" class="headerlink" title="Document and settings/用户常见文件夹"></a>Document and settings/用户常见文件夹</h4><blockquote>
+<p>默认情况下位于系统分区根目录下，包括： Administrator、All Users、Default User、用户文件夹等。All Users针对所有用户， 这里的更改对所有用户有效，Administrator针对系统管理员账户。</p>
+</blockquote>
+<p><strong>桌面</strong><br><strong>【开始】菜单</strong><br><strong>Application Data</strong> ： 通用应用程序数据文件夹。<br><strong>Favorites</strong> ：收藏夹。<br><strong>Local Settings</strong> ：保存应用程序数据、历史和临时文件，可清理。<br><strong>MyDocuments</strong> ：我的文档。<br><strong>NetHood</strong> ：网络共享目录。<br><strong>PrintHood</strong> ：打印共享目录。<br><strong>Recent</strong> ：最近打开的文档。<br><strong>SendTo</strong> ：鼠标右键的“发送到”。<br><strong>Templates</strong> ：存储着常用程序的模板文件。<br><strong>Temp</strong> : 临时文件目录，在系统和软件的运行过程中产生的临时文件就存放于此。<br><strong>Temporary Internet Files</strong> ：IE下载文件的缓存区。</p>
+<h4 id="ProgramFiles常见文件夹"><a href="#ProgramFiles常见文件夹" class="headerlink" title="ProgramFiles常见文件夹"></a>ProgramFiles常见文件夹</h4><p><strong>Common FileS</strong> ： 共用程序文件夹，用于同系列不同程序软件共同使用或调用数据，比如微软和Adobe的各种软件。<br><strong>ComPlus Applications</strong> ： 微软COM＋组件使用的文件夹，删除后可能引起COM＋组件不能运行。<br><strong>DIFX</strong> ： DIFX是一种高效的XML索引方法，此文件夹与数据索引有关，不可以删除。<br><strong>Internet Explorer</strong> ： 系统自带的IE浏览器，删除后可能导致部分程序不能正常运行。<br><strong>1nstallShield Installation Information</strong> ： 专门存储安装程序信息的文件夹，用于某些程序的卸载和更新。<br><strong>MSECache</strong> ：MS Office运行时自动创建。<br><strong>MSXML 6.0</strong> ：微软XML解析器程序的文件夹。<br><strong>microsoft frontpage</strong> ： FrontPage是微软推出的一款网页设计软件，此文件夹通常为空。<br><strong>Movie Maker</strong> ：系统自带的一款视频编辑软件。<br><strong>MSN Gaming Zone</strong> ：一些系统自带的扑克牌等小游戏，可以删除。<br><strong>Netmeeting</strong> ：系统自带的网上聊天软件。<br><strong>0utlook Express</strong> ：Outlook Express是Windows内置的邮件收发端，不用可删。<br><strong>Online Services</strong> ：网络服务文件夹，不能删。<br><strong>Windows Media Player</strong> ：系统自带的一款多媒体播放器。<br><strong>WinRAR</strong> ：一款流行的压缩解压缩软件。<br><strong>Xerox</strong> ： 用作自带的一些图像处理软件的临时空间，文件夹不能删除，但通常为空。</p>
+]]></content>
+      <categories>
+        <category>windows</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+        <tag>系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>UEFI+GPT与BIOS+MBR有什么区别</title>
+    <url>/posts/55889.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em></p>
+<blockquote>
+<p>现在绝大多数系统都是UEFI+GPT或BIOS+MBR模式安装的，那么他们之间有什么区别呢?</p>
+</blockquote>
+<h5 id="首先是硬盘分区GPT与MBR的区别"><a href="#首先是硬盘分区GPT与MBR的区别" class="headerlink" title="首先是硬盘分区GPT与MBR的区别"></a>首先是硬盘分区GPT与MBR的区别</h5><ol>
+<li>MBR磁盘最多支持4个主分区，再增加分区只能用逻辑分区; 微软设定GPT磁盘支持128个主分区(理论可支持无限多个)。</li>
+<li>MBR磁盘最大仅支持2TB硬盘，GPT磁盘最大支持18EB硬盘(1EB=1048576TB)</li>
+<li>GPT分区磁盘有备份分区表来提高分区数据结构的完整性。</li>
+<li>GPT只能安装64位的系统，MBR可以安装32位与64位。</li>
+</ol>
+<h5 id="UEFI与BIOS的区别"><a href="#UEFI与BIOS的区别" class="headerlink" title="UEFI与BIOS的区别"></a>UEFI与BIOS的区别</h5><p>BIOS和UEFI都是引导操作系统启动的必须介质，传统BIOS启动系统 的过程中相比与UEFI启动多了一个BIOS自检环节，所以启动速度相对比较慢。</p>
+<p>BIOS下启动操作系统之前，必须从硬盘MBR主引导记录中读取系统启动代码， 然后从活动分区中引导启动操作系统，因为BIOS不能识别GPT分区，所以BIOS 模式下不能用GPT分区安装系统。</p>
+<blockquote>
+<p>传统BIOS运行流程</p>
+</blockquote>
+<pre class="mermaid">    graph LR
+    A(开 机) --&gt; B[BIOS初始化] --&gt; C[BIOS自检] --&gt; D[引导操作系统] --&gt; E(进入系统)</pre>
+
+
+
+<p>在UEFI下启动操作系统，不再需要主引导记录，也不再需要活动分区， 在开机方面相比BIOS少了自检这一步，因此它的启动速度更快。</p>
+<p>操作界面上UEFI采用的图形化界面，并且支持中文。而BIOS全部都是 英语。UEFI的图形化界面可以让用户更快的了解功能。</p>
+<blockquote>
+<p>UEFI运行流程</p>
+</blockquote>
+<pre class="mermaid">    graph LR
+    A(开 机) --&gt; B[UEFI初始化] --&gt; D[引导操作系统]--&gt; E(进入系统)</pre>
+
+
+<p>现在大部分新电脑都是UEFI+GPT模式了，这种模式更适合现在的win10、 win8系统，这种模式不能直接安装win7系统，这也是为什么很多新电脑 安装win7前都要调整分区与设置BIOS的原因。</p>
+]]></content>
+      <categories>
+        <category>windows</category>
+      </categories>
+      <tags>
+        <tag>UEFI</tag>
+        <tag>BIOS</tag>
+        <tag>主板</tag>
+        <tag>MBR</tag>
+        <tag>GPT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>了解计算机物理接口</title>
+    <url>/posts/15023.html</url>
+    <content><![CDATA[]]></content>
+      <tags>
+        <tag>windows</tag>
+        <tag>PC</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>计算机硬件系统基础</title>
     <url>/posts/26787.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em><br>计算机想要正常运行，除了软件以外，硬件则显得尤为重要。这些硬件分别是主板， cpu，显卡，内存，硬盘，电源以及各种输入输出设备，例如鼠标键盘显示器音响等。</p>
@@ -2150,100 +2244,6 @@ net share d$ /del
         <tag>windows</tag>
         <tag>系统</tag>
         <tag>硬件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机网络中的IP地址</title>
-    <url>/posts/29942.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em></p>
-<h4 id="特殊的IP地址"><a href="#特殊的IP地址" class="headerlink" title="特殊的IP地址"></a>特殊的IP地址</h4><ol>
-<li><strong>0.0.0.0</strong> </li>
-</ol>
-<p>严格说来，这个奇葩的地址0.0.0.0已经不是一个真正意义上 的IP地址了。它表示的是这样一个集合：也就是说；所有不清 楚的主机和目的网络。这里的“不清楚”是指在本机的路由表里 没有特定条目指明如何到达。对本机来说，它就是一个“收容所”， 所有不认识的“三无”人员，一律送进去。如果你在网络设置中设 置了缺省网关，那么计算机系统会自动产生一个目的地址为0.0.0.0的缺省路由。</p>
-<ol start="2">
-<li><strong>255.255.255.255限制广播地址</strong> </li>
-</ol>
-<p>对本机来说，这个地址指本网段内(同一广播域)的所有主机。</p>
-<p>然而它的意思很明确，使用人类语言来说意思就是“这里的所 有计算机都注意了”这个地址不能被路由器所转发。</p>
-<ol start="3">
-<li><strong>127.0.0.1本机地址</strong></li>
-</ol>
-<p>主要用于测试。用汉语表示，就是“我自己”。在Windows系统 中，这个地址有一个别名“Localhost”。寻址这样一个地址， 是不能把它发到网络接口的。除非出错，否则在传输介质上永 远不应该出现目的地址为“127.0.0.1”的数据包。</p>
-<ol start="4">
-<li><strong>224.0.0.1 组播地址</strong></li>
-</ol>
-<p>注意它和广播的区别。从224.0.0.0到239.255.255.255都是 这样的地址。224.0.0.1特指所有主机，224.0.0.2特指所有 路由器。这样的地址多用于一些特定的程序以及多媒体程序。 如果你的主机开启了IRDP(Internet路由发现协议），使用组 播功能功能，那么你的主机路由表中应该有这样一条路由。</p>
-<ol start="5">
-<li><strong>169.254.x.x</strong></li>
-</ol>
-<p>如果你的主机使用了DHCP功能自动获得一个IP地址，那么 当你的DHCP服务器发生故障，或响应时间太长而超出了一 个系统规定的时间，计算机操作系统会为你分配这样一个 地址。如果你发现你的主机IP地址是一个诸如此类的地址， 很不幸的是，现在你的网络不能正常运行了。</p>
-<ol start="6">
-<li><strong>10.x.x.x；172.16.0.0—172.31.255.254；192.168.x.x；私有地址</strong></li>
-</ol>
-<p>这些地址被大量用于企业内部网络中。一些宽带路由器，也 往往使用192.168.1.1作为缺省地址。私有网络由于不与外 部互连，因而可能使用随意的IP地址。保留这样的地址供其 使用是为了避免以后接入公网时引起地址混乱。使用私有地 址的私有网络在接入Internet时，要使用地址翻译(NAT)， 将私有地址翻译成公用合法地址。在Internet上，这类地址 是不能出现的。对一台网络上的主机来说，它可以正常接收 的合法目的网络地址有三种：本机的IP地址、广播地址以及 组播地址。</p>
-<h4 id="IP地址的分类"><a href="#IP地址的分类" class="headerlink" title="IP地址的分类"></a>IP地址的分类</h4><ol>
-<li><strong>A类地址</strong></li>
-</ol>
-<p><strong>A类IP地址</strong> ：由1个字节的网络地址和3个字节的主机地址，网络地址的最高位必须是“0”。<br>如：0XXXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>A类IP地址范围</strong> ：1.0.0.1—126.255.255.254</p>
-<blockquote>
-<p><strong>A类IP地址中的私有地址和保留地址：</strong> </p>
-<ol>
-<li>10.X.X.X是私有地址（所谓的私有地址就是在互联网上不使用，而被用在局域网络中的地址）。范围（10.0.0.1—10.255.255.254）</li>
-<li>127.X.X.X是保留地址，用做循环测试用的。</li>
-</ol>
-</blockquote>
-<ol start="2">
-<li><strong>B类地址</strong></li>
-</ol>
-<p><strong>B类IP地址：</strong> 由2个字节的网络地址和2个字节的主机地址，网络地址的最高位必须是“10”。</p>
-<p>如：10XXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>B类IP地址范围：</strong> 128.0.0.1—191.255.255.254。</p>
-<blockquote>
-<p><strong>B类IP地址的私有地址和保留地址：</strong></p>
-<ol>
-<li>172.16.0.0—172.31.255.254是私有地址</li>
-<li>169.254.X.X是保留地址。如果你的IP地址是自动获取IP地址， 而在网络上又没有找到可用的DHCP服务器。就会得到其中一个IP。 191.255.255.255是广播地址，不能分配。</li>
-</ol>
-</blockquote>
-<ol start="3">
-<li><strong>C类地址</strong></li>
-</ol>
-<p><strong>C类IP地址：</strong> 由3个字节的网络地址和1个字节的主机地址，网络地址的最高位必须是“110”。<br>如：110XXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>C类IP地址范围：</strong> 192.0.0.1—223.255.255.254。</p>
-<blockquote>
-<p><strong>C类地址中的私有地址：</strong><br>192.168.X.X是私有地址。（192.168.0.1—192.168.255.255)</p>
-</blockquote>
-<p>4、<strong>D类地址</strong></p>
-<p><strong>D类地址：</strong> 不分网络地址和主机地址，它的第1个字节的前四位固定为1110。<br>如：1110XXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>D类地址范围：</strong> 224.0.0.1—239.255.255.254</p>
-<p>5、<strong>E类地址</strong><br><strong>E类地址：</strong> 不分网络地址和主机地址，它的第1个字节的前四位固定为 1111。<br>如：1111XXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>E类地址范围：</strong> 240.0.0.1—255.255.255.254</p>
-]]></content>
-      <categories>
-        <category>IP</category>
-      </categories>
-      <tags>
-        <tag>IP</tag>
-        <tag>网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>软件静默安装参数</title>
-    <url>/posts/10107.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em> </p>
-<h4 id="软件静默参数"><a href="#软件静默参数" class="headerlink" title="软件静默参数"></a>软件静默参数</h4><p>大部分软件的安装都能采取全自动或半自动的方式进行，只需要找到对应的静默参数</p>
-<p>Microsoft Windows Installer</p>
-<p>　　如果某个软件是用 Windows Installer 打包的，那你就应该能在文件夹中看到 *.msi 文件。这是最典型的特征，这些文件通常可以使用 /QB 和 /QN 参数进行自动安装。</p>
-<p>　　/qb 会在窗口中显示一个基本的安装进程。<br>　　/qn 参数则不会显示任何窗口，直接在后台自动安装。 </p>
-<h5 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h5><pre><code>WinRAR.exe /S
-7-ZIP.exe /S
-搜狗输入法.exe /S
-QQ  /S
-VC++运行库  /SILENT 显示窗口直接安装
-</code></pre>
-]]></content>
-      <categories>
-        <category>windows</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-        <tag>bat</tag>
       </tags>
   </entry>
 </search>
