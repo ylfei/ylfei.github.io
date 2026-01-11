@@ -327,6 +327,27 @@
   </url>
   
   <url>
+    <loc>https://ylfei.github.io/tags/NTP/</loc>
+    <lastmod>2026-01-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ylfei.github.io/tags/win10/</loc>
+    <lastmod>2026-01-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ylfei.github.io/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
+    <lastmod>2026-01-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://ylfei.github.io/tags/UEFI/</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -362,41 +383,6 @@
   </url>
   
   <url>
-    <loc>https://ylfei.github.io/tags/NTP/</loc>
-    <lastmod>2026-01-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ylfei.github.io/tags/win10/</loc>
-    <lastmod>2026-01-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ylfei.github.io/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
-    <lastmod>2026-01-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ylfei.github.io/tags/anzhiyu/</loc>
-    <lastmod>2026-01-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ylfei.github.io/tags/%E4%B8%BB%E9%A2%98/</loc>
-    <lastmod>2026-01-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://ylfei.github.io/tags/html/</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -425,14 +411,7 @@
   </url>
   
   <url>
-    <loc>https://ylfei.github.io/tags/%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2026-01-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ylfei.github.io/tags/%E5%8E%8B%E7%BC%A9/</loc>
+    <loc>https://ylfei.github.io/tags/%E4%B8%BB%E9%A2%98/</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -446,7 +425,7 @@
   </url>
   
   <url>
-    <loc>https://ylfei.github.io/tags/%E8%AF%97%E8%AF%8D/</loc>
+    <loc>https://ylfei.github.io/tags/anzhiyu/</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -461,6 +440,27 @@
   
   <url>
     <loc>https://ylfei.github.io/tags/CentOS-8/</loc>
+    <lastmod>2026-01-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ylfei.github.io/tags/%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2026-01-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ylfei.github.io/tags/%E5%8E%8B%E7%BC%A9/</loc>
+    <lastmod>2026-01-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ylfei.github.io/tags/%E8%AF%97%E8%AF%8D/</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -516,6 +516,13 @@
   </url>
   
   <url>
+    <loc>https://ylfei.github.io/tags/GitHub/</loc>
+    <lastmod>2026-01-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://ylfei.github.io/tags/bat/</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -537,7 +544,7 @@
   </url>
   
   <url>
-    <loc>https://ylfei.github.io/tags/GitHub/</loc>
+    <loc>https://ylfei.github.io/tags/%E7%B3%BB%E7%BB%9F/</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -559,20 +566,6 @@
   
   <url>
     <loc>https://ylfei.github.io/tags/%E5%85%B1%E4%BA%AB/</loc>
-    <lastmod>2026-01-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ylfei.github.io/tags/%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2026-01-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ylfei.github.io/tags/%E7%A1%AC%E4%BB%B6/</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -606,6 +599,13 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://ylfei.github.io/tags/%E7%A1%AC%E4%BB%B6/</loc>
+    <lastmod>2026-01-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -623,14 +623,14 @@
   </url>
   
   <url>
-    <loc>https://ylfei.github.io/categories/%E4%B8%BB%E9%A2%98/</loc>
+    <loc>https://ylfei.github.io/categories/Gitee/</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ylfei.github.io/categories/Gitee/</loc>
+    <loc>https://ylfei.github.io/categories/%E4%B8%BB%E9%A2%98/</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -658,14 +658,14 @@
   </url>
   
   <url>
-    <loc>https://ylfei.github.io/categories/bat/</loc>
+    <loc>https://ylfei.github.io/categories/%E8%AF%97%E8%AF%8D/</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ylfei.github.io/categories/%E8%AF%97%E8%AF%8D/</loc>
+    <loc>https://ylfei.github.io/categories/bat/</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
