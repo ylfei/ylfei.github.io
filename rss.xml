@@ -58,9 +58,9 @@
     
     <category term="hexo" scheme="https://ylfei.github.io/tags/hexo/"/>
     
-    <category term="主题" scheme="https://ylfei.github.io/tags/%E4%B8%BB%E9%A2%98/"/>
-    
     <category term="anzhiyu" scheme="https://ylfei.github.io/tags/anzhiyu/"/>
+    
+    <category term="主题" scheme="https://ylfei.github.io/tags/%E4%B8%BB%E9%A2%98/"/>
     
   </entry>
   
@@ -92,7 +92,7 @@
     <link href="https://ylfei.github.io/posts/29115.html"/>
     <id>https://ylfei.github.io/posts/29115.html</id>
     <published>2025-05-22T03:03:09.000Z</published>
-    <updated>2026-01-11T12:51:56.617Z</updated>
+    <updated>2026-01-11T14:29:05.365Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;/p&gt;</summary>
@@ -104,9 +104,9 @@
     
     <category term="hexo" scheme="https://ylfei.github.io/tags/hexo/"/>
     
-    <category term="博客" scheme="https://ylfei.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
+    <category term="gulp" scheme="https://ylfei.github.io/tags/gulp/"/>
     
-    <category term="压缩" scheme="https://ylfei.github.io/tags/%E5%8E%8B%E7%BC%A9/"/>
+    <category term="neat" scheme="https://ylfei.github.io/tags/neat/"/>
     
   </entry>
   
@@ -385,9 +385,9 @@
     <category term="PE" scheme="https://ylfei.github.io/categories/PE/"/>
     
     
-    <category term="系统安装" scheme="https://ylfei.github.io/tags/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/"/>
-    
     <category term="windows" scheme="https://ylfei.github.io/tags/windows/"/>
+    
+    <category term="系统安装" scheme="https://ylfei.github.io/tags/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/"/>
     
     <category term="PE" scheme="https://ylfei.github.io/tags/PE/"/>
     
@@ -421,7 +421,7 @@
     <link href="https://ylfei.github.io/posts/13455.html"/>
     <id>https://ylfei.github.io/posts/13455.html</id>
     <published>2021-11-16T03:12:23.000Z</published>
-    <updated>2026-01-11T12:59:45.112Z</updated>
+    <updated>2026-01-11T14:18:53.890Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;/p&gt;</summary>
@@ -433,7 +433,7 @@
     
     <category term="水晶头" scheme="https://ylfei.github.io/tags/%E6%B0%B4%E6%99%B6%E5%A4%B4/"/>
     
-    <category term="弱电" scheme="https://ylfei.github.io/tags/%E5%BC%B1%E7%94%B5/"/>
+    <category term="综合布线" scheme="https://ylfei.github.io/tags/%E7%BB%BC%E5%90%88%E5%B8%83%E7%BA%BF/"/>
     
     <category term="网络" scheme="https://ylfei.github.io/tags/%E7%BD%91%E7%BB%9C/"/>
     
