@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://ylfei.github.io/posts/45943.html</loc>
+    
+    <lastmod>2026-01-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://ylfei.github.io/tags/index.html</loc>
     
     <lastmod>2026-01-23</lastmod>
@@ -254,15 +263,6 @@
   </url>
   
   <url>
-    <loc>https://ylfei.github.io/posts/45943.html</loc>
-    
-    <lastmod>2025-05-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://ylfei.github.io/posts/7850.html</loc>
     
     <lastmod>2025-04-17</lastmod>
@@ -327,41 +327,6 @@
   </url>
   
   <url>
-    <loc>https://ylfei.github.io/tags/UEFI/</loc>
-    <lastmod>2026-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ylfei.github.io/tags/BIOS/</loc>
-    <lastmod>2026-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ylfei.github.io/tags/%E4%B8%BB%E6%9D%BF/</loc>
-    <lastmod>2026-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ylfei.github.io/tags/MBR/</loc>
-    <lastmod>2026-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ylfei.github.io/tags/GPT/</loc>
-    <lastmod>2026-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://ylfei.github.io/tags/NTP/</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -391,6 +356,41 @@
   
   <url>
     <loc>https://ylfei.github.io/tags/js/</loc>
+    <lastmod>2026-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ylfei.github.io/tags/UEFI/</loc>
+    <lastmod>2026-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ylfei.github.io/tags/BIOS/</loc>
+    <lastmod>2026-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ylfei.github.io/tags/%E4%B8%BB%E6%9D%BF/</loc>
+    <lastmod>2026-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ylfei.github.io/tags/MBR/</loc>
+    <lastmod>2026-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ylfei.github.io/tags/GPT/</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -446,20 +446,6 @@
   </url>
   
   <url>
-    <loc>https://ylfei.github.io/tags/linux/</loc>
-    <lastmod>2026-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ylfei.github.io/tags/CentOS-8/</loc>
-    <lastmod>2026-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://ylfei.github.io/tags/%E8%AF%97%E8%AF%8D/</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -475,6 +461,20 @@
   
   <url>
     <loc>https://ylfei.github.io/tags/%E8%A1%A8%E6%A0%BC/</loc>
+    <lastmod>2026-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ylfei.github.io/tags/linux/</loc>
+    <lastmod>2026-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ylfei.github.io/tags/CentOS-8/</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -544,13 +544,6 @@
   </url>
   
   <url>
-    <loc>https://ylfei.github.io/tags/%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2026-01-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://ylfei.github.io/tags/IPC/</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -594,6 +587,13 @@
   
   <url>
     <loc>https://ylfei.github.io/tags/%E7%BD%91%E7%BB%9C/</loc>
+    <lastmod>2026-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ylfei.github.io/tags/%E7%B3%BB%E7%BB%9F/</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
