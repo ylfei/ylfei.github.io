@@ -1,10 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>博客文章压缩</title>
+    <url>/posts/29115.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em> </p>
+<p>转载 <code>rozbo</code>开发的 <code>Hexo-Neat</code> 压缩插件</p>
+<h3 id="Hexo-Neat-压缩静态资源"><a href="#Hexo-Neat-压缩静态资源" class="headerlink" title="Hexo-Neat 压缩静态资源"></a>Hexo-Neat 压缩静态资源</h3><p>Hexo-Neat 能够帮助用户自动压缩静态资源，配合各类下属插件，能够压缩包括css、js、html乃至各类格式的图片文件</p>
+<h4 id="安装Gulp插件"><a href="#安装Gulp插件" class="headerlink" title="安装Gulp插件"></a>安装Gulp插件</h4><p>安装<code>Hexo-Neat</code>插件：在博客根目录[Blog]打开终端，输入：</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install hexo-neat <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+
+<p>在站点配置文件中末尾添加以下相关配置</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># hexo-neat</span></span><br><span class="line"><span class="comment"># 博文压缩</span></span><br><span class="line"><span class="attr">neat_enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment"># 压缩html</span></span><br><span class="line"><span class="attr">neat_html:</span></span><br><span class="line"> <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"> <span class="attr">exclude:</span></span><br><span class="line"><span class="comment"># 压缩css</span></span><br><span class="line"><span class="attr">neat_css:</span></span><br><span class="line"> <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"> <span class="attr">exclude:</span></span><br><span class="line">   <span class="bullet">-</span> <span class="string">&#x27;*/*.min.css&#x27;</span></span><br><span class="line"><span class="comment"># 压缩js</span></span><br><span class="line"><span class="attr">neat_js:</span></span><br><span class="line"> <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"> <span class="attr">mangle:</span> <span class="literal">true</span></span><br><span class="line"> <span class="attr">output:</span></span><br><span class="line"> <span class="attr">compress:</span></span><br><span class="line"> <span class="attr">exclude:</span></span><br><span class="line">   <span class="bullet">-</span> <span class="string">&#x27;**/*.min.js&#x27;</span></span><br><span class="line">   <span class="bullet">-</span> <span class="string">&#x27;**/jquery.fancybox.pack.js&#x27;</span></span><br><span class="line">   <span class="bullet">-</span> <span class="string">&#x27;**/index.js&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Gulp压缩"><a href="#Gulp压缩" class="headerlink" title="Gulp压缩"></a>Gulp压缩</h3><p>安装插件</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> gulp -g</span><br><span class="line">npm <span class="keyword">install</span> gulp-minify-css gulp-uglify gulp-htmlmin gulp-htmlclean gulp --save</span><br></pre></td></tr></table></figure>
+
+<h5 id="创建任务脚本"><a href="#创建任务脚本" class="headerlink" title="创建任务脚本"></a>创建任务脚本</h5><p>为Gulp创建gulpfile.js任务脚本。在博客根目录[Blogroot]下新建gulpfile.js,打开[Blogroot]\gulpfile.js,输入以下内容：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">&#x27;gulp&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> minifycss = <span class="built_in">require</span>(<span class="string">&#x27;gulp-minify-css&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> uglify = <span class="built_in">require</span>(<span class="string">&#x27;gulp-uglify&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> htmlmin = <span class="built_in">require</span>(<span class="string">&#x27;gulp-htmlmin&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> htmlclean = <span class="built_in">require</span>(<span class="string">&#x27;gulp-htmlclean&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> imagemin = <span class="built_in">require</span>(<span class="string">&#x27;gulp-imagemin&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 压缩html</span></span><br><span class="line">gulp.<span class="title function_">task</span>(<span class="string">&#x27;minify-html&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> gulp.<span class="title function_">src</span>(<span class="string">&#x27;./public/**/*.html&#x27;</span>)</span><br><span class="line">        .<span class="title function_">pipe</span>(<span class="title function_">htmlclean</span>())</span><br><span class="line">        .<span class="title function_">pipe</span>(<span class="title function_">htmlmin</span>(&#123;</span><br><span class="line">            <span class="attr">collapseWhitespace</span>: <span class="literal">true</span>, <span class="comment">//从字面意思应该可以看出来，清除空格，压缩html，这一条比较重要，作用比较大，引起的改变压缩量也特别大</span></span><br><span class="line">            <span class="attr">collapseBooleanAttributes</span>: <span class="literal">true</span>, <span class="comment">//省略布尔属性的值，比如：&lt;input checked=&quot;checked&quot;/&gt;,那么设置这个属性后，就会变成 &lt;input checked/&gt;</span></span><br><span class="line">            <span class="attr">removeComments</span>: <span class="literal">true</span>, <span class="comment">//清除html中注释的部分</span></span><br><span class="line">            <span class="attr">removeEmptyAttributes</span>: <span class="literal">true</span>, <span class="comment">//清除所有的空属性</span></span><br><span class="line">            <span class="attr">removeScriptTypeAttributes</span>: <span class="literal">true</span>, <span class="comment">//清除所有script标签中的type=&quot;text/javascript&quot;属性。</span></span><br><span class="line">            <span class="attr">removeStyleLinkTypeAttributes</span>: <span class="literal">true</span>, <span class="comment">//清楚所有Link标签上的type属性。</span></span><br><span class="line">            <span class="attr">minifyJS</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">minifyCSS</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">minifyURLs</span>: <span class="literal">true</span>,</span><br><span class="line">        &#125;))</span><br><span class="line">        .<span class="title function_">pipe</span>(gulp.<span class="title function_">dest</span>(<span class="string">&#x27;./public&#x27;</span>));</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 压缩css</span></span><br><span class="line">gulp.<span class="title function_">task</span>(<span class="string">&#x27;minify-css&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> gulp.<span class="title function_">src</span>(<span class="string">&#x27;./public/**/*.css&#x27;</span>)</span><br><span class="line">        .<span class="title function_">pipe</span>(<span class="title function_">minifycss</span>(&#123;</span><br><span class="line">            <span class="attr">compatibility</span>: <span class="string">&#x27;ie8&#x27;</span></span><br><span class="line">        &#125;))</span><br><span class="line">        .<span class="title function_">pipe</span>(gulp.<span class="title function_">dest</span>(<span class="string">&#x27;./public&#x27;</span>));</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 压缩js !代表排除的js,例如[&#x27;!./public/js/**/*min.js&#x27;]</span></span><br><span class="line">gulp.<span class="title function_">task</span>(<span class="string">&#x27;minify-js&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> gulp.<span class="title function_">src</span>([<span class="string">&#x27;./public/js/**/.js&#x27;</span>])</span><br><span class="line">        .<span class="title function_">pipe</span>(<span class="title function_">uglify</span>()) <span class="comment">//压缩混淆</span></span><br><span class="line">        .<span class="title function_">pipe</span>(gulp.<span class="title function_">dest</span>(<span class="string">&#x27;./public&#x27;</span>));</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 压缩图片</span></span><br><span class="line">gulp.<span class="title function_">task</span>(<span class="string">&#x27;minify-images&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> gulp.<span class="title function_">src</span>(<span class="string">&#x27;./public/images/**/*.*&#x27;</span>)</span><br><span class="line">        .<span class="title function_">pipe</span>(<span class="title function_">imagemin</span>(</span><br><span class="line">        [imagemin.<span class="title function_">gifsicle</span>(&#123;<span class="string">&#x27;optimizationLevel&#x27;</span>: <span class="number">3</span>&#125;),</span><br><span class="line">        imagemin.<span class="title function_">jpegtran</span>(&#123;<span class="string">&#x27;progressive&#x27;</span>: <span class="literal">true</span>&#125;),</span><br><span class="line">        imagemin.<span class="title function_">optipng</span>(&#123;<span class="string">&#x27;optimizationLevel&#x27;</span>: <span class="number">7</span>&#125;),</span><br><span class="line">        imagemin.<span class="title function_">svgo</span>()],</span><br><span class="line">        &#123;<span class="string">&#x27;verbose&#x27;</span>: <span class="literal">true</span>&#125;))</span><br><span class="line">        .<span class="title function_">pipe</span>(gulp.<span class="title function_">dest</span>(<span class="string">&#x27;./public/images&#x27;</span>));</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 默认任务</span></span><br><span class="line">gulp.<span class="title function_">task</span>(<span class="string">&#x27;default&#x27;</span>,gulp.<span class="title function_">series</span>(gulp.<span class="title function_">parallel</span>(<span class="string">&#x27;minify-html&#x27;</span>,<span class="string">&#x27;minify-css&#x27;</span>,<span class="string">&#x27;minify-js&#x27;</span>,<span class="string">&#x27;minify-images&#x27;</span>)));</span><br></pre></td></tr></table></figure>
+
+
+<p>在每次运行完hexo generate生成静态页面后，运行gulp对其进行压缩。指令流程如下：</p>
+<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo <span class="keyword">generate</span></span><br><span class="line">gulp</span><br><span class="line">hexo server 或 hexo deploy</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>gulp</tag>
+        <tag>neat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络中的IP地址</title>
+    <url>/posts/29942.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em></p>
+<h4 id="特殊的IP地址"><a href="#特殊的IP地址" class="headerlink" title="特殊的IP地址"></a>特殊的IP地址</h4><ol>
+<li><strong>0.0.0.0</strong> </li>
+</ol>
+<p>严格说来，这个奇葩的地址0.0.0.0已经不是一个真正意义上 的IP地址了。它表示的是这样一个集合：也就是说；所有不清 楚的主机和目的网络。这里的“不清楚”是指在本机的路由表里 没有特定条目指明如何到达。对本机来说，它就是一个“收容所”， 所有不认识的“三无”人员，一律送进去。如果你在网络设置中设 置了缺省网关，那么计算机系统会自动产生一个目的地址为0.0.0.0的缺省路由。</p>
+<ol start="2">
+<li><strong>255.255.255.255限制广播地址</strong> </li>
+</ol>
+<p>对本机来说，这个地址指本网段内(同一广播域)的所有主机。</p>
+<p>然而它的意思很明确，使用人类语言来说意思就是“这里的所 有计算机都注意了”这个地址不能被路由器所转发。</p>
+<ol start="3">
+<li><strong>127.0.0.1本机地址</strong></li>
+</ol>
+<p>主要用于测试。用汉语表示，就是“我自己”。在Windows系统 中，这个地址有一个别名“Localhost”。寻址这样一个地址， 是不能把它发到网络接口的。除非出错，否则在传输介质上永 远不应该出现目的地址为“127.0.0.1”的数据包。</p>
+<ol start="4">
+<li><strong>224.0.0.1 组播地址</strong></li>
+</ol>
+<p>注意它和广播的区别。从224.0.0.0到239.255.255.255都是 这样的地址。224.0.0.1特指所有主机，224.0.0.2特指所有 路由器。这样的地址多用于一些特定的程序以及多媒体程序。 如果你的主机开启了IRDP(Internet路由发现协议），使用组 播功能功能，那么你的主机路由表中应该有这样一条路由。</p>
+<ol start="5">
+<li><strong>169.254.x.x</strong></li>
+</ol>
+<p>如果你的主机使用了DHCP功能自动获得一个IP地址，那么 当你的DHCP服务器发生故障，或响应时间太长而超出了一 个系统规定的时间，计算机操作系统会为你分配这样一个 地址。如果你发现你的主机IP地址是一个诸如此类的地址， 很不幸的是，现在你的网络不能正常运行了。</p>
+<ol start="6">
+<li><strong>10.x.x.x；172.16.0.0—172.31.255.254；192.168.x.x；私有地址</strong></li>
+</ol>
+<p>这些地址被大量用于企业内部网络中。一些宽带路由器，也 往往使用192.168.1.1作为缺省地址。私有网络由于不与外 部互连，因而可能使用随意的IP地址。保留这样的地址供其 使用是为了避免以后接入公网时引起地址混乱。使用私有地 址的私有网络在接入Internet时，要使用地址翻译(NAT)， 将私有地址翻译成公用合法地址。在Internet上，这类地址 是不能出现的。对一台网络上的主机来说，它可以正常接收 的合法目的网络地址有三种：本机的IP地址、广播地址以及 组播地址。</p>
+<h4 id="IP地址的分类"><a href="#IP地址的分类" class="headerlink" title="IP地址的分类"></a>IP地址的分类</h4><ol>
+<li><strong>A类地址</strong></li>
+</ol>
+<p><strong>A类IP地址</strong> ：由1个字节的网络地址和3个字节的主机地址，网络地址的最高位必须是“0”。<br>如：0XXXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>A类IP地址范围</strong> ：1.0.0.1—126.255.255.254</p>
+<blockquote>
+<p><strong>A类IP地址中的私有地址和保留地址：</strong> </p>
+<ol>
+<li>10.X.X.X是私有地址（所谓的私有地址就是在互联网上不使用，而被用在局域网络中的地址）。范围（10.0.0.1—10.255.255.254）</li>
+<li>127.X.X.X是保留地址，用做循环测试用的。</li>
+</ol>
+</blockquote>
+<ol start="2">
+<li><strong>B类地址</strong></li>
+</ol>
+<p><strong>B类IP地址：</strong> 由2个字节的网络地址和2个字节的主机地址，网络地址的最高位必须是“10”。</p>
+<p>如：10XXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>B类IP地址范围：</strong> 128.0.0.1—191.255.255.254。</p>
+<blockquote>
+<p><strong>B类IP地址的私有地址和保留地址：</strong></p>
+<ol>
+<li>172.16.0.0—172.31.255.254是私有地址</li>
+<li>169.254.X.X是保留地址。如果你的IP地址是自动获取IP地址， 而在网络上又没有找到可用的DHCP服务器。就会得到其中一个IP。 191.255.255.255是广播地址，不能分配。</li>
+</ol>
+</blockquote>
+<ol start="3">
+<li><strong>C类地址</strong></li>
+</ol>
+<p><strong>C类IP地址：</strong> 由3个字节的网络地址和1个字节的主机地址，网络地址的最高位必须是“110”。<br>如：110XXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>C类IP地址范围：</strong> 192.0.0.1—223.255.255.254。</p>
+<blockquote>
+<p><strong>C类地址中的私有地址：</strong><br>192.168.X.X是私有地址。（192.168.0.1—192.168.255.255)</p>
+</blockquote>
+<p>4、<strong>D类地址</strong></p>
+<p><strong>D类地址：</strong> 不分网络地址和主机地址，它的第1个字节的前四位固定为1110。<br>如：1110XXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>D类地址范围：</strong> 224.0.0.1—239.255.255.254</p>
+<p>5、<strong>E类地址</strong><br><strong>E类地址：</strong> 不分网络地址和主机地址，它的第1个字节的前四位固定为 1111。<br>如：1111XXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>E类地址范围：</strong> 240.0.0.1—255.255.255.254</p>
+]]></content>
+      <categories>
+        <category>IP</category>
+      </categories>
+      <tags>
+        <tag>IP</tag>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Cloudfare Page 部署静态网站</title>
     <url>/posts/15696.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em></p>
-<h6 id="创建一个-Pages-项目"><a href="#创建一个-Pages-项目" class="headerlink" title="创建一个 Pages 项目"></a>创建一个 Pages 项目</h6><h5 id="对接-github-或者-gitlab-的项目"><a href="#对接-github-或者-gitlab-的项目" class="headerlink" title="对接 github 或者 gitlab 的项目"></a>对接 github 或者 gitlab 的项目</h5><p>选中项目后，就会打开项目部署配置界面，这里你可以配置项目打包命令，如果你的项目是用前端框架开发的化，Pages 还贴心的把常用前端框架的构建命令收集起来，你只需要下拉框选中之后就会把默认构建命令填充到表单中：</p>
+<h3 id="创建一个-Pages-项目"><a href="#创建一个-Pages-项目" class="headerlink" title="创建一个 Pages 项目"></a>创建一个 Pages 项目</h3><h4 id="对接-github-或者-gitlab-的项目"><a href="#对接-github-或者-gitlab-的项目" class="headerlink" title="对接 github 或者 gitlab 的项目"></a>对接 github 或者 gitlab 的项目</h4><p>选中项目后，就会打开项目部署配置界面，这里你可以配置项目打包命令，如果你的项目是用前端框架开发的化，Pages 还贴心的把常用前端框架的构建命令收集起来，你只需要下拉框选中之后就会把默认构建命令填充到表单中：</p>
 <p>使用 git 模式，每次 git push 的时候都会自动触发部署</p>
 ]]></content>
       <categories>
@@ -15,92 +117,6 @@
         <tag>page</tag>
         <tag>git</tag>
         <tag>Cloudfare</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Win10配置NTP服务器</title>
-    <url>/posts/14899.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em> </p>
-<h4 id="NTP服务器配置"><a href="#NTP服务器配置" class="headerlink" title="NTP服务器配置"></a>NTP服务器配置</h4><p>1.使用组合键<code>WIN + R</code> 启动运行窗口，在打开的窗口中输入<code>regedit</code>，点击确定按钮.<br><img src="/images/regedit.png"></p>
-<p>2.在打开的注册表中输入<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Config</code>，找到并打开<code>Config</code>目录，双击<code>Config</code>目录下的<code>AnnounceFlags</code>。<br><img src="/images/regedit1.png"><br>3.把注册表项的值设定为5，点击确定按钮<br><img src="/images/regedit2.png"></p>
-<p>4.再次输入注册表路径<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpServer</code>，双击<code>NtpServer</code>下的<code>Enabled</code>文件。<br><img src="/images/regedit3.png"><br>5.把Enabled的值设定为<code>1</code>，点击确定按钮。</p>
-<p>6.打开命令提示符窗口（以管理员身份运行）。开始-找到windows系统-找到命令提示符-然后鼠标右键点击命令提示符-选择以管理员身份运行。<br><img src="/images/cmda.png"></p>
-<p>7.输入<code>net stop w32time</code>停止服务，再输入<code>net start w32time</code>启动服务。<br><img src="/images/cmdb.png"><br>8.输入命令<code>w32tm /stripchart /computer:127.0.0.1</code>，有时间回显说明配置成功。<br><img src="/images/cmdc.png"></p>
-<p>在win10上配置NTP时间同步服务器的方法就介绍完了。（也可以在局域网内的其他计算机上使用ntp服务功能进行ntp校时验证)</p>
-]]></content>
-      <categories>
-        <category>windows</category>
-      </categories>
-      <tags>
-        <tag>NTP</tag>
-        <tag>win10</tag>
-        <tag>服务器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>便携小空调设置</title>
-    <url>/posts/45943.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em></p>
-<h3 id="部署方案"><a href="#部署方案" class="headerlink" title="部署方案"></a>部署方案</h3><p>在博客根目录执行命令:</p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> <span class="type">page</span> air-conditioner</span><br></pre></td></tr></table></figure>
-
-<p>会生成<code>source/air-conditioner/index.md</code>, 将以下内容替换原内容</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">便携小空调</span> <span class="bullet">-</span> <span class="string">为你的夏日带去清凉!</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2022-10-20 22:06:17</span></span><br><span class="line"><span class="attr">comments:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">aside:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">top_img:</span> <span class="literal">false</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="string">&gt;</span> <span class="string">终于为博客安装上了便携小空调</span></span><br><span class="line"></span><br><span class="line"><span class="string">&lt;style&gt;</span></span><br><span class="line"><span class="string">.copyright-box</span> <span class="string">a</span> &#123;</span><br><span class="line">  <span class="attr">border-bottom:</span> <span class="string">none</span> <span class="type">!important;</span></span><br><span class="line">  <span class="attr">padding:</span> <span class="number">0</span> <span class="type">!important;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="string">&lt;/style&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&lt;div</span> <span class="string">id=&quot;air-conditioner-vue&quot;&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;script</span> <span class="string">defer</span> <span class="string">data-pjax</span> <span class="string">src=&#x27;https://npm.elemecdn.com/anzhiyu-air-conditioner@1.0.1/index.3f125bc6.js&#x27;&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>然后访问<a href="https://你的博客域名/air-conditioner">https://你的博客域名/air-conditioner</a>就可以得到一个没有风的空调 ❄️</p>
-<h3 id="其他部署方案"><a href="#其他部署方案" class="headerlink" title="其他部署方案"></a>其他部署方案</h3><p>如果使用的是其他的，部署也一样简单，只需加入以下代码嵌入网站即可</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;iframe <span class="attribute">height</span>=<span class="string">&quot;740&quot;</span> <span class="attribute">src</span>=<span class="string">&quot;https://loquacious-bienenstitch-58539b.netlify.app/&quot;</span>&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>hexo</tag>
-        <tag>html</tag>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UEFI+GPT与BIOS+MBR有什么区别</title>
-    <url>/posts/55889.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em></p>
-<blockquote>
-<p>现在绝大多数系统都是UEFI+GPT或BIOS+MBR模式安装的，那么他们之间有什么区别呢?</p>
-</blockquote>
-<h5 id="首先是硬盘分区GPT与MBR的区别"><a href="#首先是硬盘分区GPT与MBR的区别" class="headerlink" title="首先是硬盘分区GPT与MBR的区别"></a>首先是硬盘分区GPT与MBR的区别</h5><ol>
-<li>MBR磁盘最多支持4个主分区，再增加分区只能用逻辑分区; 微软设定GPT磁盘支持128个主分区(理论可支持无限多个)。</li>
-<li>MBR磁盘最大仅支持2TB硬盘，GPT磁盘最大支持18EB硬盘(1EB=1048576TB)</li>
-<li>GPT分区磁盘有备份分区表来提高分区数据结构的完整性。</li>
-<li>GPT只能安装64位的系统，MBR可以安装32位与64位。</li>
-</ol>
-<h5 id="UEFI与BIOS的区别"><a href="#UEFI与BIOS的区别" class="headerlink" title="UEFI与BIOS的区别"></a>UEFI与BIOS的区别</h5><p>BIOS和UEFI都是引导操作系统启动的必须介质，传统BIOS启动系统 的过程中相比与UEFI启动多了一个BIOS自检环节，所以启动速度相对比较慢。</p>
-<p>BIOS下启动操作系统之前，必须从硬盘MBR主引导记录中读取系统启动代码， 然后从活动分区中引导启动操作系统，因为BIOS不能识别GPT分区，所以BIOS 模式下不能用GPT分区安装系统。</p>
-<blockquote>
-<p>传统BIOS运行流程</p>
-</blockquote>
-<pre class="mermaid">    graph LR
-    A(开 机) --> B[BIOS初始化] --> C[BIOS自检] --> D[引导操作系统] --> E(进入系统)</pre>
-
-
-
-<p>在UEFI下启动操作系统，不再需要主引导记录，也不再需要活动分区， 在开机方面相比BIOS少了自检这一步，因此它的启动速度更快。</p>
-<p>操作界面上UEFI采用的图形化界面，并且支持中文。而BIOS全部都是 英语。UEFI的图形化界面可以让用户更快的了解功能。</p>
-<blockquote>
-<p>UEFI运行流程</p>
-</blockquote>
-<pre class="mermaid">    graph LR
-    A(开 机) --> B[UEFI初始化] --> D[引导操作系统]--> E(进入系统)</pre>
-
-
-<p>现在大部分新电脑都是UEFI+GPT模式了，这种模式更适合现在的win10、 win8系统，这种模式不能直接安装win7系统，这也是为什么很多新电脑 安装win7前都要调整分区与设置BIOS的原因。</p>
-]]></content>
-      <categories>
-        <category>windows</category>
-      </categories>
-      <tags>
-        <tag>UEFI</tag>
-        <tag>BIOS</tag>
-        <tag>主板</tag>
-        <tag>MBR</tag>
-        <tag>GPT</tag>
       </tags>
   </entry>
   <entry>
@@ -204,6 +220,324 @@
       </tags>
   </entry>
   <entry>
+    <title>添加今日诗词</title>
+    <url>/posts/38054.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em></p>
+<p>本文将介绍如何增添随机诗词的展示。</p>
+<p>具体效果如下：<br><img src="/images/sc.png"></p>
+<br/>
+
+<h3 id="创建组件"><a href="#创建组件" class="headerlink" title="创建组件"></a>创建组件</h3><p>主题新建themes/anzhiyu/layout/includes/widget/card_poem.pug，内容如下</p>
+<figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line">#card<span class="params">-poem.card</span><span class="params">-widget</span></span><br><span class="line">    #poem_sentence</span><br><span class="line">    #poem_info</span><br><span class="line">        #poem_dynasty</span><br><span class="line">        #poem_author</span><br><span class="line">script(src=<span class="string">&#x27;https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js&#x27;</span>, charset=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">script(<span class="keyword">type</span>=<span class="string">&#x27;text/javascript&#x27;</span>).</span><br><span class="line">  jinrishici.load(function(result) &#123;</span><br><span class="line">  <span class="built_in">var</span> sentence = document.querySelector(<span class="string">&quot;#poem_sentence&quot;</span>)</span><br><span class="line">  <span class="built_in">var</span> author = document.querySelector(<span class="string">&quot;#poem_author&quot;</span>)</span><br><span class="line">  <span class="built_in">var</span> dynasty = document.querySelector(<span class="string">&quot;#poem_dynasty&quot;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">var</span> sentenceText = result.<span class="built_in">data</span>.content</span><br><span class="line">  sentenceText = sentenceText.substr(<span class="number">0</span>, sentenceText.length - <span class="number">1</span>);</span><br><span class="line">  sentence.innerHTML = sentenceText</span><br><span class="line">  dynasty.innerHTML = result.<span class="built_in">data</span>.origin.dynasty</span><br><span class="line">  author.innerHTML = result.<span class="built_in">data</span>.origin.author + <span class="string">&#x27;《&#x27;</span> + result.<span class="built_in">data</span>.origin.title + <span class="string">&#x27;》&#x27;</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="引入组件"><a href="#引入组件" class="headerlink" title="引入组件"></a>引入组件</h3><p>在<code>themes/anzhiyu/layout/includes/widget/index.pug</code>中你需要的位置添加以下内容</p>
+<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">!=<span class="keyword">partial</span>(<span class="string">&#x27;includes/widget/card_poem&#x27;</span>, &#123;&#125;, &#123;cache: <span class="literal">true</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/shici.png"></p>
+<h3 id="引入CSS"><a href="#引入CSS" class="headerlink" title="引入CSS"></a>引入CSS</h3><p>在主题配置文件中添加</p>
+<figure class="highlight ldif"><table><tr><td class="code"><pre><span class="line"><span class="attribute">inject</span>:</span><br><span class="line"><span class="attribute">head</span>:</span><br><span class="line"></span><br><span class="line"><span class="literal">-</span></span><br></pre></td></tr></table></figure>
+
+<p>heoMainColor.css</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attribute">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attribute">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>引用主css</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attribute">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attribute">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+
+<br/>
+
+
+<p>这里调用的是<code>今日诗词API</code>，是一个可以返回一句古诗词名句的接口。</p>
+<p>它可以通过图片和 JSON 格式调用。今日诗词 API 根据不同地点、时间、节日、季节、天气、景观、城市进行智能推荐。</p>
+<p>访问链接：<a href="https://www.jinrishici.com/">https://www.jinrishici.com</a></p>
+]]></content>
+      <categories>
+        <category>诗词</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>主题</tag>
+        <tag>诗词</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>今日诗词</title>
+    <url>/posts/7850.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em></p>
+<div class="poem-wrap">
+  <div class="poem-border poem-left"></div>
+  <div class="poem-border poem-right"></div>
+    <h2>念两句诗</h2>
+    <p id="poem">挑选中...</p>
+    <p id="info">
+
+  <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    jinrishici.load(function(result) {
+      poem.innerHTML = result.data.content
+      info.innerHTML = '【' + result.data.origin.dynasty + '】' + result.data.origin.author + '《' + result.data.origin.title + '》'
+      document.getElementById("poem").value(poem);
+      document.getElementById("info").value(info);  
+  });
+  </script>
+</div>
+
+<h3 id="添加每日一言"><a href="#添加每日一言" class="headerlink" title="添加每日一言"></a>添加每日一言</h3><p id="hitokoto">获取中...</p>
+<script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>诗词</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>next 主题配置</title>
+    <url>/posts/15660.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em></p>
+<h4 id="主题下载安装"><a href="#主题下载安装" class="headerlink" title="主题下载安装"></a>主题下载安装</h4><p>进入命令行，下载 NexT 主题，输入：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/theme-next/</span>hexo-theme-<span class="keyword">next</span> themes/<span class="keyword">next</span></span><br></pre></td></tr></table></figure>
+
+
+<p>修改站点配置文件<code>_config.yml</code>，找到如下代码：</p>
+<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">## Themes: https:<span class="comment">//hexo.io/themes/</span></span><br><span class="line">theme: landscape</span><br></pre></td></tr></table></figure>
+<p>将 landscape 修改为 next </p>
+<h4 id="切换主题"><a href="#切换主题" class="headerlink" title="切换主题"></a>切换主题</h4><p>next 主题自带四种样式。</p>
+<p>在主题配置文件<code>/next/_config.yml</code>中查找：<code>scheme</code>，找到如下代码：</p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="meta"># Schemes</span></span><br><span class="line"><span class="symbol">scheme:</span> Muse</span><br><span class="line"><span class="meta">#scheme: Mist</span></span><br><span class="line"><span class="meta">#scheme: Pisces</span></span><br><span class="line"><span class="meta">#scheme: Gemini</span></span><br><span class="line">选择一种样式，去掉前面的 <span class="meta">#，其他主题前加上 # </span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="隐藏网页强力驱动"><a href="#隐藏网页强力驱动" class="headerlink" title="隐藏网页强力驱动"></a>隐藏网页强力驱动</h4><p>隐藏网页底部 powered By Hexo / 强力驱动<br>打开 <code>themes/next/layout/_partials/footer.swig</code></p>
+<p>找到</p>
+<figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.footer.powered.enable %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;powered-by&quot;</span>&gt;</span></span><span class="comment">&#123;#</span></span><br><span class="line"><span class="comment">#&#125;</span><span class="template-variable">&#123;&#123; __(&#x27;footer.powered&#x27;, &#x27;&lt;a class=&quot;theme-link&quot; target=&quot;_blank&quot;&#x27; + nofollow + &#x27; href=&quot;https://hexo.io&quot;&gt;Hexo&lt;/a&gt;&#x27;) &#125;&#125;</span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.footer.powered.version %&#125;</span><span class="language-xml"> v</span><span class="template-variable">&#123;&#123; hexo_env(&#x27;version&#x27;) &#125;&#125;</span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="comment">&#123;#</span></span><br><span class="line"><span class="comment">#&#125;</span><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.footer.powered.enable and theme.footer.theme.enable %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;post-meta-divider&quot;</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.footer.theme.enable %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;theme-info&quot;</span>&gt;</span></span><span class="comment">&#123;#</span></span><br><span class="line"><span class="comment">#&#125;</span><span class="template-variable">&#123;&#123; __(&#x27;footer.theme&#x27;) &#125;&#125;</span><span class="language-xml"> – </span><span class="comment">&#123;#</span></span><br><span class="line"><span class="comment">#&#125;</span><span class="language-xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;theme-link&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span></span></span><span class="template-variable">&#123;&#123; nofollow &#125;&#125;</span><span class="language-xml"><span class="tag"> <span class="attr">href</span>=<span class="string">&quot;https://theme-next.org&quot;</span>&gt;</span></span><span class="comment">&#123;#</span></span><br><span class="line"><span class="comment">#&#125;</span><span class="language-xml">NexT.</span><span class="template-variable">&#123;&#123; theme.scheme &#125;&#125;</span><span class="comment">&#123;#</span></span><br><span class="line"><span class="comment">#&#125;</span><span class="language-xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.footer.theme.version %&#125;</span><span class="language-xml"> v</span><span class="template-variable">&#123;&#123; version &#125;&#125;</span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="comment">&#123;#</span></span><br><span class="line"><span class="comment">#&#125;</span><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>把这段代码首尾分别加上：<!-- 和-->，或者直接删除</p>
+<h4 id="浏览进度"><a href="#浏览进度" class="headerlink" title="浏览进度"></a>浏览进度</h4><p>浏览页面显示当前浏览进度<br>打开 <code>themes/next/_config.yml</code>，搜索关键字 <code>scrollpercent</code>,把 false 改为 true</p>
+<h4 id="Local-Search本地搜索"><a href="#Local-Search本地搜索" class="headerlink" title="Local Search本地搜索"></a>Local Search本地搜索</h4><p>安装插件<code>hexo-generator-searchdb</code>,执行以下命令:</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">npm</span> install hexo-generator-searchdb --save</span><br><span class="line">或者</span><br><span class="line"><span class="built_in">npm</span> install -g <span class="built_in">npm</span>@<span class="number">11.3</span><span class="number">.0</span></span><br></pre></td></tr></table></figure>
+
+<p>修改<code>hexo/_config.yml</code>站点配置文件，新增以下内容到任意位置</p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">search:</span></span><br><span class="line"><span class="symbol">path:</span> search.xml</span><br><span class="line"><span class="symbol">field:</span> post</span><br><span class="line"><span class="symbol">format:</span> html</span><br><span class="line"><span class="symbol">limit:</span> <span class="number">10000</span></span><br></pre></td></tr></table></figure>
+
+<p>编辑 __主题配置文件__，启用本地搜索功能：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Local search</span></span><br><span class="line"><span class="attr">local_search:</span></span><br><span class="line"><span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="设置网站图标"><a href="#设置网站图标" class="headerlink" title="设置网站图标"></a>设置网站图标</h4><p>找一张（32 * 32）的 ico 图标，或者去别的网站下载或者制作，并将图标名称改为 favicon.ico，然后把图标放在 ·/themes/next/source/images· 里，并且修改主题配置文件：</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">Put your favicon.ico <span class="keyword">into</span> `hexo-site<span class="regexp">/source/</span>` directory.</span><br><span class="line">favicon: /favicon.ico</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="修改文章底部标签"><a href="#修改文章底部标签" class="headerlink" title="修改文章底部标签"></a>修改文章底部标签</h4><p>修改文章底部的#号的标签，改为图标<br>修改模板<code>/themes/next/layout/_macro/post.swig</code></p>
+<p>搜索 rel=“tag”&gt;#，将 # 换成<code>&lt;i class=&quot;fa fa-tag&quot;&gt;&lt;/i&gt;</code></p>
+<h4 id="Read-More-按钮样式"><a href="#Read-More-按钮样式" class="headerlink" title="[Read More]按钮样式"></a>[Read More]按钮样式</h4><p>修改<code>themes\next\source\css\_custom\custom.styl</code>文件，加入自定义样式</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">// <span class="selector-attr">[Read More]</span>按钮样式</span><br><span class="line"><span class="selector-class">.post-button</span> <span class="selector-class">.btn</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#555</span> <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>);</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: inset <span class="number">0px</span> <span class="number">0px</span> <span class="number">10px</span> <span class="number">0px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.35</span>);</span><br><span class="line">    <span class="attribute">border</span>: none <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">transition-property</span>: unset;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0px</span> <span class="number">15px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.post-button</span> <span class="selector-class">.btn</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="built_in">rgb</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>) <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: inset <span class="number">0px</span> <span class="number">0px</span> <span class="number">10px</span> <span class="number">0px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.35</span>);</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(<span class="number">90deg</span>, <span class="number">#a166ab</span> <span class="number">0%</span>, <span class="number">#ef4e7b</span> <span class="number">25%</span>, <span class="number">#f37055</span> <span class="number">50%</span>, <span class="number">#ef4e7b</span> <span class="number">75%</span>, <span class="number">#a166ab</span> <span class="number">100%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="阅读全文设置"><a href="#阅读全文设置" class="headerlink" title="阅读全文设置"></a>阅读全文设置</h4><p>修改 阅读全文 前显示文字数量即位置<br>打开 <code>themes/next/_config.yml</code>,搜索关键字 <code>auto_excerpt</code>， 修改length即可修改阅读全文前显示文字数量</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">auto_excerpt:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">length:</span> <span class="number">150</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>或者在文章中任意位置添加</strong><code>&lt;!-- more --&gt;</code></p>
+<p>建议在文章中加入 <code>&lt;!-- more --&gt;</code><br>自定义 [Read More] 按钮之前要显示的内容！</p>
+<h4 id="修改链接文字样式"><a href="#修改链接文字样式" class="headerlink" title="修改链接文字样式"></a>修改链接文字样式</h4><p>打开<code>themes\next\source\css\_common\components\post\post.styl</code>添加以下代码:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.post-body</span> <span class="selector-tag">p</span> <span class="selector-tag">a</span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="attribute">color</span>: <span class="number">#0593d3</span>;</span><br><span class="line"> <span class="attribute">border-bottom</span>: none;</span><br><span class="line"> &amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">   <span class="attribute">color</span>: <span class="number">#ff106c</span>;</span><br><span class="line">   <span class="attribute">text-decoration</span>: underline;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>连接颜色已变为彩色</p>
+<h4 id="代码块复制选项"><a href="#代码块复制选项" class="headerlink" title="代码块复制选项"></a>代码块复制选项</h4><p>Next6 中自带了复制代码按钮，Next5 需要自己手动配置。</p>
+<p>搜索 <code>codeblock</code>，找到如下配置：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">codeblock:</span></span><br><span class="line"><span class="attr">border_radius:</span> <span class="number">8</span>   <span class="comment"># 按钮圆滑度</span></span><br><span class="line"><span class="attr">copy_button:</span>  <span class="comment"># 设置是否开启代码块复制按钮</span></span><br><span class="line">	<span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">	<span class="attr">show_result:</span> <span class="literal">true</span>  <span class="comment"># 是否显示复制成功信息</span></span><br></pre></td></tr></table></figure>
+<h4 id="修改加载特效"><a href="#修改加载特效" class="headerlink" title="修改加载特效"></a>修改加载特效</h4><p>由于网页不可能一直都秒进，总会等待一段时间的，所以可以设置顶部加载条。Next 已经集成了很多加载特效，可以在下面选项中在线调试测试一下。</p>
+<p>搜索<code>pace</code>，找到如下代码：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 页面顶部加载条</span></span><br><span class="line"><span class="comment"># Progress bar in the top during page loading.</span></span><br><span class="line"><span class="attr">pace:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment"># Themes list:</span></span><br><span class="line"><span class="comment">#pace-theme-big-counter</span></span><br><span class="line"><span class="comment">#pace-theme-bounce</span></span><br><span class="line"><span class="comment">#pace-theme-barber-shop</span></span><br><span class="line"><span class="comment">#pace-theme-center-atom</span></span><br><span class="line"><span class="comment">#pace-theme-center-circle</span></span><br><span class="line"><span class="comment">#pace-theme-center-radar</span></span><br><span class="line"><span class="comment">#pace-theme-center-simple</span></span><br><span class="line"><span class="comment">#pace-theme-corner-indicator</span></span><br><span class="line"><span class="comment">#pace-theme-fill-left</span></span><br><span class="line"><span class="comment">#pace-theme-flash</span></span><br><span class="line"><span class="comment">#pace-theme-loading-bar</span></span><br><span class="line"><span class="comment">#pace-theme-mac-osx</span></span><br><span class="line"><span class="comment">#pace-theme-minimal</span></span><br><span class="line"><span class="comment"># For example</span></span><br><span class="line"><span class="comment"># pace_theme: pace-theme-center-simple</span></span><br><span class="line"><span class="attr">pace_theme:</span> <span class="string">pace-theme-minimal</span>  <span class="comment">#默认设置，可以修改为上述任何一个</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>主题</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>主题</tag>
+        <tag>next</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>markdown 语法</title>
+    <url>/posts/23825.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em></p>
+<h3 id="Markdown-介绍"><a href="#Markdown-介绍" class="headerlink" title="Markdown 介绍"></a>Markdown 介绍</h3><p>Markdown 是一种轻量级标记语言，排版语法简洁，让人们更多地关注内容本身而非排版。它使用易读易写的纯文本格式编写文档，可与HTML混编，可导出 HTML、PDF 以及本身的 .md 格式的文件。因简洁、高效、易读、易写，Markdown被大量使用，如Github、Wikipedia、简书等。</p>
+<h3 id="常用语法"><a href="#常用语法" class="headerlink" title="常用语法"></a>常用语法</h3><ol>
+<li><code>标题</code>：使用<code>#</code>来表示不同级别的标题。例如：</li>
+</ol>
+<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><code>强调</code>: 使用<code>*</code>或<code>_</code>来表示斜体或加粗。例如</li>
+</ol>
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"><span class="strong">*斜体文本*</span></span><br><span class="line"><span class="strong">**加粗文本**</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><code>列表</code>：<ul>
+<li>无序列表使用<code>*</code>、<code>+</code>或<code>-</code></li>
+</ul>
+</li>
+</ol>
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"><span class="bullet">- </span>项目一</span><br><span class="line"><span class="bullet">- </span>项目二</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>有序列表使用数字加<code>.</code></li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> 第一项</span><br><span class="line"><span class="bullet">2.</span> 第二项</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><code>链接</code>:使用<code>[描述](链接)</code>来创建链接。例如：</li>
+</ol>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-attr">[Google]</span>(<span class="attribute">https</span>:<span class="comment">//www.google.com)</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li><code>图片</code>：类似链接，但前面加一个<code>!</code>。例如：</li>
+</ol>
+<figure class="highlight scss"><table><tr><td class="code"><pre><span class="line">!<span class="selector-attr">[图片描述]</span>(图片链接)</span><br></pre></td></tr></table></figure>
+
+
+<ol start="6">
+<li><code>代码块</code>：使用三个反引号（```）来表示代码块，可以指定语言进行语法高亮。例如：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello, World!&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li><code>引用</code>：使用<code>&gt;</code>来表示引用。例如：</li>
+</ol>
+<figure class="highlight node-repl"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">&gt;</span> <span class="language-javascript">这是一个引用</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这是一个引用</p>
+</blockquote>
+<ol start="8">
+<li><code>文本高亮</code>：一些Markdown解析器支持特殊语法来实现文本高亮，例如：</li>
+</ol>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="operator">=</span><span class="operator">=</span>这部分文本会被高亮<span class="operator">=</span><span class="operator">=</span></span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li><code>代码行</code>：代码行（即内联代码）是指在文本中嵌入一行或几行的代码。例如：</li>
+</ol>
+<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line"><span class="string">`代码`</span></span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li><code>表格</code>：表格的每一行用<code>|</code>分隔，表头和内容行之间用<code>---</code>分隔，列对齐方式可以通过在<code>---</code>前后添加<code>:</code>来指定。例如：</li>
+</ol>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">| 表头<span class="number">1</span> | 表头<span class="number">2</span> | 表头<span class="number">3</span> |</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">| 左对齐 | 居中对齐 | 右对齐 |</span><br><span class="line">|<span class="symbol">:-------|</span><span class="symbol">:-------</span><span class="symbol">:|-------</span><span class="symbol">:|</span></span><br><span class="line">| 文本   | 文本    | 文本   |</span><br></pre></td></tr></table></figure>
+
+<p>| 表头1 | 表头2 | 表头3 |</p>
+<table>
+<thead>
+<tr>
+<th align="left">左对齐</th>
+<th align="center">居中对齐</th>
+<th align="right">右对齐</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">文本</td>
+<td align="center">文本</td>
+<td align="right">文本</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>markdown</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>markdown 表格</title>
+    <url>/posts/22847.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em></p>
+<h2 id="Markdown-表格"><a href="#Markdown-表格" class="headerlink" title="Markdown 表格"></a>Markdown 表格</h2><p>Markdown 制作表格使用 | 来分隔不同的单元格，使用 - 分隔表头和其他行。</p>
+<p>语法格式如下：</p>
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">|<span class="string">  表头   </span>|<span class="string"> 表头  </span>|</span><br><span class="line">|<span class="string">  ----  </span>|<span class="string"> ----  </span>|</span><br><span class="line">|<span class="string"> 单元格  </span>|<span class="string"> 单元格 </span>|</span><br><span class="line">|<span class="string"> 单元格  </span>|<span class="string"> 单元格 </span>|</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>表头</th>
+<th>表头</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+<tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+</tbody></table>
+<p>对齐方式</p>
+<p><strong>可以设置表格的对齐方式：</strong></p>
+<ul>
+<li>-: 设置内容和标题栏居右对齐</li>
+<li>:- 设置内容和标题栏居左对齐</li>
+<li>:-: 设置内容和标题栏居中对齐</li>
+</ul>
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">实例如下：</span><br><span class="line"></span><br><span class="line">|<span class="string"> 左对齐 </span>|<span class="string"> 右对齐 </span>|<span class="string"> 居中对齐 </span>|</span><br><span class="line">|<span class="string"> :-----</span>|<span class="string"> ----: </span>|<span class="string"> :----: </span>|</span><br><span class="line">|<span class="string"> 单元格 </span>|<span class="string"> 单元格 </span>|<span class="string"> 单元格 </span>|</span><br><span class="line">|<span class="string"> 单元格 </span>|<span class="string"> 单元格 </span>|<span class="string"> 单元格 </span>|</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">左对齐</th>
+<th align="right">右对齐</th>
+<th align="center">居中对齐</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">单元格</td>
+<td align="right">单元格</td>
+<td align="center">单元格</td>
+</tr>
+<tr>
+<td align="left">单元格</td>
+<td align="right">单元格</td>
+<td align="center">单元格</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>markdown</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
+        <tag>表格</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>便携小空调设置</title>
+    <url>/posts/45943.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em></p>
+<h3 id="部署方案"><a href="#部署方案" class="headerlink" title="部署方案"></a>部署方案</h3><p>在博客根目录执行命令:</p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> <span class="type">page</span> air-conditioner</span><br></pre></td></tr></table></figure>
+
+<p>会生成<code>source/air-conditioner/index.md</code>, 将以下内容替换原内容</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">便携小空调</span> <span class="bullet">-</span> <span class="string">为你的夏日带去清凉!</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2022-10-20 22:06:17</span></span><br><span class="line"><span class="attr">comments:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">aside:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">top_img:</span> <span class="literal">false</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="string">&gt;</span> <span class="string">终于为博客安装上了便携小空调</span></span><br><span class="line"></span><br><span class="line"><span class="string">&lt;style&gt;</span></span><br><span class="line"><span class="string">.copyright-box</span> <span class="string">a</span> &#123;</span><br><span class="line">  <span class="attr">border-bottom:</span> <span class="string">none</span> <span class="type">!important;</span></span><br><span class="line">  <span class="attr">padding:</span> <span class="number">0</span> <span class="type">!important;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="string">&lt;/style&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&lt;div</span> <span class="string">id=&quot;air-conditioner-vue&quot;&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;script</span> <span class="string">defer</span> <span class="string">data-pjax</span> <span class="string">src=&#x27;https://npm.elemecdn.com/anzhiyu-air-conditioner@1.0.1/index.3f125bc6.js&#x27;&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后访问<a href="https://你的博客域名/air-conditioner">https://你的博客域名/air-conditioner</a>就可以得到一个没有风的空调 ❄️</p>
+<h3 id="其他部署方案"><a href="#其他部署方案" class="headerlink" title="其他部署方案"></a>其他部署方案</h3><p>如果使用的是其他的，部署也一样简单，只需加入以下代码嵌入网站即可</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;iframe <span class="attribute">height</span>=<span class="string">&quot;740&quot;</span> <span class="attribute">src</span>=<span class="string">&quot;https://loquacious-bienenstitch-58539b.netlify.app/&quot;</span>&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+        <tag>html</tag>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>butterfly 主题配置</title>
     <url>/posts/51784.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em></p>
@@ -303,175 +637,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Github迁移到Gitee</title>
-    <url>/posts/49051.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em> </p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><blockquote>
-</blockquote>
-<h4 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h4><p>在blog文件夹下打开git输入</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">git config <span class="attr">--global</span> user<span class="selector-class">.email</span> <span class="string">&quot;注册gitee时使用的邮箱&quot;</span></span><br><span class="line">git config <span class="attr">--global</span> user<span class="selector-class">.name</span> <span class="string">&quot;gitee的用户名&quot;</span></span><br></pre></td></tr></table></figure>
-
-
-<p>生成git公钥<br> <figure class="highlight excel"><table><tr><td class="code"><pre><span class="line">ssh-keygen -<span class="built_in">t</span> rsa -C <span class="string">&quot;you email@126.com&quot;</span></span><br></pre></td></tr></table></figure><br>提示输入passphrase时可直接回车</p>
-<p>可通过查看<code>.ssh/id_rsa.pub</code> 文件内容，获取你的public key</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="comment">#  此命令在本地PC上执行</span></span><br><span class="line">cat ~<span class="regexp">/.ssh/i</span>d_rsa.pub</span><br><span class="line"><span class="comment"># ssh-rsa AAAB3NzaC1yc2EAAAADAQABAAABgqcp2lvm....</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="将公钥添加到Gitee"><a href="#将公钥添加到Gitee" class="headerlink" title="将公钥添加到Gitee"></a>将公钥添加到Gitee</h5><p>首先进入<code>设置</code>页面<br>在<code>安全设置</code>中,选择<code>SSH公钥</code> ， 添加公钥后点击<code>确定</code>。</p>
-<p>在Git Bash中输入</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ssh</span> -T git<span class="variable">@gitee</span>.com </span><br></pre></td></tr></table></figure>
-
-<p>出现Hi XXX! You’ve successfully authenticated, but Gitee.com does not provide shell access.则证明成功！</p>
-<p>打开_config.yml进行修改<br>补全如下代码 repo即你的仓库https地址</p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">deploy:</span></span><br><span class="line"><span class="symbol">  type:</span> git</span><br><span class="line"><span class="symbol">  repo:</span> git@github.com:your_name/your_name.gitee.io.git</span><br><span class="line"><span class="symbol">  branch:</span> master</span><br></pre></td></tr></table></figure>
-
-<p>其中your_name需要替换为你的gitee的账号</p>
-<p>现在还需要创建一个首页访问地址不带二级目录的pages，如ipvb.gitee.io<br>新建一个仓库，仓库地址为<code>https://gitee.com/cas/cas.git</code>,gitee pages地址为<code>https://cas.gitee.io</code> 这样配置就不存在二级目录的问题</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://yoursite.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line">url: https:<span class="regexp">//</span>cas.gitee.io  <span class="regexp">//</span> 这个地址为预览地址，即为gitee page服务地址</span><br><span class="line">root: /</span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https:<span class="regexp">//gi</span>tee.com<span class="regexp">/cas/</span>.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-
-
-
-
-<p>现在需要执行以下命令 就可以发布自己的博客了。每次新建完文章之后部署，也是相同命令</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">hexo</span> clean         <span class="comment"># 清除本地缓存</span></span><br><span class="line">hexo g             <span class="comment"># 重新生成静态页面</span></span><br><span class="line">hexo d             <span class="comment"># 部署到git</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-]]></content>
-      <categories>
-        <category>Gitee</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Gitee</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>博客文章压缩</title>
-    <url>/posts/29115.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em> </p>
-<p>转载 <code>rozbo</code>开发的 <code>Hexo-Neat</code> 压缩插件</p>
-<h3 id="Hexo-Neat-压缩静态资源"><a href="#Hexo-Neat-压缩静态资源" class="headerlink" title="Hexo-Neat 压缩静态资源"></a>Hexo-Neat 压缩静态资源</h3><p>Hexo-Neat 能够帮助用户自动压缩静态资源，配合各类下属插件，能够压缩包括css、js、html乃至各类格式的图片文件</p>
-<h4 id="安装Gulp插件"><a href="#安装Gulp插件" class="headerlink" title="安装Gulp插件"></a>安装Gulp插件</h4><p>安装<code>Hexo-Neat</code>插件：在博客根目录[Blog]打开终端，输入：</p>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">npm install hexo-neat <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-
-<p>在站点配置文件中末尾添加以下相关配置</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># hexo-neat</span></span><br><span class="line"><span class="comment"># 博文压缩</span></span><br><span class="line"><span class="attr">neat_enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment"># 压缩html</span></span><br><span class="line"><span class="attr">neat_html:</span></span><br><span class="line"> <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"> <span class="attr">exclude:</span></span><br><span class="line"><span class="comment"># 压缩css</span></span><br><span class="line"><span class="attr">neat_css:</span></span><br><span class="line"> <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"> <span class="attr">exclude:</span></span><br><span class="line">   <span class="bullet">-</span> <span class="string">&#x27;*/*.min.css&#x27;</span></span><br><span class="line"><span class="comment"># 压缩js</span></span><br><span class="line"><span class="attr">neat_js:</span></span><br><span class="line"> <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"> <span class="attr">mangle:</span> <span class="literal">true</span></span><br><span class="line"> <span class="attr">output:</span></span><br><span class="line"> <span class="attr">compress:</span></span><br><span class="line"> <span class="attr">exclude:</span></span><br><span class="line">   <span class="bullet">-</span> <span class="string">&#x27;**/*.min.js&#x27;</span></span><br><span class="line">   <span class="bullet">-</span> <span class="string">&#x27;**/jquery.fancybox.pack.js&#x27;</span></span><br><span class="line">   <span class="bullet">-</span> <span class="string">&#x27;**/index.js&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="Gulp压缩"><a href="#Gulp压缩" class="headerlink" title="Gulp压缩"></a>Gulp压缩</h3><p>安装插件</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> gulp -g</span><br><span class="line">npm <span class="keyword">install</span> gulp-minify-css gulp-uglify gulp-htmlmin gulp-htmlclean gulp --save</span><br></pre></td></tr></table></figure>
-
-<h5 id="创建任务脚本"><a href="#创建任务脚本" class="headerlink" title="创建任务脚本"></a>创建任务脚本</h5><p>为Gulp创建gulpfile.js任务脚本。在博客根目录[Blogroot]下新建gulpfile.js,打开[Blogroot]\gulpfile.js,输入以下内容：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">&#x27;gulp&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> minifycss = <span class="built_in">require</span>(<span class="string">&#x27;gulp-minify-css&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> uglify = <span class="built_in">require</span>(<span class="string">&#x27;gulp-uglify&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> htmlmin = <span class="built_in">require</span>(<span class="string">&#x27;gulp-htmlmin&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> htmlclean = <span class="built_in">require</span>(<span class="string">&#x27;gulp-htmlclean&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> imagemin = <span class="built_in">require</span>(<span class="string">&#x27;gulp-imagemin&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 压缩html</span></span><br><span class="line">gulp.<span class="title function_">task</span>(<span class="string">&#x27;minify-html&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> gulp.<span class="title function_">src</span>(<span class="string">&#x27;./public/**/*.html&#x27;</span>)</span><br><span class="line">        .<span class="title function_">pipe</span>(<span class="title function_">htmlclean</span>())</span><br><span class="line">        .<span class="title function_">pipe</span>(<span class="title function_">htmlmin</span>(&#123;</span><br><span class="line">            <span class="attr">collapseWhitespace</span>: <span class="literal">true</span>, <span class="comment">//从字面意思应该可以看出来，清除空格，压缩html，这一条比较重要，作用比较大，引起的改变压缩量也特别大</span></span><br><span class="line">            <span class="attr">collapseBooleanAttributes</span>: <span class="literal">true</span>, <span class="comment">//省略布尔属性的值，比如：&lt;input checked=&quot;checked&quot;/&gt;,那么设置这个属性后，就会变成 &lt;input checked/&gt;</span></span><br><span class="line">            <span class="attr">removeComments</span>: <span class="literal">true</span>, <span class="comment">//清除html中注释的部分</span></span><br><span class="line">            <span class="attr">removeEmptyAttributes</span>: <span class="literal">true</span>, <span class="comment">//清除所有的空属性</span></span><br><span class="line">            <span class="attr">removeScriptTypeAttributes</span>: <span class="literal">true</span>, <span class="comment">//清除所有script标签中的type=&quot;text/javascript&quot;属性。</span></span><br><span class="line">            <span class="attr">removeStyleLinkTypeAttributes</span>: <span class="literal">true</span>, <span class="comment">//清楚所有Link标签上的type属性。</span></span><br><span class="line">            <span class="attr">minifyJS</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">minifyCSS</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">minifyURLs</span>: <span class="literal">true</span>,</span><br><span class="line">        &#125;))</span><br><span class="line">        .<span class="title function_">pipe</span>(gulp.<span class="title function_">dest</span>(<span class="string">&#x27;./public&#x27;</span>));</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 压缩css</span></span><br><span class="line">gulp.<span class="title function_">task</span>(<span class="string">&#x27;minify-css&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> gulp.<span class="title function_">src</span>(<span class="string">&#x27;./public/**/*.css&#x27;</span>)</span><br><span class="line">        .<span class="title function_">pipe</span>(<span class="title function_">minifycss</span>(&#123;</span><br><span class="line">            <span class="attr">compatibility</span>: <span class="string">&#x27;ie8&#x27;</span></span><br><span class="line">        &#125;))</span><br><span class="line">        .<span class="title function_">pipe</span>(gulp.<span class="title function_">dest</span>(<span class="string">&#x27;./public&#x27;</span>));</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 压缩js !代表排除的js,例如[&#x27;!./public/js/**/*min.js&#x27;]</span></span><br><span class="line">gulp.<span class="title function_">task</span>(<span class="string">&#x27;minify-js&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> gulp.<span class="title function_">src</span>([<span class="string">&#x27;./public/js/**/.js&#x27;</span>])</span><br><span class="line">        .<span class="title function_">pipe</span>(<span class="title function_">uglify</span>()) <span class="comment">//压缩混淆</span></span><br><span class="line">        .<span class="title function_">pipe</span>(gulp.<span class="title function_">dest</span>(<span class="string">&#x27;./public&#x27;</span>));</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 压缩图片</span></span><br><span class="line">gulp.<span class="title function_">task</span>(<span class="string">&#x27;minify-images&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> gulp.<span class="title function_">src</span>(<span class="string">&#x27;./public/images/**/*.*&#x27;</span>)</span><br><span class="line">        .<span class="title function_">pipe</span>(<span class="title function_">imagemin</span>(</span><br><span class="line">        [imagemin.<span class="title function_">gifsicle</span>(&#123;<span class="string">&#x27;optimizationLevel&#x27;</span>: <span class="number">3</span>&#125;),</span><br><span class="line">        imagemin.<span class="title function_">jpegtran</span>(&#123;<span class="string">&#x27;progressive&#x27;</span>: <span class="literal">true</span>&#125;),</span><br><span class="line">        imagemin.<span class="title function_">optipng</span>(&#123;<span class="string">&#x27;optimizationLevel&#x27;</span>: <span class="number">7</span>&#125;),</span><br><span class="line">        imagemin.<span class="title function_">svgo</span>()],</span><br><span class="line">        &#123;<span class="string">&#x27;verbose&#x27;</span>: <span class="literal">true</span>&#125;))</span><br><span class="line">        .<span class="title function_">pipe</span>(gulp.<span class="title function_">dest</span>(<span class="string">&#x27;./public/images&#x27;</span>));</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 默认任务</span></span><br><span class="line">gulp.<span class="title function_">task</span>(<span class="string">&#x27;default&#x27;</span>,gulp.<span class="title function_">series</span>(gulp.<span class="title function_">parallel</span>(<span class="string">&#x27;minify-html&#x27;</span>,<span class="string">&#x27;minify-css&#x27;</span>,<span class="string">&#x27;minify-js&#x27;</span>,<span class="string">&#x27;minify-images&#x27;</span>)));</span><br></pre></td></tr></table></figure>
-
-
-<p>在每次运行完hexo generate生成静态页面后，运行gulp对其进行压缩。指令流程如下：</p>
-<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo <span class="keyword">generate</span></span><br><span class="line">gulp</span><br><span class="line">hexo server 或 hexo deploy</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>gulp</tag>
-        <tag>neat</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>今日诗词</title>
-    <url>/posts/7850.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em></p>
-<div class="poem-wrap">
-  <div class="poem-border poem-left"></div>
-  <div class="poem-border poem-right"></div>
-    <h2>念两句诗</h2>
-    <p id="poem">挑选中...</p>
-    <p id="info">
-
-  <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-  <script type="text/javascript">
-    jinrishici.load(function(result) {
-      poem.innerHTML = result.data.content
-      info.innerHTML = '【' + result.data.origin.dynasty + '】' + result.data.origin.author + '《' + result.data.origin.title + '》'
-      document.getElementById("poem").value(poem);
-      document.getElementById("info").value(info);  
-  });
-  </script>
-</div>
-
-<h3 id="添加每日一言"><a href="#添加每日一言" class="headerlink" title="添加每日一言"></a>添加每日一言</h3><p id="hitokoto">获取中...</p>
-<script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
-]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>诗词</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>markdown 表格</title>
-    <url>/posts/22847.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em></p>
-<h2 id="Markdown-表格"><a href="#Markdown-表格" class="headerlink" title="Markdown 表格"></a>Markdown 表格</h2><p>Markdown 制作表格使用 | 来分隔不同的单元格，使用 - 分隔表头和其他行。</p>
-<p>语法格式如下：</p>
-<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">|<span class="string">  表头   </span>|<span class="string"> 表头  </span>|</span><br><span class="line">|<span class="string">  ----  </span>|<span class="string"> ----  </span>|</span><br><span class="line">|<span class="string"> 单元格  </span>|<span class="string"> 单元格 </span>|</span><br><span class="line">|<span class="string"> 单元格  </span>|<span class="string"> 单元格 </span>|</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th>表头</th>
-<th>表头</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>单元格</td>
-<td>单元格</td>
-</tr>
-<tr>
-<td>单元格</td>
-<td>单元格</td>
-</tr>
-</tbody></table>
-<p>对齐方式</p>
-<p><strong>可以设置表格的对齐方式：</strong></p>
-<ul>
-<li>-: 设置内容和标题栏居右对齐</li>
-<li>:- 设置内容和标题栏居左对齐</li>
-<li>:-: 设置内容和标题栏居中对齐</li>
-</ul>
-<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">实例如下：</span><br><span class="line"></span><br><span class="line">|<span class="string"> 左对齐 </span>|<span class="string"> 右对齐 </span>|<span class="string"> 居中对齐 </span>|</span><br><span class="line">|<span class="string"> :-----</span>|<span class="string"> ----: </span>|<span class="string"> :----: </span>|</span><br><span class="line">|<span class="string"> 单元格 </span>|<span class="string"> 单元格 </span>|<span class="string"> 单元格 </span>|</span><br><span class="line">|<span class="string"> 单元格 </span>|<span class="string"> 单元格 </span>|<span class="string"> 单元格 </span>|</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th align="left">左对齐</th>
-<th align="right">右对齐</th>
-<th align="center">居中对齐</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">单元格</td>
-<td align="right">单元格</td>
-<td align="center">单元格</td>
-</tr>
-<tr>
-<td align="left">单元格</td>
-<td align="right">单元格</td>
-<td align="center">单元格</td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>markdown</category>
-      </categories>
-      <tags>
-        <tag>markdown</tag>
-        <tag>表格</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux 目录结构</title>
     <url>/posts/6747.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em> </p>
@@ -548,173 +713,163 @@
       </tags>
   </entry>
   <entry>
-    <title>markdown 语法</title>
-    <url>/posts/23825.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em></p>
-<h3 id="Markdown-介绍"><a href="#Markdown-介绍" class="headerlink" title="Markdown 介绍"></a>Markdown 介绍</h3><p>Markdown 是一种轻量级标记语言，排版语法简洁，让人们更多地关注内容本身而非排版。它使用易读易写的纯文本格式编写文档，可与HTML混编，可导出 HTML、PDF 以及本身的 .md 格式的文件。因简洁、高效、易读、易写，Markdown被大量使用，如Github、Wikipedia、简书等。</p>
-<h3 id="常用语法"><a href="#常用语法" class="headerlink" title="常用语法"></a>常用语法</h3><ol>
-<li><code>标题</code>：使用<code>#</code>来表示不同级别的标题。例如：</li>
+    <title>批处理命令</title>
+    <url>/posts/44656.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em> </p>
+<h5 id="批处理命令"><a href="#批处理命令" class="headerlink" title="批处理命令"></a>批处理命令</h5><ol>
+<li>映射磁盘驱动器</li>
 </ol>
-<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br></pre></td></tr></table></figure>
-
+<p><code>net use y: \\10.80.155.152\F /user:hp</code>  “y”指定的驱动器号; /user:”username”</p>
 <ol start="2">
-<li><code>强调</code>: 使用<code>*</code>或<code>_</code>来表示斜体或加粗。例如</li>
+<li>使用文件资源管理器打开FTP服务器登录窗口</li>
 </ol>
-<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"><span class="strong">*斜体文本*</span></span><br><span class="line"><span class="strong">**加粗文本**</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="variable">@echo</span> off</span><br><span class="line">explorer <span class="attribute">ftp</span>:<span class="comment">//10.80.155.152</span></span><br></pre></td></tr></table></figure>
+<p>使用浏览器打开对应网址</p>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line">@echo <span class="literal">off</span></span><br><span class="line">start www.baidu.com</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
-<li><code>列表</code>：<ul>
-<li>无序列表使用<code>*</code>、<code>+</code>或<code>-</code></li>
-</ul>
-</li>
+<li>按任意键继续</li>
 </ol>
-<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"><span class="bullet">- </span>项目一</span><br><span class="line"><span class="bullet">- </span>项目二</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>有序列表使用数字加<code>.</code></li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> 第一项</span><br><span class="line"><span class="bullet">2.</span> 第二项</span><br></pre></td></tr></table></figure>
-
+<p><code>pause</code>  按任意键继续</p>
 <ol start="4">
-<li><code>链接</code>:使用<code>[描述](链接)</code>来创建链接。例如：</li>
+<li>启动磁盘里的可执行程序</li>
 </ol>
-<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-attr">[Google]</span>(<span class="attribute">https</span>:<span class="comment">//www.google.com)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/@<span class="built_in">echo</span> off</span><br><span class="line">e:</span><br><span class="line"><span class="built_in">cd</span>\</span><br><span class="line"><span class="built_in">cd</span> examClient-win32–x64</span><br><span class="line">examClient.exe</span><br></pre></td></tr></table></figure>
 
 <ol start="5">
-<li><code>图片</code>：类似链接，但前面加一个<code>!</code>。例如：</li>
+<li>打开共享文件夹</li>
 </ol>
-<figure class="highlight scss"><table><tr><td class="code"><pre><span class="line">!<span class="selector-attr">[图片描述]</span>(图片链接)</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="comment">rem 建立链接</span></span><br><span class="line"><span class="comment">rem 打开共享文件夹</span></span><br><span class="line">explorer \\<span class="number">10</span>.<span class="number">80</span>.<span class="number">7</span>.<span class="number">1</span>\</span><br><span class="line"><span class="keyword">exit</span></span><br></pre></td></tr></table></figure>
 
 <ol start="6">
-<li><code>代码块</code>：使用三个反引号（```）来表示代码块，可以指定语言进行语法高亮。例如：</li>
+<li>运行后删除自身文件    使用   <code>del %0</code></li>
 </ol>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello, World!&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> 按任意键后我将删除自身</span><br><span class="line"><span class="built_in">pause</span></span><br><span class="line"><span class="built_in">del</span> %<span class="number">0</span></span><br></pre></td></tr></table></figure>
 
 <ol start="7">
-<li><code>引用</code>：使用<code>&gt;</code>来表示引用。例如：</li>
+<li>万能删除文件</li>
 </ol>
-<figure class="highlight node-repl"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">&gt;</span> <span class="language-javascript">这是一个引用</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">@<span class="keyword">echo</span> off</span><br><span class="line">DEL <span class="string">/F</span> <span class="string">/A</span> <span class="string">/Q</span> \\?\%1</span><br><span class="line">RD <span class="string">/S</span> <span class="string">/Q</span> \\?\%1</span><br></pre></td></tr></table></figure>
+
+<p> 批处理删除文件夹下所有文件和文件夹</p>
 <blockquote>
-<p>这是一个引用</p>
+<ul>
+<li>1、rd命令<br>rd /s /Q c:\temp<br>会将temp文件夹也删除</li>
+<li>2、rd命令+md命令<br>rd /s /Q c:\temp<br>md c:\Temp<br>删除后再重建</li>
+<li>3、del命令<br>del /s /Q c:\temp<br>只能删除文件，而不能删除子文件夹</li>
+<li>4、del命令+rd命令，先刪除文件，再进入temp文件夹删除目录<br>del /s /Q c:\temp<br>cd C:\temp<br>rd /s /q c:\temp</li>
+</ul>
 </blockquote>
-<ol start="8">
-<li><code>文本高亮</code>：一些Markdown解析器支持特殊语法来实现文本高亮，例如：</li>
-</ol>
-<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="operator">=</span><span class="operator">=</span>这部分文本会被高亮<span class="operator">=</span><span class="operator">=</span></span><br></pre></td></tr></table></figure>
-
-<ol start="9">
-<li><code>代码行</code>：代码行（即内联代码）是指在文本中嵌入一行或几行的代码。例如：</li>
-</ol>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line"><span class="string">`代码`</span></span><br></pre></td></tr></table></figure>
-
-<ol start="10">
-<li><code>表格</code>：表格的每一行用<code>|</code>分隔，表头和内容行之间用<code>---</code>分隔，列对齐方式可以通过在<code>---</code>前后添加<code>:</code>来指定。例如：</li>
-</ol>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">| 表头<span class="number">1</span> | 表头<span class="number">2</span> | 表头<span class="number">3</span> |</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">| 左对齐 | 居中对齐 | 右对齐 |</span><br><span class="line">|<span class="symbol">:-------|</span><span class="symbol">:-------</span><span class="symbol">:|-------</span><span class="symbol">:|</span></span><br><span class="line">| 文本   | 文本    | 文本   |</span><br></pre></td></tr></table></figure>
-
-<p>| 表头1 | 表头2 | 表头3 |</p>
-<table>
-<thead>
-<tr>
-<th align="left">左对齐</th>
-<th align="center">居中对齐</th>
-<th align="right">右对齐</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">文本</td>
-<td align="center">文本</td>
-<td align="right">文本</td>
-</tr>
-</tbody></table>
 ]]></content>
       <categories>
-        <category>markdown</category>
+        <category>bat</category>
       </categories>
       <tags>
-        <tag>markdown</tag>
+        <tag>bat</tag>
+        <tag>批处理</tag>
+        <tag>cmd</tag>
       </tags>
   </entry>
   <entry>
-    <title>next 主题配置</title>
-    <url>/posts/15660.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em></p>
-<h4 id="主题下载安装"><a href="#主题下载安装" class="headerlink" title="主题下载安装"></a>主题下载安装</h4><p>进入命令行，下载 NexT 主题，输入：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/theme-next/</span>hexo-theme-<span class="keyword">next</span> themes/<span class="keyword">next</span></span><br></pre></td></tr></table></figure>
-
-
-<p>修改站点配置文件<code>_config.yml</code>，找到如下代码：</p>
-<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">## Themes: https:<span class="comment">//hexo.io/themes/</span></span><br><span class="line">theme: landscape</span><br></pre></td></tr></table></figure>
-<p>将 landscape 修改为 next </p>
-<h4 id="切换主题"><a href="#切换主题" class="headerlink" title="切换主题"></a>切换主题</h4><p>next 主题自带四种样式。</p>
-<p>在主题配置文件<code>/next/_config.yml</code>中查找：<code>scheme</code>，找到如下代码：</p>
-<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="meta"># Schemes</span></span><br><span class="line"><span class="symbol">scheme:</span> Muse</span><br><span class="line"><span class="meta">#scheme: Mist</span></span><br><span class="line"><span class="meta">#scheme: Pisces</span></span><br><span class="line"><span class="meta">#scheme: Gemini</span></span><br><span class="line">选择一种样式，去掉前面的 <span class="meta">#，其他主题前加上 # </span></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="隐藏网页强力驱动"><a href="#隐藏网页强力驱动" class="headerlink" title="隐藏网页强力驱动"></a>隐藏网页强力驱动</h4><p>隐藏网页底部 powered By Hexo / 强力驱动<br>打开 <code>themes/next/layout/_partials/footer.swig</code></p>
-<p>找到</p>
-<figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.footer.powered.enable %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;powered-by&quot;</span>&gt;</span></span><span class="comment">&#123;#</span></span><br><span class="line"><span class="comment">#&#125;</span><span class="template-variable">&#123;&#123; __(&#x27;footer.powered&#x27;, &#x27;&lt;a class=&quot;theme-link&quot; target=&quot;_blank&quot;&#x27; + nofollow + &#x27; href=&quot;https://hexo.io&quot;&gt;Hexo&lt;/a&gt;&#x27;) &#125;&#125;</span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.footer.powered.version %&#125;</span><span class="language-xml"> v</span><span class="template-variable">&#123;&#123; hexo_env(&#x27;version&#x27;) &#125;&#125;</span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="comment">&#123;#</span></span><br><span class="line"><span class="comment">#&#125;</span><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.footer.powered.enable and theme.footer.theme.enable %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;post-meta-divider&quot;</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.footer.theme.enable %&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;theme-info&quot;</span>&gt;</span></span><span class="comment">&#123;#</span></span><br><span class="line"><span class="comment">#&#125;</span><span class="template-variable">&#123;&#123; __(&#x27;footer.theme&#x27;) &#125;&#125;</span><span class="language-xml"> – </span><span class="comment">&#123;#</span></span><br><span class="line"><span class="comment">#&#125;</span><span class="language-xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;theme-link&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span></span></span><span class="template-variable">&#123;&#123; nofollow &#125;&#125;</span><span class="language-xml"><span class="tag"> <span class="attr">href</span>=<span class="string">&quot;https://theme-next.org&quot;</span>&gt;</span></span><span class="comment">&#123;#</span></span><br><span class="line"><span class="comment">#&#125;</span><span class="language-xml">NexT.</span><span class="template-variable">&#123;&#123; theme.scheme &#125;&#125;</span><span class="comment">&#123;#</span></span><br><span class="line"><span class="comment">#&#125;</span><span class="language-xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.footer.theme.version %&#125;</span><span class="language-xml"> v</span><span class="template-variable">&#123;&#123; version &#125;&#125;</span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="comment">&#123;#</span></span><br><span class="line"><span class="comment">#&#125;</span><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>把这段代码首尾分别加上：<!-- 和-->，或者直接删除</p>
-<h4 id="浏览进度"><a href="#浏览进度" class="headerlink" title="浏览进度"></a>浏览进度</h4><p>浏览页面显示当前浏览进度<br>打开 <code>themes/next/_config.yml</code>，搜索关键字 <code>scrollpercent</code>,把 false 改为 true</p>
-<h4 id="Local-Search本地搜索"><a href="#Local-Search本地搜索" class="headerlink" title="Local Search本地搜索"></a>Local Search本地搜索</h4><p>安装插件<code>hexo-generator-searchdb</code>,执行以下命令:</p>
-<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">npm</span> install hexo-generator-searchdb --save</span><br><span class="line">或者</span><br><span class="line"><span class="built_in">npm</span> install -g <span class="built_in">npm</span>@<span class="number">11.3</span><span class="number">.0</span></span><br></pre></td></tr></table></figure>
-
-<p>修改<code>hexo/_config.yml</code>站点配置文件，新增以下内容到任意位置</p>
-<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">search:</span></span><br><span class="line"><span class="symbol">path:</span> search.xml</span><br><span class="line"><span class="symbol">field:</span> post</span><br><span class="line"><span class="symbol">format:</span> html</span><br><span class="line"><span class="symbol">limit:</span> <span class="number">10000</span></span><br></pre></td></tr></table></figure>
-
-<p>编辑 __主题配置文件__，启用本地搜索功能：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Local search</span></span><br><span class="line"><span class="attr">local_search:</span></span><br><span class="line"><span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="设置网站图标"><a href="#设置网站图标" class="headerlink" title="设置网站图标"></a>设置网站图标</h4><p>找一张（32 * 32）的 ico 图标，或者去别的网站下载或者制作，并将图标名称改为 favicon.ico，然后把图标放在 ·/themes/next/source/images· 里，并且修改主题配置文件：</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">Put your favicon.ico <span class="keyword">into</span> `hexo-site<span class="regexp">/source/</span>` directory.</span><br><span class="line">favicon: /favicon.ico</span><br></pre></td></tr></table></figure>
-
-
-<h4 id="修改文章底部标签"><a href="#修改文章底部标签" class="headerlink" title="修改文章底部标签"></a>修改文章底部标签</h4><p>修改文章底部的#号的标签，改为图标<br>修改模板<code>/themes/next/layout/_macro/post.swig</code></p>
-<p>搜索 rel=“tag”&gt;#，将 # 换成<code>&lt;i class=&quot;fa fa-tag&quot;&gt;&lt;/i&gt;</code></p>
-<h4 id="Read-More-按钮样式"><a href="#Read-More-按钮样式" class="headerlink" title="[Read More]按钮样式"></a>[Read More]按钮样式</h4><p>修改<code>themes\next\source\css\_custom\custom.styl</code>文件，加入自定义样式</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">// <span class="selector-attr">[Read More]</span>按钮样式</span><br><span class="line"><span class="selector-class">.post-button</span> <span class="selector-class">.btn</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#555</span> <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>);</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: inset <span class="number">0px</span> <span class="number">0px</span> <span class="number">10px</span> <span class="number">0px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.35</span>);</span><br><span class="line">    <span class="attribute">border</span>: none <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">transition-property</span>: unset;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0px</span> <span class="number">15px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.post-button</span> <span class="selector-class">.btn</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="built_in">rgb</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>) <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: inset <span class="number">0px</span> <span class="number">0px</span> <span class="number">10px</span> <span class="number">0px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.35</span>);</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(<span class="number">90deg</span>, <span class="number">#a166ab</span> <span class="number">0%</span>, <span class="number">#ef4e7b</span> <span class="number">25%</span>, <span class="number">#f37055</span> <span class="number">50%</span>, <span class="number">#ef4e7b</span> <span class="number">75%</span>, <span class="number">#a166ab</span> <span class="number">100%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="阅读全文设置"><a href="#阅读全文设置" class="headerlink" title="阅读全文设置"></a>阅读全文设置</h4><p>修改 阅读全文 前显示文字数量即位置<br>打开 <code>themes/next/_config.yml</code>,搜索关键字 <code>auto_excerpt</code>， 修改length即可修改阅读全文前显示文字数量</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">auto_excerpt:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">length:</span> <span class="number">150</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>或者在文章中任意位置添加</strong><code>&lt;!-- more --&gt;</code></p>
-<p>建议在文章中加入 <code>&lt;!-- more --&gt;</code><br>自定义 [Read More] 按钮之前要显示的内容！</p>
-<h4 id="修改链接文字样式"><a href="#修改链接文字样式" class="headerlink" title="修改链接文字样式"></a>修改链接文字样式</h4><p>打开<code>themes\next\source\css\_common\components\post\post.styl</code>添加以下代码:</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.post-body</span> <span class="selector-tag">p</span> <span class="selector-tag">a</span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="attribute">color</span>: <span class="number">#0593d3</span>;</span><br><span class="line"> <span class="attribute">border-bottom</span>: none;</span><br><span class="line"> &amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">   <span class="attribute">color</span>: <span class="number">#ff106c</span>;</span><br><span class="line">   <span class="attribute">text-decoration</span>: underline;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>连接颜色已变为彩色</p>
-<h4 id="代码块复制选项"><a href="#代码块复制选项" class="headerlink" title="代码块复制选项"></a>代码块复制选项</h4><p>Next6 中自带了复制代码按钮，Next5 需要自己手动配置。</p>
-<p>搜索 <code>codeblock</code>，找到如下配置：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">codeblock:</span></span><br><span class="line"><span class="attr">border_radius:</span> <span class="number">8</span>   <span class="comment"># 按钮圆滑度</span></span><br><span class="line"><span class="attr">copy_button:</span>  <span class="comment"># 设置是否开启代码块复制按钮</span></span><br><span class="line">	<span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">	<span class="attr">show_result:</span> <span class="literal">true</span>  <span class="comment"># 是否显示复制成功信息</span></span><br></pre></td></tr></table></figure>
-<h4 id="修改加载特效"><a href="#修改加载特效" class="headerlink" title="修改加载特效"></a>修改加载特效</h4><p>由于网页不可能一直都秒进，总会等待一段时间的，所以可以设置顶部加载条。Next 已经集成了很多加载特效，可以在下面选项中在线调试测试一下。</p>
-<p>搜索<code>pace</code>，找到如下代码：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 页面顶部加载条</span></span><br><span class="line"><span class="comment"># Progress bar in the top during page loading.</span></span><br><span class="line"><span class="attr">pace:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment"># Themes list:</span></span><br><span class="line"><span class="comment">#pace-theme-big-counter</span></span><br><span class="line"><span class="comment">#pace-theme-bounce</span></span><br><span class="line"><span class="comment">#pace-theme-barber-shop</span></span><br><span class="line"><span class="comment">#pace-theme-center-atom</span></span><br><span class="line"><span class="comment">#pace-theme-center-circle</span></span><br><span class="line"><span class="comment">#pace-theme-center-radar</span></span><br><span class="line"><span class="comment">#pace-theme-center-simple</span></span><br><span class="line"><span class="comment">#pace-theme-corner-indicator</span></span><br><span class="line"><span class="comment">#pace-theme-fill-left</span></span><br><span class="line"><span class="comment">#pace-theme-flash</span></span><br><span class="line"><span class="comment">#pace-theme-loading-bar</span></span><br><span class="line"><span class="comment">#pace-theme-mac-osx</span></span><br><span class="line"><span class="comment">#pace-theme-minimal</span></span><br><span class="line"><span class="comment"># For example</span></span><br><span class="line"><span class="comment"># pace_theme: pace-theme-center-simple</span></span><br><span class="line"><span class="attr">pace_theme:</span> <span class="string">pace-theme-minimal</span>  <span class="comment">#默认设置，可以修改为上述任何一个</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-]]></content>
+    <title>软件静默安装参数</title>
+    <url>/posts/10107.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em> </p>
+<h4 id="软件静默参数"><a href="#软件静默参数" class="headerlink" title="软件静默参数"></a>软件静默参数</h4><p>大部分软件的安装都能采取全自动或半自动的方式进行，只需要找到对应的静默参数</p>
+<p>Microsoft Windows Installer</p>
+<p>　　如果某个软件是用 Windows Installer 打包的，那你就应该能在文件夹中看到 *.msi 文件。这是最典型的特征，这些文件通常可以使用 /QB 和 /QN 参数进行自动安装。</p>
+<p>　　/qb 会在窗口中显示一个基本的安装进程。<br>　　/qn 参数则不会显示任何窗口，直接在后台自动安装。 </p>
+<h5 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h5><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">WinRAR.exe <span class="string">/S</span></span><br><span class="line">7-ZIP.exe <span class="string">/S</span></span><br><span class="line">搜狗输入法<span class="string">.exe</span> <span class="string">/S</span></span><br><span class="line">QQ  <span class="string">/S</span></span><br><span class="line">VC++运行库  <span class="string">/SILENT</span> 显示窗口直接安装</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>主题</category>
+        <category>windows</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
-        <tag>主题</tag>
-        <tag>next</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>了解计算机物理接口</title>
-    <url>/posts/15023.html</url>
-    <content><![CDATA[]]></content>
-      <tags>
-        <tag>PC</tag>
         <tag>windows</tag>
+        <tag>bat</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禁止ipc默认共享</title>
+    <url>/posts/38974.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em> </p>
+<h4 id="禁止ipc-默认共享"><a href="#禁止ipc-默认共享" class="headerlink" title="禁止ipc$默认共享"></a>禁止ipc$默认共享</h4><p>  把ipc$和默认共享都删除了。但重起后还会有。也可以放到一个批处理里面 把这个批处理文件设置开机启动 可以禁止共享</p>
+<p>在win10及以上系统中如使用的不是管理员账户 需要在批处理前添加获取管理员身份的权限<br>代码如下：</p>
+<figure class="highlight perl"><table><tr><td class="code"><pre><span class="line">%1 %2</span><br><span class="line">ver|find <span class="string">&quot;5.&quot;</span>&gt;nul&amp;&amp;<span class="keyword">goto</span> :Admin</span><br><span class="line">mshta vbscript:createobject(<span class="string">&quot;shell.application&quot;</span>).shellexecute(<span class="string">&quot;%~s0&quot;</span>,<span class="string">&quot;goto :Admin&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="string">&quot;runas&quot;</span>,<span class="number">1</span>)(window.close)&amp;<span class="keyword">goto</span> :<span class="keyword">eof</span></span><br><span class="line">:Admin</span><br></pre></td></tr></table></figure>
+
+<p>删除共享的代码</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">net share ipc<span class="variable">$</span> /<span class="built_in">del</span></span><br><span class="line">net share admin<span class="variable">$</span> /<span class="built_in">del</span></span><br><span class="line">net share c<span class="variable">$</span> /<span class="built_in">del</span></span><br><span class="line">net share d<span class="variable">$</span> /<span class="built_in">del</span></span><br><span class="line"><span class="comment"># …………（有几个删几个）</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>windows</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+        <tag>IPC</tag>
+        <tag>IP</tag>
+        <tag>共享</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Win10配置NTP服务器</title>
+    <url>/posts/14899.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em> </p>
+<h4 id="NTP服务器配置"><a href="#NTP服务器配置" class="headerlink" title="NTP服务器配置"></a>NTP服务器配置</h4><p>1.使用组合键<code>WIN + R</code> 启动运行窗口，在打开的窗口中输入<code>regedit</code>，点击确定按钮.<br><img src="/images/regedit.png"></p>
+<p>2.在打开的注册表中输入<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Config</code>，找到并打开<code>Config</code>目录，双击<code>Config</code>目录下的<code>AnnounceFlags</code>。<br><img src="/images/regedit1.png"><br>3.把注册表项的值设定为5，点击确定按钮<br><img src="/images/regedit2.png"></p>
+<p>4.再次输入注册表路径<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpServer</code>，双击<code>NtpServer</code>下的<code>Enabled</code>文件。<br><img src="/images/regedit3.png"><br>5.把Enabled的值设定为<code>1</code>，点击确定按钮。</p>
+<p>6.打开命令提示符窗口（以管理员身份运行）。开始-找到windows系统-找到命令提示符-然后鼠标右键点击命令提示符-选择以管理员身份运行。<br><img src="/images/cmda.png"></p>
+<p>7.输入<code>net stop w32time</code>停止服务，再输入<code>net start w32time</code>启动服务。<br><img src="/images/cmdb.png"><br>8.输入命令<code>w32tm /stripchart /computer:127.0.0.1</code>，有时间回显说明配置成功。<br><img src="/images/cmdc.png"></p>
+<p>在win10上配置NTP时间同步服务器的方法就介绍完了。（也可以在局域网内的其他计算机上使用ntp服务功能进行ntp校时验证)</p>
+]]></content>
+      <categories>
+        <category>windows</category>
+      </categories>
+      <tags>
+        <tag>NTP</tag>
+        <tag>win10</tag>
+        <tag>服务器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Github迁移到Gitee</title>
+    <url>/posts/49051.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em> </p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><blockquote>
+</blockquote>
+<h4 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h4><p>在blog文件夹下打开git输入</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">git config <span class="attr">--global</span> user<span class="selector-class">.email</span> <span class="string">&quot;注册gitee时使用的邮箱&quot;</span></span><br><span class="line">git config <span class="attr">--global</span> user<span class="selector-class">.name</span> <span class="string">&quot;gitee的用户名&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+<p>生成git公钥<br> <figure class="highlight excel"><table><tr><td class="code"><pre><span class="line">ssh-keygen -<span class="built_in">t</span> rsa -C <span class="string">&quot;you email@126.com&quot;</span></span><br></pre></td></tr></table></figure><br>提示输入passphrase时可直接回车</p>
+<p>可通过查看<code>.ssh/id_rsa.pub</code> 文件内容，获取你的public key</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="comment">#  此命令在本地PC上执行</span></span><br><span class="line">cat ~<span class="regexp">/.ssh/i</span>d_rsa.pub</span><br><span class="line"><span class="comment"># ssh-rsa AAAB3NzaC1yc2EAAAADAQABAAABgqcp2lvm....</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="将公钥添加到Gitee"><a href="#将公钥添加到Gitee" class="headerlink" title="将公钥添加到Gitee"></a>将公钥添加到Gitee</h5><p>首先进入<code>设置</code>页面<br>在<code>安全设置</code>中,选择<code>SSH公钥</code> ， 添加公钥后点击<code>确定</code>。</p>
+<p>在Git Bash中输入</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ssh</span> -T git<span class="variable">@gitee</span>.com </span><br></pre></td></tr></table></figure>
+
+<p>出现Hi XXX! You’ve successfully authenticated, but Gitee.com does not provide shell access.则证明成功！</p>
+<p>打开_config.yml进行修改<br>补全如下代码 repo即你的仓库https地址</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">deploy:</span></span><br><span class="line"><span class="symbol">  type:</span> git</span><br><span class="line"><span class="symbol">  repo:</span> git@github.com:your_name/your_name.gitee.io.git</span><br><span class="line"><span class="symbol">  branch:</span> master</span><br></pre></td></tr></table></figure>
+
+<p>其中your_name需要替换为你的gitee的账号</p>
+<p>现在还需要创建一个首页访问地址不带二级目录的pages，如ipvb.gitee.io<br>新建一个仓库，仓库地址为<code>https://gitee.com/cas/cas.git</code>,gitee pages地址为<code>https://cas.gitee.io</code> 这样配置就不存在二级目录的问题</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://yoursite.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line">url: https:<span class="regexp">//</span>cas.gitee.io  <span class="regexp">//</span> 这个地址为预览地址，即为gitee page服务地址</span><br><span class="line">root: /</span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https:<span class="regexp">//gi</span>tee.com<span class="regexp">/cas/</span>.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>现在需要执行以下命令 就可以发布自己的博客了。每次新建完文章之后部署，也是相同命令</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">hexo</span> clean         <span class="comment"># 清除本地缓存</span></span><br><span class="line">hexo g             <span class="comment"># 重新生成静态页面</span></span><br><span class="line">hexo d             <span class="comment"># 部署到git</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+]]></content>
+      <categories>
+        <category>Gitee</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Gitee</tag>
       </tags>
   </entry>
   <entry>
@@ -1011,106 +1166,6 @@
       </tags>
   </entry>
   <entry>
-    <title>批处理命令</title>
-    <url>/posts/44656.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em> </p>
-<h5 id="批处理命令"><a href="#批处理命令" class="headerlink" title="批处理命令"></a>批处理命令</h5><ol>
-<li>映射磁盘驱动器</li>
-</ol>
-<p><code>net use y: \\10.80.155.152\F /user:hp</code>  “y”指定的驱动器号; /user:”username”</p>
-<ol start="2">
-<li>使用文件资源管理器打开FTP服务器登录窗口</li>
-</ol>
-<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="variable">@echo</span> off</span><br><span class="line">explorer <span class="attribute">ftp</span>:<span class="comment">//10.80.155.152</span></span><br></pre></td></tr></table></figure>
-<p>使用浏览器打开对应网址</p>
-<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line">@echo <span class="literal">off</span></span><br><span class="line">start www.baidu.com</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>按任意键继续</li>
-</ol>
-<p><code>pause</code>  按任意键继续</p>
-<ol start="4">
-<li>启动磁盘里的可执行程序</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/@<span class="built_in">echo</span> off</span><br><span class="line">e:</span><br><span class="line"><span class="built_in">cd</span>\</span><br><span class="line"><span class="built_in">cd</span> examClient-win32–x64</span><br><span class="line">examClient.exe</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>打开共享文件夹</li>
-</ol>
-<figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="comment">rem 建立链接</span></span><br><span class="line"><span class="comment">rem 打开共享文件夹</span></span><br><span class="line">explorer \\<span class="number">10</span>.<span class="number">80</span>.<span class="number">7</span>.<span class="number">1</span>\</span><br><span class="line"><span class="keyword">exit</span></span><br></pre></td></tr></table></figure>
-
-<ol start="6">
-<li>运行后删除自身文件    使用   <code>del %0</code></li>
-</ol>
-<figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> 按任意键后我将删除自身</span><br><span class="line"><span class="built_in">pause</span></span><br><span class="line"><span class="built_in">del</span> %<span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<ol start="7">
-<li>万能删除文件</li>
-</ol>
-<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">@<span class="keyword">echo</span> off</span><br><span class="line">DEL <span class="string">/F</span> <span class="string">/A</span> <span class="string">/Q</span> \\?\%1</span><br><span class="line">RD <span class="string">/S</span> <span class="string">/Q</span> \\?\%1</span><br></pre></td></tr></table></figure>
-
-<p> 批处理删除文件夹下所有文件和文件夹</p>
-<blockquote>
-<ul>
-<li>1、rd命令<br>rd /s /Q c:\temp<br>会将temp文件夹也删除</li>
-<li>2、rd命令+md命令<br>rd /s /Q c:\temp<br>md c:\Temp<br>删除后再重建</li>
-<li>3、del命令<br>del /s /Q c:\temp<br>只能删除文件，而不能删除子文件夹</li>
-<li>4、del命令+rd命令，先刪除文件，再进入temp文件夹删除目录<br>del /s /Q c:\temp<br>cd C:\temp<br>rd /s /q c:\temp</li>
-</ul>
-</blockquote>
-]]></content>
-      <categories>
-        <category>bat</category>
-      </categories>
-      <tags>
-        <tag>bat</tag>
-        <tag>批处理</tag>
-        <tag>cmd</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>添加今日诗词</title>
-    <url>/posts/38054.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em></p>
-<p>本文将介绍如何增添随机诗词的展示。</p>
-<p>具体效果如下：<br><img src="/images/sc.png"></p>
-<br/>
-
-<h3 id="创建组件"><a href="#创建组件" class="headerlink" title="创建组件"></a>创建组件</h3><p>主题新建themes/anzhiyu/layout/includes/widget/card_poem.pug，内容如下</p>
-<figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line">#card<span class="params">-poem.card</span><span class="params">-widget</span></span><br><span class="line">    #poem_sentence</span><br><span class="line">    #poem_info</span><br><span class="line">        #poem_dynasty</span><br><span class="line">        #poem_author</span><br><span class="line">script(src=<span class="string">&#x27;https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js&#x27;</span>, charset=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">script(<span class="keyword">type</span>=<span class="string">&#x27;text/javascript&#x27;</span>).</span><br><span class="line">  jinrishici.load(function(result) &#123;</span><br><span class="line">  <span class="built_in">var</span> sentence = document.querySelector(<span class="string">&quot;#poem_sentence&quot;</span>)</span><br><span class="line">  <span class="built_in">var</span> author = document.querySelector(<span class="string">&quot;#poem_author&quot;</span>)</span><br><span class="line">  <span class="built_in">var</span> dynasty = document.querySelector(<span class="string">&quot;#poem_dynasty&quot;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">var</span> sentenceText = result.<span class="built_in">data</span>.content</span><br><span class="line">  sentenceText = sentenceText.substr(<span class="number">0</span>, sentenceText.length - <span class="number">1</span>);</span><br><span class="line">  sentence.innerHTML = sentenceText</span><br><span class="line">  dynasty.innerHTML = result.<span class="built_in">data</span>.origin.dynasty</span><br><span class="line">  author.innerHTML = result.<span class="built_in">data</span>.origin.author + <span class="string">&#x27;《&#x27;</span> + result.<span class="built_in">data</span>.origin.title + <span class="string">&#x27;》&#x27;</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="引入组件"><a href="#引入组件" class="headerlink" title="引入组件"></a>引入组件</h3><p>在<code>themes/anzhiyu/layout/includes/widget/index.pug</code>中你需要的位置添加以下内容</p>
-<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">!=<span class="keyword">partial</span>(<span class="string">&#x27;includes/widget/card_poem&#x27;</span>, &#123;&#125;, &#123;cache: <span class="literal">true</span>&#125;)</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/shici.png"></p>
-<h3 id="引入CSS"><a href="#引入CSS" class="headerlink" title="引入CSS"></a>引入CSS</h3><p>在主题配置文件中添加</p>
-<figure class="highlight ldif"><table><tr><td class="code"><pre><span class="line"><span class="attribute">inject</span>:</span><br><span class="line"><span class="attribute">head</span>:</span><br><span class="line"></span><br><span class="line"><span class="literal">-</span></span><br></pre></td></tr></table></figure>
-
-<p>heoMainColor.css</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attribute">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attribute">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<p>引用主css</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attribute">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attribute">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
-
-
-<br/>
-
-
-<p>这里调用的是<code>今日诗词API</code>，是一个可以返回一句古诗词名句的接口。</p>
-<p>它可以通过图片和 JSON 格式调用。今日诗词 API 根据不同地点、时间、节日、季节、天气、景观、城市进行智能推荐。</p>
-<p>访问链接：<a href="https://www.jinrishici.com/">https://www.jinrishici.com</a></p>
-]]></content>
-      <categories>
-        <category>诗词</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>主题</tag>
-        <tag>诗词</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>在GitHub上搭建Hexo</title>
     <url>/posts/62306.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em> </p>
@@ -1205,27 +1260,6 @@
       </tags>
   </entry>
   <entry>
-    <title>禁止ipc默认共享</title>
-    <url>/posts/38974.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em> </p>
-<h4 id="禁止ipc-默认共享"><a href="#禁止ipc-默认共享" class="headerlink" title="禁止ipc$默认共享"></a>禁止ipc$默认共享</h4><p>  把ipc$和默认共享都删除了。但重起后还会有。也可以放到一个批处理里面 把这个批处理文件设置开机启动 可以禁止共享</p>
-<p>在win10及以上系统中如使用的不是管理员账户 需要在批处理前添加获取管理员身份的权限<br>代码如下：</p>
-<figure class="highlight perl"><table><tr><td class="code"><pre><span class="line">%1 %2</span><br><span class="line">ver|find <span class="string">&quot;5.&quot;</span>&gt;nul&amp;&amp;<span class="keyword">goto</span> :Admin</span><br><span class="line">mshta vbscript:createobject(<span class="string">&quot;shell.application&quot;</span>).shellexecute(<span class="string">&quot;%~s0&quot;</span>,<span class="string">&quot;goto :Admin&quot;</span>,<span class="string">&quot;&quot;</span>,<span class="string">&quot;runas&quot;</span>,<span class="number">1</span>)(window.close)&amp;<span class="keyword">goto</span> :<span class="keyword">eof</span></span><br><span class="line">:Admin</span><br></pre></td></tr></table></figure>
-
-<p>删除共享的代码</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">net share ipc<span class="variable">$</span> /<span class="built_in">del</span></span><br><span class="line">net share admin<span class="variable">$</span> /<span class="built_in">del</span></span><br><span class="line">net share c<span class="variable">$</span> /<span class="built_in">del</span></span><br><span class="line">net share d<span class="variable">$</span> /<span class="built_in">del</span></span><br><span class="line"><span class="comment"># …………（有几个删几个）</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>windows</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-        <tag>IPC</tag>
-        <tag>IP</tag>
-        <tag>共享</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>网线水晶头制作及标准接法</title>
     <url>/posts/13455.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em></p>
@@ -1310,6 +1344,60 @@
       </tags>
   </entry>
   <entry>
+    <title>UEFI+GPT与BIOS+MBR有什么区别</title>
+    <url>/posts/55889.html</url>
+    <content><![CDATA[<p><em><span id="more"></span></em></p>
+<blockquote>
+<p>现在绝大多数系统都是UEFI+GPT或BIOS+MBR模式安装的，那么他们之间有什么区别呢?</p>
+</blockquote>
+<h5 id="首先是硬盘分区GPT与MBR的区别"><a href="#首先是硬盘分区GPT与MBR的区别" class="headerlink" title="首先是硬盘分区GPT与MBR的区别"></a>首先是硬盘分区GPT与MBR的区别</h5><ol>
+<li>MBR磁盘最多支持4个主分区，再增加分区只能用逻辑分区; 微软设定GPT磁盘支持128个主分区(理论可支持无限多个)。</li>
+<li>MBR磁盘最大仅支持2TB硬盘，GPT磁盘最大支持18EB硬盘(1EB=1048576TB)</li>
+<li>GPT分区磁盘有备份分区表来提高分区数据结构的完整性。</li>
+<li>GPT只能安装64位的系统，MBR可以安装32位与64位。</li>
+</ol>
+<h5 id="UEFI与BIOS的区别"><a href="#UEFI与BIOS的区别" class="headerlink" title="UEFI与BIOS的区别"></a>UEFI与BIOS的区别</h5><p>BIOS和UEFI都是引导操作系统启动的必须介质，传统BIOS启动系统 的过程中相比与UEFI启动多了一个BIOS自检环节，所以启动速度相对比较慢。</p>
+<p>BIOS下启动操作系统之前，必须从硬盘MBR主引导记录中读取系统启动代码， 然后从活动分区中引导启动操作系统，因为BIOS不能识别GPT分区，所以BIOS 模式下不能用GPT分区安装系统。</p>
+<blockquote>
+<p>传统BIOS运行流程</p>
+</blockquote>
+<pre class="mermaid">    graph LR
+    A(开 机) --> B[BIOS初始化] --> C[BIOS自检] --> D[引导操作系统] --> E(进入系统)</pre>
+
+
+
+<p>在UEFI下启动操作系统，不再需要主引导记录，也不再需要活动分区， 在开机方面相比BIOS少了自检这一步，因此它的启动速度更快。</p>
+<p>操作界面上UEFI采用的图形化界面，并且支持中文。而BIOS全部都是 英语。UEFI的图形化界面可以让用户更快的了解功能。</p>
+<blockquote>
+<p>UEFI运行流程</p>
+</blockquote>
+<pre class="mermaid">    graph LR
+    A(开 机) --> B[UEFI初始化] --> D[引导操作系统]--> E(进入系统)</pre>
+
+
+<p>现在大部分新电脑都是UEFI+GPT模式了，这种模式更适合现在的win10、 win8系统，这种模式不能直接安装win7系统，这也是为什么很多新电脑 安装win7前都要调整分区与设置BIOS的原因。</p>
+]]></content>
+      <categories>
+        <category>windows</category>
+      </categories>
+      <tags>
+        <tag>UEFI</tag>
+        <tag>BIOS</tag>
+        <tag>主板</tag>
+        <tag>MBR</tag>
+        <tag>GPT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>了解计算机物理接口</title>
+    <url>/posts/15023.html</url>
+    <content><![CDATA[]]></content>
+      <tags>
+        <tag>PC</tag>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>计算机硬件系统基础</title>
     <url>/posts/26787.html</url>
     <content><![CDATA[<p><em><span id="more"></span></em><br>计算机想要正常运行，除了软件以外，硬件则显得尤为重要。这些硬件分别是主板， cpu，显卡，内存，硬盘，电源以及各种输入输出设备，例如鼠标键盘显示器音响等。</p>
@@ -1327,94 +1415,6 @@
         <tag>windows</tag>
         <tag>系统</tag>
         <tag>硬件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机网络中的IP地址</title>
-    <url>/posts/29942.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em></p>
-<h4 id="特殊的IP地址"><a href="#特殊的IP地址" class="headerlink" title="特殊的IP地址"></a>特殊的IP地址</h4><ol>
-<li><strong>0.0.0.0</strong> </li>
-</ol>
-<p>严格说来，这个奇葩的地址0.0.0.0已经不是一个真正意义上 的IP地址了。它表示的是这样一个集合：也就是说；所有不清 楚的主机和目的网络。这里的“不清楚”是指在本机的路由表里 没有特定条目指明如何到达。对本机来说，它就是一个“收容所”， 所有不认识的“三无”人员，一律送进去。如果你在网络设置中设 置了缺省网关，那么计算机系统会自动产生一个目的地址为0.0.0.0的缺省路由。</p>
-<ol start="2">
-<li><strong>255.255.255.255限制广播地址</strong> </li>
-</ol>
-<p>对本机来说，这个地址指本网段内(同一广播域)的所有主机。</p>
-<p>然而它的意思很明确，使用人类语言来说意思就是“这里的所 有计算机都注意了”这个地址不能被路由器所转发。</p>
-<ol start="3">
-<li><strong>127.0.0.1本机地址</strong></li>
-</ol>
-<p>主要用于测试。用汉语表示，就是“我自己”。在Windows系统 中，这个地址有一个别名“Localhost”。寻址这样一个地址， 是不能把它发到网络接口的。除非出错，否则在传输介质上永 远不应该出现目的地址为“127.0.0.1”的数据包。</p>
-<ol start="4">
-<li><strong>224.0.0.1 组播地址</strong></li>
-</ol>
-<p>注意它和广播的区别。从224.0.0.0到239.255.255.255都是 这样的地址。224.0.0.1特指所有主机，224.0.0.2特指所有 路由器。这样的地址多用于一些特定的程序以及多媒体程序。 如果你的主机开启了IRDP(Internet路由发现协议），使用组 播功能功能，那么你的主机路由表中应该有这样一条路由。</p>
-<ol start="5">
-<li><strong>169.254.x.x</strong></li>
-</ol>
-<p>如果你的主机使用了DHCP功能自动获得一个IP地址，那么 当你的DHCP服务器发生故障，或响应时间太长而超出了一 个系统规定的时间，计算机操作系统会为你分配这样一个 地址。如果你发现你的主机IP地址是一个诸如此类的地址， 很不幸的是，现在你的网络不能正常运行了。</p>
-<ol start="6">
-<li><strong>10.x.x.x；172.16.0.0—172.31.255.254；192.168.x.x；私有地址</strong></li>
-</ol>
-<p>这些地址被大量用于企业内部网络中。一些宽带路由器，也 往往使用192.168.1.1作为缺省地址。私有网络由于不与外 部互连，因而可能使用随意的IP地址。保留这样的地址供其 使用是为了避免以后接入公网时引起地址混乱。使用私有地 址的私有网络在接入Internet时，要使用地址翻译(NAT)， 将私有地址翻译成公用合法地址。在Internet上，这类地址 是不能出现的。对一台网络上的主机来说，它可以正常接收 的合法目的网络地址有三种：本机的IP地址、广播地址以及 组播地址。</p>
-<h4 id="IP地址的分类"><a href="#IP地址的分类" class="headerlink" title="IP地址的分类"></a>IP地址的分类</h4><ol>
-<li><strong>A类地址</strong></li>
-</ol>
-<p><strong>A类IP地址</strong> ：由1个字节的网络地址和3个字节的主机地址，网络地址的最高位必须是“0”。<br>如：0XXXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>A类IP地址范围</strong> ：1.0.0.1—126.255.255.254</p>
-<blockquote>
-<p><strong>A类IP地址中的私有地址和保留地址：</strong> </p>
-<ol>
-<li>10.X.X.X是私有地址（所谓的私有地址就是在互联网上不使用，而被用在局域网络中的地址）。范围（10.0.0.1—10.255.255.254）</li>
-<li>127.X.X.X是保留地址，用做循环测试用的。</li>
-</ol>
-</blockquote>
-<ol start="2">
-<li><strong>B类地址</strong></li>
-</ol>
-<p><strong>B类IP地址：</strong> 由2个字节的网络地址和2个字节的主机地址，网络地址的最高位必须是“10”。</p>
-<p>如：10XXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>B类IP地址范围：</strong> 128.0.0.1—191.255.255.254。</p>
-<blockquote>
-<p><strong>B类IP地址的私有地址和保留地址：</strong></p>
-<ol>
-<li>172.16.0.0—172.31.255.254是私有地址</li>
-<li>169.254.X.X是保留地址。如果你的IP地址是自动获取IP地址， 而在网络上又没有找到可用的DHCP服务器。就会得到其中一个IP。 191.255.255.255是广播地址，不能分配。</li>
-</ol>
-</blockquote>
-<ol start="3">
-<li><strong>C类地址</strong></li>
-</ol>
-<p><strong>C类IP地址：</strong> 由3个字节的网络地址和1个字节的主机地址，网络地址的最高位必须是“110”。<br>如：110XXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>C类IP地址范围：</strong> 192.0.0.1—223.255.255.254。</p>
-<blockquote>
-<p><strong>C类地址中的私有地址：</strong><br>192.168.X.X是私有地址。（192.168.0.1—192.168.255.255)</p>
-</blockquote>
-<p>4、<strong>D类地址</strong></p>
-<p><strong>D类地址：</strong> 不分网络地址和主机地址，它的第1个字节的前四位固定为1110。<br>如：1110XXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>D类地址范围：</strong> 224.0.0.1—239.255.255.254</p>
-<p>5、<strong>E类地址</strong><br><strong>E类地址：</strong> 不分网络地址和主机地址，它的第1个字节的前四位固定为 1111。<br>如：1111XXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）<br><strong>E类地址范围：</strong> 240.0.0.1—255.255.255.254</p>
-]]></content>
-      <categories>
-        <category>IP</category>
-      </categories>
-      <tags>
-        <tag>IP</tag>
-        <tag>网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>软件静默安装参数</title>
-    <url>/posts/10107.html</url>
-    <content><![CDATA[<p><em><span id="more"></span></em> </p>
-<h4 id="软件静默参数"><a href="#软件静默参数" class="headerlink" title="软件静默参数"></a>软件静默参数</h4><p>大部分软件的安装都能采取全自动或半自动的方式进行，只需要找到对应的静默参数</p>
-<p>Microsoft Windows Installer</p>
-<p>　　如果某个软件是用 Windows Installer 打包的，那你就应该能在文件夹中看到 *.msi 文件。这是最典型的特征，这些文件通常可以使用 /QB 和 /QN 参数进行自动安装。</p>
-<p>　　/qb 会在窗口中显示一个基本的安装进程。<br>　　/qn 参数则不会显示任何窗口，直接在后台自动安装。 </p>
-<h5 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h5><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">WinRAR.exe <span class="string">/S</span></span><br><span class="line">7-ZIP.exe <span class="string">/S</span></span><br><span class="line">搜狗输入法<span class="string">.exe</span> <span class="string">/S</span></span><br><span class="line">QQ  <span class="string">/S</span></span><br><span class="line">VC++运行库  <span class="string">/SILENT</span> 显示窗口直接安装</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>windows</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-        <tag>bat</tag>
       </tags>
   </entry>
 </search>
