@@ -15,7 +15,7 @@ var RENDERER = {
 	setParameters : function(){
 		this.$window = $(window);
 		this.$container = $('#jsi-flying-fish-container');
-		this.$canvas = $('<canvas>');
+		this.$canvas = $('<canvas />');
 		this.context = this.$canvas.appendTo(this.$container).get(0).getContext('2d');
 		this.points = [];
 		this.fishes = [];
@@ -26,7 +26,7 @@ var RENDERER = {
 		this.pointInterval = this.width / (count - 1);
 		this.points.push(new SURFACE_POINT(this, 0));
 		
-		for(var i = 1; i &lt; count; i++){
+		for(var i = 1; i < count; i++){
 			var point = new SURFACE_POINT(this, i * this.pointInterval),
 				previous = this.points[i - 1];
 				
@@ -64,14 +64,14 @@ var RENDERER = {
 		this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL));
 	},
 	clearTimer : function(){
-		while(this.watchIds.length &gt; 0){
+		while(this.watchIds.length > 0){
 			clearTimeout(this.watchIds.pop());
 		}
 	},
 	jdugeToStopResize : function(){
 		var width = this.$window.width(),
 			height = this.$window.height(),
-			stopped = (width == this.tmpWidth &amp;&amp; height == this.tmpHeight);
+			stopped = (width == this.tmpWidth && height == this.tmpHeight);
 			
 		this.tmpWidth = width;
 		this.tmpHeight = height;
@@ -107,12 +107,12 @@ var RENDERER = {
 		this.axis = axis;
 	},
 	generateEpicenter : function(x, y, velocity){
-		if(y &lt; this.height / 2 - this.THRESHOLD || y &gt; this.height / 2 + this.THRESHOLD){
+		if(y < this.height / 2 - this.THRESHOLD || y > this.height / 2 + this.THRESHOLD){
 			return;
 		}
 		var index = Math.round(x / this.pointInterval);
 		
-		if(index &lt; 0 || index &gt;= this.points.length){
+		if(index < 0 || index >= this.points.length){
 			return;
 		}
 		this.points[index].interfere(y, velocity);
@@ -120,18 +120,18 @@ var RENDERER = {
 	reverseVertical : function(){
 		this.reverse = !this.reverse;
 		
-		for(var i = 0, count = this.fishes.length; i &lt; count; i++){
+		for(var i = 0, count = this.fishes.length; i < count; i++){
 			this.fishes[i].reverseVertical();
 		}
 	},
 	controlStatus : function(){
-		for(var i = 0, count = this.points.length; i &lt; count; i++){
+		for(var i = 0, count = this.points.length; i < count; i++){
 			this.points[i].updateSelf();
 		}
-		for(var i = 0, count = this.points.length; i &lt; count; i++){
+		for(var i = 0, count = this.points.length; i < count; i++){
 			this.points[i].updateNeighbors();
 		}
-		if(this.fishes.length &lt; this.fishCount){
+		if(this.fishes.length < this.fishCount){
 			if(--this.intervalCount == 0){
 				this.intervalCount = this.MAX_INTERVAL_COUNT;
 				this.fishes.push(new FISH(this));
@@ -144,7 +144,7 @@ var RENDERER = {
 		this.context.clearRect(0, 0, this.width, this.height);
 		this.context.fillStyle = 'hsl(0, 0%, 95%)';
 		
-		for(var i = 0, count = this.fishes.length; i &lt; count; i++){
+		for(var i = 0, count = this.fishes.length; i < count; i++){
 			this.fishes[i].render(this.context);
 		}
 		this.context.save();
@@ -152,7 +152,7 @@ var RENDERER = {
 		this.context.beginPath();
 		this.context.moveTo(0, this.reverse ? 0 : this.height);
 		
-		for(var i = 0, count = this.points.length; i &lt; count; i++){
+		for(var i = 0, count = this.points.length; i < count; i++){
 			this.points[i].render(this.context);
 		}
 		this.context.lineTo(this.width, this.reverse ? 0 : this.height);
@@ -185,7 +185,7 @@ SURFACE_POINT.prototype = {
 		this.next = next;
 	},
 	interfere : function(y, velocity){
-		this.fy = this.renderer.height * this.ACCELARATION_RATE * ((this.renderer.height - this.height - y) &gt;= 0 ? -1 : 1) * Math.abs(velocity);
+		this.fy = this.renderer.height * this.ACCELARATION_RATE * ((this.renderer.height - this.height - y) >= 0 ? -1 : 1) * Math.abs(velocity);
 	},
 	updateSelf : function(){
 		this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height);
@@ -220,7 +220,7 @@ FISH.prototype = {
 	GRAVITY : 0.4,
 	
 	init : function(){
-		this.direction = Math.random() &lt; 0.5;
+		this.direction = Math.random() < 0.5;
 		this.x = this.direction ? (this.renderer.width + this.renderer.THRESHOLD) : -this.renderer.THRESHOLD;
 		this.previousY = this.y;
 		this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1);
@@ -252,7 +252,7 @@ FISH.prototype = {
 		this.vy += this.ay;
 		
 		if(this.renderer.reverse){
-			if(this.y &gt; this.renderer.height * this.renderer.INIT_HEIGHT_RATE){
+			if(this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE){
 				this.vy -= this.GRAVITY;
 				this.isOut = true;
 			}else{
@@ -262,7 +262,7 @@ FISH.prototype = {
 				this.isOut = false;
 			}
 		}else{
-			if(this.y &lt; this.renderer.height * this.renderer.INIT_HEIGHT_RATE){
+			if(this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE){
 				this.vy += this.GRAVITY;
 				this.isOut = true;
 			}else{
@@ -280,7 +280,7 @@ FISH.prototype = {
 		}
 		this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY);
 		
-		if(this.vx &gt; 0 &amp;&amp; this.x &gt; this.renderer.width + this.renderer.THRESHOLD || this.vx &lt; 0 &amp;&amp; this.x &lt; -this.renderer.THRESHOLD){
+		if(this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD){
 			this.init();
 		}
 	},
@@ -331,4 +331,4 @@ FISH.prototype = {
 };
 $(function(){
 	RENDERER.init();
-});</canvas>
+});
