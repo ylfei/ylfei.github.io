@@ -1,108 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>博客文章压缩</title>
-    <url>/posts/29115.html</url>
-    <content><![CDATA[ 
-转载 rozbo开发的 Hexo-Neat 压缩插件
-Hexo-Neat 压缩静态资源Hexo-Neat 能够帮助用户自动压缩静态资源，配合各类下属插件，能够压缩包括css、js、html乃至各类格式的图片文件
-安装Gulp插件安装Hexo-Neat插件：在博客根目录[Blog]打开终端，输入：
-npm install hexo-neat --save
-
-在站点配置文件中末尾添加以下相关配置
-# hexo-neat# 博文压缩neat_enable: true# 压缩htmlneat_html: enable: true exclude:# 压缩cssneat_css: enable: true exclude:   - &#x27;*/*.min.css&#x27;# 压缩jsneat_js: enable: true mangle: true output: compress: exclude:   - &#x27;**/*.min.js&#x27;   - &#x27;**/jquery.fancybox.pack.js&#x27;   - &#x27;**/index.js&#x27;
-
-
-Gulp压缩安装插件
-npm install gulp -gnpm install gulp-minify-css gulp-uglify gulp-htmlmin gulp-htmlclean gulp --save
-
-创建任务脚本为Gulp创建gulpfile.js任务脚本。在博客根目录[Blogroot]下新建gulpfile.js,打开[Blogroot]\gulpfile.js,输入以下内容：
-var gulp = require(&#x27;gulp&#x27;);var minifycss = require(&#x27;gulp-minify-css&#x27;);var uglify = require(&#x27;gulp-uglify&#x27;);var htmlmin = require(&#x27;gulp-htmlmin&#x27;);var htmlclean = require(&#x27;gulp-htmlclean&#x27;);var imagemin = require(&#x27;gulp-imagemin&#x27;);// 压缩htmlgulp.task(&#x27;minify-html&#x27;, function() &#123;    return gulp.src(&#x27;./public/**/*.html&#x27;)        .pipe(htmlclean())        .pipe(htmlmin(&#123;            collapseWhitespace: true, //从字面意思应该可以看出来，清除空格，压缩html，这一条比较重要，作用比较大，引起的改变压缩量也特别大            collapseBooleanAttributes: true, //省略布尔属性的值，比如：&lt;input checked=&quot;checked&quot;/&gt;,那么设置这个属性后，就会变成 &lt;input checked/&gt;            removeComments: true, //清除html中注释的部分            removeEmptyAttributes: true, //清除所有的空属性            removeScriptTypeAttributes: true, //清除所有script标签中的type=&quot;text/javascript&quot;属性。            removeStyleLinkTypeAttributes: true, //清楚所有Link标签上的type属性。            minifyJS: true,            minifyCSS: true,            minifyURLs: true,        &#125;))        .pipe(gulp.dest(&#x27;./public&#x27;));&#125;);// 压缩cssgulp.task(&#x27;minify-css&#x27;, function() &#123;    return gulp.src(&#x27;./public/**/*.css&#x27;)        .pipe(minifycss(&#123;            compatibility: &#x27;ie8&#x27;        &#125;))        .pipe(gulp.dest(&#x27;./public&#x27;));&#125;);// 压缩js !代表排除的js,例如[&#x27;!./public/js/**/*min.js&#x27;]gulp.task(&#x27;minify-js&#x27;, function() &#123;    return gulp.src([&#x27;./public/js/**/.js&#x27;])        .pipe(uglify()) //压缩混淆        .pipe(gulp.dest(&#x27;./public&#x27;));&#125;);// 压缩图片gulp.task(&#x27;minify-images&#x27;, function() &#123;    return gulp.src(&#x27;./public/images/**/*.*&#x27;)        .pipe(imagemin(        [imagemin.gifsicle(&#123;&#x27;optimizationLevel&#x27;: 3&#125;),        imagemin.jpegtran(&#123;&#x27;progressive&#x27;: true&#125;),        imagemin.optipng(&#123;&#x27;optimizationLevel&#x27;: 7&#125;),        imagemin.svgo()],        &#123;&#x27;verbose&#x27;: true&#125;))        .pipe(gulp.dest(&#x27;./public/images&#x27;));&#125;);// 默认任务gulp.task(&#x27;default&#x27;,gulp.series(gulp.parallel(&#x27;minify-html&#x27;,&#x27;minify-css&#x27;,&#x27;minify-js&#x27;,&#x27;minify-images&#x27;)));
-
-
-在每次运行完hexo generate生成静态页面后，运行gulp对其进行压缩。指令流程如下：
-hexo cleanhexo generategulphexo server 或 hexo deploy]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>gulp</tag>
-        <tag>neat</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机网络中的IP地址</title>
-    <url>/posts/29942.html</url>
-    <content><![CDATA[
-特殊的IP地址
-0.0.0.0
-
-严格说来，这个奇葩的地址0.0.0.0已经不是一个真正意义上 的IP地址了。它表示的是这样一个集合：也就是说；所有不清 楚的主机和目的网络。这里的“不清楚”是指在本机的路由表里 没有特定条目指明如何到达。对本机来说，它就是一个“收容所”， 所有不认识的“三无”人员，一律送进去。如果你在网络设置中设 置了缺省网关，那么计算机系统会自动产生一个目的地址为0.0.0.0的缺省路由。
-
-255.255.255.255限制广播地址
-
-对本机来说，这个地址指本网段内(同一广播域)的所有主机。
-然而它的意思很明确，使用人类语言来说意思就是“这里的所 有计算机都注意了”这个地址不能被路由器所转发。
-
-127.0.0.1本机地址
-
-主要用于测试。用汉语表示，就是“我自己”。在Windows系统 中，这个地址有一个别名“Localhost”。寻址这样一个地址， 是不能把它发到网络接口的。除非出错，否则在传输介质上永 远不应该出现目的地址为“127.0.0.1”的数据包。
-
-224.0.0.1 组播地址
-
-注意它和广播的区别。从224.0.0.0到239.255.255.255都是 这样的地址。224.0.0.1特指所有主机，224.0.0.2特指所有 路由器。这样的地址多用于一些特定的程序以及多媒体程序。 如果你的主机开启了IRDP(Internet路由发现协议），使用组 播功能功能，那么你的主机路由表中应该有这样一条路由。
-
-169.254.x.x
-
-如果你的主机使用了DHCP功能自动获得一个IP地址，那么 当你的DHCP服务器发生故障，或响应时间太长而超出了一 个系统规定的时间，计算机操作系统会为你分配这样一个 地址。如果你发现你的主机IP地址是一个诸如此类的地址， 很不幸的是，现在你的网络不能正常运行了。
-
-10.x.x.x；172.16.0.0—172.31.255.254；192.168.x.x；私有地址
-
-这些地址被大量用于企业内部网络中。一些宽带路由器，也 往往使用192.168.1.1作为缺省地址。私有网络由于不与外 部互连，因而可能使用随意的IP地址。保留这样的地址供其 使用是为了避免以后接入公网时引起地址混乱。使用私有地 址的私有网络在接入Internet时，要使用地址翻译(NAT)， 将私有地址翻译成公用合法地址。在Internet上，这类地址 是不能出现的。对一台网络上的主机来说，它可以正常接收 的合法目的网络地址有三种：本机的IP地址、广播地址以及 组播地址。
-IP地址的分类
-A类地址
-
-A类IP地址 ：由1个字节的网络地址和3个字节的主机地址，网络地址的最高位必须是“0”。如：0XXXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）A类IP地址范围 ：1.0.0.1—126.255.255.254
-
-A类IP地址中的私有地址和保留地址： 
-
-10.X.X.X是私有地址（所谓的私有地址就是在互联网上不使用，而被用在局域网络中的地址）。范围（10.0.0.1—10.255.255.254）
-127.X.X.X是保留地址，用做循环测试用的。
-
-
-
-B类地址
-
-B类IP地址： 由2个字节的网络地址和2个字节的主机地址，网络地址的最高位必须是“10”。
-如：10XXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）B类IP地址范围： 128.0.0.1—191.255.255.254。
-
-B类IP地址的私有地址和保留地址：
-
-172.16.0.0—172.31.255.254是私有地址
-169.254.X.X是保留地址。如果你的IP地址是自动获取IP地址， 而在网络上又没有找到可用的DHCP服务器。就会得到其中一个IP。 191.255.255.255是广播地址，不能分配。
-
-
-
-C类地址
-
-C类IP地址： 由3个字节的网络地址和1个字节的主机地址，网络地址的最高位必须是“110”。如：110XXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）C类IP地址范围： 192.0.0.1—223.255.255.254。
-
-C类地址中的私有地址：192.168.X.X是私有地址。（192.168.0.1—192.168.255.255)
-
-4、D类地址
-D类地址： 不分网络地址和主机地址，它的第1个字节的前四位固定为1110。如：1110XXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）D类地址范围： 224.0.0.1—239.255.255.254
-5、E类地址E类地址： 不分网络地址和主机地址，它的第1个字节的前四位固定为 1111。如：1111XXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）E类地址范围： 240.0.0.1—255.255.255.254
-]]></content>
-      <categories>
-        <category>IP</category>
-      </categories>
-      <tags>
-        <tag>IP</tag>
-        <tag>网络</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Cloudfare Page 部署静态网站</title>
     <url>/posts/15696.html</url>
     <content><![CDATA[
@@ -117,6 +15,92 @@ D类地址： 不分网络地址和主机地址，它的第1个字节的前四�
         <tag>page</tag>
         <tag>git</tag>
         <tag>Cloudfare</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>UEFI+GPT与BIOS+MBR有什么区别</title>
+    <url>/posts/55889.html</url>
+    <content><![CDATA[
+
+现在绝大多数系统都是UEFI+GPT或BIOS+MBR模式安装的，那么他们之间有什么区别呢?
+
+首先是硬盘分区GPT与MBR的区别
+MBR磁盘最多支持4个主分区，再增加分区只能用逻辑分区; 微软设定GPT磁盘支持128个主分区(理论可支持无限多个)。
+MBR磁盘最大仅支持2TB硬盘，GPT磁盘最大支持18EB硬盘(1EB&#x3D;1048576TB)
+GPT分区磁盘有备份分区表来提高分区数据结构的完整性。
+GPT只能安装64位的系统，MBR可以安装32位与64位。
+
+UEFI与BIOS的区别BIOS和UEFI都是引导操作系统启动的必须介质，传统BIOS启动系统 的过程中相比与UEFI启动多了一个BIOS自检环节，所以启动速度相对比较慢。
+BIOS下启动操作系统之前，必须从硬盘MBR主引导记录中读取系统启动代码， 然后从活动分区中引导启动操作系统，因为BIOS不能识别GPT分区，所以BIOS 模式下不能用GPT分区安装系统。
+
+传统BIOS运行流程
+
+    graph LR
+    A(开 机) --> B[BIOS初始化] --> C[BIOS自检] --> D[引导操作系统] --> E(进入系统)
+
+
+
+在UEFI下启动操作系统，不再需要主引导记录，也不再需要活动分区， 在开机方面相比BIOS少了自检这一步，因此它的启动速度更快。
+操作界面上UEFI采用的图形化界面，并且支持中文。而BIOS全部都是 英语。UEFI的图形化界面可以让用户更快的了解功能。
+
+UEFI运行流程
+
+    graph LR
+    A(开 机) --> B[UEFI初始化] --> D[引导操作系统]--> E(进入系统)
+
+
+现在大部分新电脑都是UEFI+GPT模式了，这种模式更适合现在的win10、 win8系统，这种模式不能直接安装win7系统，这也是为什么很多新电脑 安装win7前都要调整分区与设置BIOS的原因。
+]]></content>
+      <categories>
+        <category>windows</category>
+      </categories>
+      <tags>
+        <tag>UEFI</tag>
+        <tag>BIOS</tag>
+        <tag>主板</tag>
+        <tag>MBR</tag>
+        <tag>GPT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Win10配置NTP服务器</title>
+    <url>/posts/14899.html</url>
+    <content><![CDATA[ 
+NTP服务器配置1.使用组合键WIN + R 启动运行窗口，在打开的窗口中输入regedit，点击确定按钮.
+2.在打开的注册表中输入HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Config，找到并打开Config目录，双击Config目录下的AnnounceFlags。3.把注册表项的值设定为5，点击确定按钮
+4.再次输入注册表路径HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpServer，双击NtpServer下的Enabled文件。5.把Enabled的值设定为1，点击确定按钮。
+6.打开命令提示符窗口（以管理员身份运行）。开始-找到windows系统-找到命令提示符-然后鼠标右键点击命令提示符-选择以管理员身份运行。
+7.输入net stop w32time停止服务，再输入net start w32time启动服务。8.输入命令w32tm /stripchart /computer:127.0.0.1，有时间回显说明配置成功。
+在win10上配置NTP时间同步服务器的方法就介绍完了。（也可以在局域网内的其他计算机上使用ntp服务功能进行ntp校时验证)
+]]></content>
+      <categories>
+        <category>windows</category>
+      </categories>
+      <tags>
+        <tag>NTP</tag>
+        <tag>win10</tag>
+        <tag>服务器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>便携小空调设置</title>
+    <url>/posts/45943.html</url>
+    <content><![CDATA[
+部署方案在博客根目录执行命令:
+hexo new page air-conditioner
+
+会生成source/air-conditioner/index.md, 将以下内容替换原内容
+---title: 便携小空调 - 为你的夏日带去清凉!date: 2022-10-20 22:06:17comments: trueaside: falsetop_img: false---&gt; 终于为博客安装上了便携小空调&lt;style&gt;.copyright-box a &#123;  border-bottom: none !important;  padding: 0 !important;&#125;&lt;/style&gt;&lt;div id=&quot;air-conditioner-vue&quot;&gt;&lt;/div&gt;&lt;script defer data-pjax src=&#x27;https://npm.elemecdn.com/anzhiyu-air-conditioner@1.0.1/index.3f125bc6.js&#x27;&gt;&lt;/script&gt;
+
+然后访问https://你的博客域名/air-conditioner就可以得到一个没有风的空调 ❄️
+其他部署方案如果使用的是其他的，部署也一样简单，只需加入以下代码嵌入网站即可
+&lt;iframe height=&quot;740&quot; src=&quot;https://loquacious-bienenstitch-58539b.netlify.app/&quot;&gt;&lt;/iframe&gt;
+
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+        <tag>html</tag>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -220,321 +204,78 @@ local_search:  enable: true  preload: true  CDN:
       </tags>
   </entry>
   <entry>
-    <title>添加今日诗词</title>
-    <url>/posts/38054.html</url>
-    <content><![CDATA[
-本文将介绍如何增添随机诗词的展示。
-具体效果如下：
+    <title>Github迁移到Gitee</title>
+    <url>/posts/49051.html</url>
+    <content><![CDATA[ 
 
 
-创建组件主题新建themes&#x2F;anzhiyu&#x2F;layout&#x2F;includes&#x2F;widget&#x2F;card_poem.pug，内容如下
-#card-poem.card-widget    #poem_sentence    #poem_info        #poem_dynasty        #poem_authorscript(src=&#x27;https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js&#x27;, charset=&#x27;utf-8&#x27;)script(type=&#x27;text/javascript&#x27;).  jinrishici.load(function(result) &#123;  var sentence = document.querySelector(&quot;#poem_sentence&quot;)  var author = document.querySelector(&quot;#poem_author&quot;)  var dynasty = document.querySelector(&quot;#poem_dynasty&quot;)  var sentenceText = result.data.content  sentenceText = sentenceText.substr(0, sentenceText.length - 1);  sentence.innerHTML = sentenceText  dynasty.innerHTML = result.data.origin.dynasty  author.innerHTML = result.data.origin.author + &#x27;《&#x27; + result.data.origin.title + &#x27;》&#x27;  &#125;);
+Git配置在blog文件夹下打开git输入
+git config --global user.email &quot;注册gitee时使用的邮箱&quot;git config --global user.name &quot;gitee的用户名&quot;
 
 
-引入组件在themes/anzhiyu/layout/includes/widget/index.pug中你需要的位置添加以下内容
-!=partial(&#x27;includes/widget/card_poem&#x27;, &#123;&#125;, &#123;cache: true&#125;)
+生成git公钥 ssh-keygen -t rsa -C &quot;you email@126.com&quot;提示输入passphrase时可直接回车
+可通过查看.ssh/id_rsa.pub 文件内容，获取你的public key
+#  此命令在本地PC上执行cat ~/.ssh/id_rsa.pub# ssh-rsa AAAB3NzaC1yc2EAAAADAQABAAABgqcp2lvm....
+
+将公钥添加到Gitee首先进入设置页面在安全设置中,选择SSH公钥 ， 添加公钥后点击确定。
+在Git Bash中输入
+ssh -T git@gitee.com 
+
+出现Hi XXX! You’ve successfully authenticated, but Gitee.com does not provide shell access.则证明成功！
+打开_config.yml进行修改补全如下代码 repo即你的仓库https地址
+deploy:  type: git  repo: git@github.com:your_name/your_name.gitee.io.git  branch: master
+
+其中your_name需要替换为你的gitee的账号
+现在还需要创建一个首页访问地址不带二级目录的pages，如ipvb.gitee.io新建一个仓库，仓库地址为https://gitee.com/cas/cas.git,gitee pages地址为https://cas.gitee.io 这样配置就不存在二级目录的问题
+# URL## If your site is put in a subdirectory, set url as &#x27;http://yoursite.com/child&#x27; and root as &#x27;/child/&#x27;url: https://cas.gitee.io  // 这个地址为预览地址，即为gitee page服务地址root: /# Deployment## Docs: https://hexo.io/docs/deployment.htmldeploy:  type: git  repo: https://gitee.com/cas/.git  branch: master
 
 
-引入CSS在主题配置文件中添加
-inject:head:-
 
-heoMainColor.css
-&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css&quot;&gt;
 
-引用主css
-&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css&quot;&gt;
+现在需要执行以下命令 就可以发布自己的博客了。每次新建完文章之后部署，也是相同命令
+hexo clean         # 清除本地缓存hexo g             # 重新生成静态页面hexo d             # 部署到git
 
 
 
 
-
-这里调用的是今日诗词API，是一个可以返回一句古诗词名句的接口。
-它可以通过图片和 JSON 格式调用。今日诗词 API 根据不同地点、时间、节日、季节、天气、景观、城市进行智能推荐。
-访问链接：https://www.jinrishici.com
 ]]></content>
       <categories>
-        <category>诗词</category>
+        <category>Gitee</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
-        <tag>主题</tag>
-        <tag>诗词</tag>
+        <tag>Hexo</tag>
+        <tag>Gitee</tag>
       </tags>
   </entry>
   <entry>
-    <title>今日诗词</title>
-    <url>/posts/7850.html</url>
-    <content><![CDATA[
+    <title>博客文章压缩</title>
+    <url>/posts/29115.html</url>
+    <content><![CDATA[ 
+转载 rozbo开发的 Hexo-Neat 压缩插件
+Hexo-Neat 压缩静态资源Hexo-Neat 能够帮助用户自动压缩静态资源，配合各类下属插件，能够压缩包括css、js、html乃至各类格式的图片文件
+安装Gulp插件安装Hexo-Neat插件：在博客根目录[Blog]打开终端，输入：
+npm install hexo-neat --save
 
-  
-  
-    念两句诗
-    挑选中...
-    
-
-  
-  
-    jinrishici.load(function(result) {
-      poem.innerHTML = result.data.content
-      info.innerHTML = '【' + result.data.origin.dynasty + '】' + result.data.origin.author + '《' + result.data.origin.title + '》'
-      document.getElementById("poem").value(poem);
-      document.getElementById("info").value(info);  
-  });
-  
+在站点配置文件中末尾添加以下相关配置
+# hexo-neat# 博文压缩neat_enable: true# 压缩htmlneat_html: enable: true exclude:# 压缩cssneat_css: enable: true exclude:   - &#x27;*/*.min.css&#x27;# 压缩jsneat_js: enable: true mangle: true output: compress: exclude:   - &#x27;**/*.min.js&#x27;   - &#x27;**/jquery.fancybox.pack.js&#x27;   - &#x27;**/index.js&#x27;
 
 
-添加每日一言获取中...
+Gulp压缩安装插件
+npm install gulp -gnpm install gulp-minify-css gulp-uglify gulp-htmlmin gulp-htmlclean gulp --save
 
-]]></content>
+创建任务脚本为Gulp创建gulpfile.js任务脚本。在博客根目录[Blogroot]下新建gulpfile.js,打开[Blogroot]\gulpfile.js,输入以下内容：
+var gulp = require(&#x27;gulp&#x27;);var minifycss = require(&#x27;gulp-minify-css&#x27;);var uglify = require(&#x27;gulp-uglify&#x27;);var htmlmin = require(&#x27;gulp-htmlmin&#x27;);var htmlclean = require(&#x27;gulp-htmlclean&#x27;);var imagemin = require(&#x27;gulp-imagemin&#x27;);// 压缩htmlgulp.task(&#x27;minify-html&#x27;, function() &#123;    return gulp.src(&#x27;./public/**/*.html&#x27;)        .pipe(htmlclean())        .pipe(htmlmin(&#123;            collapseWhitespace: true, //从字面意思应该可以看出来，清除空格，压缩html，这一条比较重要，作用比较大，引起的改变压缩量也特别大            collapseBooleanAttributes: true, //省略布尔属性的值，比如：&lt;input checked=&quot;checked&quot;/&gt;,那么设置这个属性后，就会变成 &lt;input checked/&gt;            removeComments: true, //清除html中注释的部分            removeEmptyAttributes: true, //清除所有的空属性            removeScriptTypeAttributes: true, //清除所有script标签中的type=&quot;text/javascript&quot;属性。            removeStyleLinkTypeAttributes: true, //清楚所有Link标签上的type属性。            minifyJS: true,            minifyCSS: true,            minifyURLs: true,        &#125;))        .pipe(gulp.dest(&#x27;./public&#x27;));&#125;);// 压缩cssgulp.task(&#x27;minify-css&#x27;, function() &#123;    return gulp.src(&#x27;./public/**/*.css&#x27;)        .pipe(minifycss(&#123;            compatibility: &#x27;ie8&#x27;        &#125;))        .pipe(gulp.dest(&#x27;./public&#x27;));&#125;);// 压缩js !代表排除的js,例如[&#x27;!./public/js/**/*min.js&#x27;]gulp.task(&#x27;minify-js&#x27;, function() &#123;    return gulp.src([&#x27;./public/js/**/.js&#x27;])        .pipe(uglify()) //压缩混淆        .pipe(gulp.dest(&#x27;./public&#x27;));&#125;);// 压缩图片gulp.task(&#x27;minify-images&#x27;, function() &#123;    return gulp.src(&#x27;./public/images/**/*.*&#x27;)        .pipe(imagemin(        [imagemin.gifsicle(&#123;&#x27;optimizationLevel&#x27;: 3&#125;),        imagemin.jpegtran(&#123;&#x27;progressive&#x27;: true&#125;),        imagemin.optipng(&#123;&#x27;optimizationLevel&#x27;: 7&#125;),        imagemin.svgo()],        &#123;&#x27;verbose&#x27;: true&#125;))        .pipe(gulp.dest(&#x27;./public/images&#x27;));&#125;);// 默认任务gulp.task(&#x27;default&#x27;,gulp.series(gulp.parallel(&#x27;minify-html&#x27;,&#x27;minify-css&#x27;,&#x27;minify-js&#x27;,&#x27;minify-images&#x27;)));
+
+
+在每次运行完hexo generate生成静态页面后，运行gulp对其进行压缩。指令流程如下：
+hexo cleanhexo generategulphexo server 或 hexo deploy]]></content>
       <categories>
         <category>hexo</category>
       </categories>
       <tags>
         <tag>hexo</tag>
-        <tag>诗词</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>next 主题配置</title>
-    <url>/posts/15660.html</url>
-    <content><![CDATA[
-主题下载安装进入命令行，下载 NexT 主题，输入：
-git clone https://github.com/theme-next/hexo-theme-next themes/next
-
-
-修改站点配置文件_config.yml，找到如下代码：
-## Themes: https://hexo.io/themes/theme: landscape
-将 landscape 修改为 next 
-切换主题next 主题自带四种样式。
-在主题配置文件/next/_config.yml中查找：scheme，找到如下代码：
-# Schemesscheme: Muse#scheme: Mist#scheme: Pisces#scheme: Gemini选择一种样式，去掉前面的 #，其他主题前加上 # 
-
-
-
-隐藏网页强力驱动隐藏网页底部 powered By Hexo &#x2F; 强力驱动打开 themes/next/layout/_partials/footer.swig
-找到
-&#123;% if theme.footer.powered.enable %&#125;&lt;div class=&quot;powered-by&quot;&gt;&#123;##&#125;&#123;&#123; __(&#x27;footer.powered&#x27;, &#x27;&lt;a class=&quot;theme-link&quot; target=&quot;_blank&quot;&#x27; + nofollow + &#x27; href=&quot;https://hexo.io&quot;&gt;Hexo&lt;/a&gt;&#x27;) &#125;&#125;&#123;% if theme.footer.powered.version %&#125; v&#123;&#123; hexo_env(&#x27;version&#x27;) &#125;&#125;&#123;% endif %&#125;&#123;##&#125;&lt;/div&gt;&#123;% endif %&#125;&#123;% if theme.footer.powered.enable and theme.footer.theme.enable %&#125;&lt;span class=&quot;post-meta-divider&quot;&gt;|&lt;/span&gt;&#123;% endif %&#125;&#123;% if theme.footer.theme.enable %&#125;&lt;div class=&quot;theme-info&quot;&gt;&#123;##&#125;&#123;&#123; __(&#x27;footer.theme&#x27;) &#125;&#125; – &#123;##&#125;&lt;a class=&quot;theme-link&quot; target=&quot;_blank&quot;&#123;&#123; nofollow &#125;&#125; href=&quot;https://theme-next.org&quot;&gt;&#123;##&#125;NexT.&#123;&#123; theme.scheme &#125;&#125;&#123;##&#125;&lt;/a&gt;&#123;% if theme.footer.theme.version %&#125; v&#123;&#123; version &#125;&#125;&#123;% endif %&#125;&#123;##&#125;&lt;/div&gt;&#123;% endif %&#125;
-
-把这段代码首尾分别加上：，或者直接删除
-浏览进度浏览页面显示当前浏览进度打开 themes/next/_config.yml，搜索关键字 scrollpercent,把 false 改为 true
-Local Search本地搜索安装插件hexo-generator-searchdb,执行以下命令:
-npm install hexo-generator-searchdb --save或者npm install -g npm@11.3.0
-
-修改hexo/_config.yml站点配置文件，新增以下内容到任意位置
-search:path: search.xmlfield: postformat: htmllimit: 10000
-
-编辑 主题配置文件，启用本地搜索功能：
-# Local searchlocal_search:enable: true
-
-设置网站图标找一张（32 * 32）的 ico 图标，或者去别的网站下载或者制作，并将图标名称改为 favicon.ico，然后把图标放在 ·&#x2F;themes&#x2F;next&#x2F;source&#x2F;images· 里，并且修改主题配置文件：
-Put your favicon.ico into `hexo-site/source/` directory.favicon: /favicon.ico
-
-
-修改文章底部标签修改文章底部的#号的标签，改为图标修改模板/themes/next/layout/_macro/post.swig
-搜索 rel&#x3D;“tag”&gt;#，将 # 换成&lt;i class=&quot;fa fa-tag&quot;&gt;&lt;/i&gt;
-[Read More]按钮样式修改themes\next\source\css\_custom\custom.styl文件，加入自定义样式
-// [Read More]按钮样式.post-button .btn &#123;    color: #555 !important;    background-color: rgb(255, 255, 255);    border-radius: 3px;    font-size: 15px;    box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.35);    border: none !important;    transition-property: unset;    padding: 0px 15px;&#125;.post-button .btn:hover &#123;    color: rgb(255, 255, 255) !important;    border-radius: 3px;    font-size: 15px;    box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.35);    background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);&#125;
-
-阅读全文设置修改 阅读全文 前显示文字数量即位置打开 themes/next/_config.yml,搜索关键字 auto_excerpt， 修改length即可修改阅读全文前显示文字数量
-auto_excerpt:  enable: true  length: 150
-
-或者在文章中任意位置添加&lt;!-- more --&gt;
-建议在文章中加入 &lt;!-- more --&gt;自定义 [Read More] 按钮之前要显示的内容！
-修改链接文字样式打开themes\next\source\css\_common\components\post\post.styl添加以下代码:
-.post-body p a&#123; color: #0593d3; border-bottom: none; &amp;:hover &#123;   color: #ff106c;   text-decoration: underline; &#125;&#125;
-连接颜色已变为彩色
-代码块复制选项Next6 中自带了复制代码按钮，Next5 需要自己手动配置。
-搜索 codeblock，找到如下配置：
-codeblock:border_radius: 8   # 按钮圆滑度copy_button:  # 设置是否开启代码块复制按钮	enable: true	show_result: true  # 是否显示复制成功信息
-修改加载特效由于网页不可能一直都秒进，总会等待一段时间的，所以可以设置顶部加载条。Next 已经集成了很多加载特效，可以在下面选项中在线调试测试一下。
-搜索pace，找到如下代码：
-# 页面顶部加载条# Progress bar in the top during page loading.pace: true# Themes list:#pace-theme-big-counter#pace-theme-bounce#pace-theme-barber-shop#pace-theme-center-atom#pace-theme-center-circle#pace-theme-center-radar#pace-theme-center-simple#pace-theme-corner-indicator#pace-theme-fill-left#pace-theme-flash#pace-theme-loading-bar#pace-theme-mac-osx#pace-theme-minimal# For example# pace_theme: pace-theme-center-simplepace_theme: pace-theme-minimal  #默认设置，可以修改为上述任何一个
-
-
-
-
-
-
-
-]]></content>
-      <categories>
-        <category>主题</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>主题</tag>
-        <tag>next</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>markdown 语法</title>
-    <url>/posts/23825.html</url>
-    <content><![CDATA[
-Markdown 介绍Markdown 是一种轻量级标记语言，排版语法简洁，让人们更多地关注内容本身而非排版。它使用易读易写的纯文本格式编写文档，可与HTML混编，可导出 HTML、PDF 以及本身的 .md 格式的文件。因简洁、高效、易读、易写，Markdown被大量使用，如Github、Wikipedia、简书等。
-常用语法
-标题：使用#来表示不同级别的标题。例如：
-
-# 一级标题## 二级标题### 三级标题
-
-
-强调: 使用*或_来表示斜体或加粗。例如
-
-*斜体文本***加粗文本**
-
-
-列表：
-无序列表使用*、+或-
-
-
-
-- 项目一- 项目二
-
-
-有序列表使用数字加.
-
-1. 第一项2. 第二项
-
-
-链接:使用[描述](链接)来创建链接。例如：
-
-[Google](https://www.google.com)
-
-
-图片：类似链接，但前面加一个!。例如：
-
-![图片描述](图片链接)
-
-
-
-代码块：使用三个反引号（&#96;&#96;&#96;）来表示代码块，可以指定语言进行语法高亮。例如：
-
-print(&quot;Hello, World!&quot;)
-
-
-引用：使用&gt;来表示引用。例如：
-
-&gt; 这是一个引用
-
-这是一个引用
-
-
-文本高亮：一些Markdown解析器支持特殊语法来实现文本高亮，例如：
-
-==这部分文本会被高亮==
-
-
-代码行：代码行（即内联代码）是指在文本中嵌入一行或几行的代码。例如：
-
-`代码`
-
-
-表格：表格的每一行用|分隔，表头和内容行之间用---分隔，列对齐方式可以通过在---前后添加:来指定。例如：
-
-| 表头1 | 表头2 | 表头3 || 左对齐 | 居中对齐 | 右对齐 ||:-------|:-------:|-------:|| 文本   | 文本    | 文本   |
-
-| 表头1 | 表头2 | 表头3 |
-
-
-
-左对齐
-居中对齐
-右对齐
-
-
-
-文本
-文本
-文本
-
-
-]]></content>
-      <categories>
-        <category>markdown</category>
-      </categories>
-      <tags>
-        <tag>markdown</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>markdown 表格</title>
-    <url>/posts/22847.html</url>
-    <content><![CDATA[
-Markdown 表格Markdown 制作表格使用 | 来分隔不同的单元格，使用 - 分隔表头和其他行。
-语法格式如下：
-|  表头   | 表头  ||  ----  | ----  || 单元格  | 单元格 || 单元格  | 单元格 |
-
-
-
-
-表头
-表头
-
-
-
-单元格
-单元格
-
-
-单元格
-单元格
-
-
-对齐方式
-可以设置表格的对齐方式：
-
--: 设置内容和标题栏居右对齐
-:- 设置内容和标题栏居左对齐
-:-: 设置内容和标题栏居中对齐
-
-实例如下：| 左对齐 | 右对齐 | 居中对齐 || :-----| ----: | :----: || 单元格 | 单元格 | 单元格 || 单元格 | 单元格 | 单元格 |
-
-
-
-
-左对齐
-右对齐
-居中对齐
-
-
-
-单元格
-单元格
-单元格
-
-
-单元格
-单元格
-单元格
-
-
-]]></content>
-      <categories>
-        <category>markdown</category>
-      </categories>
-      <tags>
-        <tag>markdown</tag>
-        <tag>表格</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>便携小空调设置</title>
-    <url>/posts/45943.html</url>
-    <content><![CDATA[
-部署方案在博客根目录执行命令:
-hexo new page air-conditioner
-
-会生成source/air-conditioner/index.md, 将以下内容替换原内容
----title: 便携小空调 - 为你的夏日带去清凉!date: 2022-10-20 22:06:17comments: trueaside: falsetop_img: false---&gt; 终于为博客安装上了便携小空调&lt;style&gt;.copyright-box a &#123;  border-bottom: none !important;  padding: 0 !important;&#125;&lt;/style&gt;&lt;div id=&quot;air-conditioner-vue&quot;&gt;&lt;/div&gt;&lt;script defer data-pjax src=&#x27;https://npm.elemecdn.com/anzhiyu-air-conditioner@1.0.1/index.3f125bc6.js&#x27;&gt;&lt;/script&gt;
-
-然后访问https://你的博客域名/air-conditioner就可以得到一个没有风的空调 ❄️
-其他部署方案如果使用的是其他的，部署也一样简单，只需加入以下代码嵌入网站即可
-&lt;iframe height=&quot;740&quot; src=&quot;https://loquacious-bienenstitch-58539b.netlify.app/&quot;&gt;&lt;/iframe&gt;
-
-]]></content>
-      <tags>
-        <tag>hexo</tag>
-        <tag>html</tag>
-        <tag>js</tag>
+        <tag>gulp</tag>
+        <tag>neat</tag>
       </tags>
   </entry>
   <entry>
@@ -637,6 +378,39 @@ fish();function fish() &#123;    return (      $(&quot;#footer-wrap&quot;).css(&
       </tags>
   </entry>
   <entry>
+    <title>今日诗词</title>
+    <url>/posts/7850.html</url>
+    <content><![CDATA[
+
+  
+  
+    念两句诗
+    挑选中...
+    
+
+  
+  
+    jinrishici.load(function(result) {
+      poem.innerHTML = result.data.content
+      info.innerHTML = '【' + result.data.origin.dynasty + '】' + result.data.origin.author + '《' + result.data.origin.title + '》'
+      document.getElementById("poem").value(poem);
+      document.getElementById("info").value(info);  
+  });
+  
+
+
+添加每日一言获取中...
+
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>诗词</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>linux 目录结构</title>
     <url>/posts/6747.html</url>
     <content><![CDATA[ 
@@ -713,163 +487,234 @@ file&#x2F;stat
       </tags>
   </entry>
   <entry>
-    <title>批处理命令</title>
-    <url>/posts/44656.html</url>
-    <content><![CDATA[ 
-批处理命令
-映射磁盘驱动器
-
-net use y: \\10.80.155.152\F /user:hp  “y”指定的驱动器号; &#x2F;user:”username”
-
-使用文件资源管理器打开FTP服务器登录窗口
-
-@echo offexplorer ftp://10.80.155.152
-使用浏览器打开对应网址
-@echo offstart www.baidu.com
+    <title>markdown 表格</title>
+    <url>/posts/22847.html</url>
+    <content><![CDATA[
+Markdown 表格Markdown 制作表格使用 | 来分隔不同的单元格，使用 - 分隔表头和其他行。
+语法格式如下：
+|  表头   | 表头  ||  ----  | ----  || 单元格  | 单元格 || 单元格  | 单元格 |
 
 
-按任意键继续
-
-pause  按任意键继续
-
-启动磁盘里的可执行程序
-
-/@echo offe:cd\cd examClient-win32–x64examClient.exe
 
 
-打开共享文件夹
-
-@echo offrem 建立链接rem 打开共享文件夹explorer \\10.80.7.1\exit
-
-
-运行后删除自身文件    使用   del %0
-
-@echo offecho 按任意键后我将删除自身pausedel %0
+表头
+表头
 
 
-万能删除文件
 
-@echo offDEL /F /A /Q \\?\%1RD /S /Q \\?\%1
-
- 批处理删除文件夹下所有文件和文件夹
+单元格
+单元格
 
 
-1、rd命令 rd &#x2F;s &#x2F;Q c:\temp 会将temp文件夹也删除
-2、rd命令+md命令rd &#x2F;s &#x2F;Q c:\temp md c:\Temp删除后再重建
-3、del命令 del &#x2F;s &#x2F;Q c:\temp 只能删除文件，而不能删除子文件夹
-4、del命令+rd命令，先刪除文件，再进入temp文件夹删除目录del &#x2F;s &#x2F;Q c:\temp cd C:\temp rd &#x2F;s &#x2F;q c:\temp
+单元格
+单元格
+
+
+对齐方式
+可以设置表格的对齐方式：
+
+-: 设置内容和标题栏居右对齐
+:- 设置内容和标题栏居左对齐
+:-: 设置内容和标题栏居中对齐
+
+实例如下：| 左对齐 | 右对齐 | 居中对齐 || :-----| ----: | :----: || 单元格 | 单元格 | 单元格 || 单元格 | 单元格 | 单元格 |
+
+
+
+
+左对齐
+右对齐
+居中对齐
+
+
+
+单元格
+单元格
+单元格
+
+
+单元格
+单元格
+单元格
 
 
 ]]></content>
       <categories>
-        <category>bat</category>
+        <category>markdown</category>
       </categories>
       <tags>
-        <tag>bat</tag>
-        <tag>批处理</tag>
-        <tag>cmd</tag>
+        <tag>markdown</tag>
+        <tag>表格</tag>
       </tags>
   </entry>
   <entry>
-    <title>软件静默安装参数</title>
-    <url>/posts/10107.html</url>
-    <content><![CDATA[ 
-软件静默参数大部分软件的安装都能采取全自动或半自动的方式进行，只需要找到对应的静默参数
-Microsoft Windows Installer
-　　如果某个软件是用 Windows Installer 打包的，那你就应该能在文件夹中看到 *.msi 文件。这是最典型的特征，这些文件通常可以使用 &#x2F;QB 和 &#x2F;QN 参数进行自动安装。
-　　&#x2F;qb 会在窗口中显示一个基本的安装进程。　　&#x2F;qn 参数则不会显示任何窗口，直接在后台自动安装。 
-常用软件WinRAR.exe /S7-ZIP.exe /S搜狗输入法.exe /SQQ  /SVC++运行库  /SILENT 显示窗口直接安装]]></content>
+    <title>markdown 语法</title>
+    <url>/posts/23825.html</url>
+    <content><![CDATA[
+Markdown 介绍Markdown 是一种轻量级标记语言，排版语法简洁，让人们更多地关注内容本身而非排版。它使用易读易写的纯文本格式编写文档，可与HTML混编，可导出 HTML、PDF 以及本身的 .md 格式的文件。因简洁、高效、易读、易写，Markdown被大量使用，如Github、Wikipedia、简书等。
+常用语法
+标题：使用#来表示不同级别的标题。例如：
+
+# 一级标题## 二级标题### 三级标题
+
+
+强调: 使用*或_来表示斜体或加粗。例如
+
+*斜体文本***加粗文本**
+
+
+列表：
+无序列表使用*、+或-
+
+
+
+- 项目一- 项目二
+
+
+有序列表使用数字加.
+
+1. 第一项2. 第二项
+
+
+链接:使用[描述](链接)来创建链接。例如：
+
+[Google](https://www.google.com)
+
+
+图片：类似链接，但前面加一个!。例如：
+
+![图片描述](图片链接)
+
+
+
+代码块：使用三个反引号（&#96;&#96;&#96;）来表示代码块，可以指定语言进行语法高亮。例如：
+
+print(&quot;Hello, World!&quot;)
+
+
+引用：使用&gt;来表示引用。例如：
+
+&gt; 这是一个引用
+
+这是一个引用
+
+
+文本高亮：一些Markdown解析器支持特殊语法来实现文本高亮，例如：
+
+==这部分文本会被高亮==
+
+
+代码行：代码行（即内联代码）是指在文本中嵌入一行或几行的代码。例如：
+
+`代码`
+
+
+表格：表格的每一行用|分隔，表头和内容行之间用---分隔，列对齐方式可以通过在---前后添加:来指定。例如：
+
+| 表头1 | 表头2 | 表头3 || 左对齐 | 居中对齐 | 右对齐 ||:-------|:-------:|-------:|| 文本   | 文本    | 文本   |
+
+| 表头1 | 表头2 | 表头3 |
+
+
+
+左对齐
+居中对齐
+右对齐
+
+
+
+文本
+文本
+文本
+
+
+]]></content>
       <categories>
-        <category>windows</category>
+        <category>markdown</category>
       </categories>
       <tags>
+        <tag>markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>next 主题配置</title>
+    <url>/posts/15660.html</url>
+    <content><![CDATA[
+主题下载安装进入命令行，下载 NexT 主题，输入：
+git clone https://github.com/theme-next/hexo-theme-next themes/next
+
+
+修改站点配置文件_config.yml，找到如下代码：
+## Themes: https://hexo.io/themes/theme: landscape
+将 landscape 修改为 next 
+切换主题next 主题自带四种样式。
+在主题配置文件/next/_config.yml中查找：scheme，找到如下代码：
+# Schemesscheme: Muse#scheme: Mist#scheme: Pisces#scheme: Gemini选择一种样式，去掉前面的 #，其他主题前加上 # 
+
+
+
+隐藏网页强力驱动隐藏网页底部 powered By Hexo &#x2F; 强力驱动打开 themes/next/layout/_partials/footer.swig
+找到
+&#123;% if theme.footer.powered.enable %&#125;&lt;div class=&quot;powered-by&quot;&gt;&#123;##&#125;&#123;&#123; __(&#x27;footer.powered&#x27;, &#x27;&lt;a class=&quot;theme-link&quot; target=&quot;_blank&quot;&#x27; + nofollow + &#x27; href=&quot;https://hexo.io&quot;&gt;Hexo&lt;/a&gt;&#x27;) &#125;&#125;&#123;% if theme.footer.powered.version %&#125; v&#123;&#123; hexo_env(&#x27;version&#x27;) &#125;&#125;&#123;% endif %&#125;&#123;##&#125;&lt;/div&gt;&#123;% endif %&#125;&#123;% if theme.footer.powered.enable and theme.footer.theme.enable %&#125;&lt;span class=&quot;post-meta-divider&quot;&gt;|&lt;/span&gt;&#123;% endif %&#125;&#123;% if theme.footer.theme.enable %&#125;&lt;div class=&quot;theme-info&quot;&gt;&#123;##&#125;&#123;&#123; __(&#x27;footer.theme&#x27;) &#125;&#125; – &#123;##&#125;&lt;a class=&quot;theme-link&quot; target=&quot;_blank&quot;&#123;&#123; nofollow &#125;&#125; href=&quot;https://theme-next.org&quot;&gt;&#123;##&#125;NexT.&#123;&#123; theme.scheme &#125;&#125;&#123;##&#125;&lt;/a&gt;&#123;% if theme.footer.theme.version %&#125; v&#123;&#123; version &#125;&#125;&#123;% endif %&#125;&#123;##&#125;&lt;/div&gt;&#123;% endif %&#125;
+
+把这段代码首尾分别加上：，或者直接删除
+浏览进度浏览页面显示当前浏览进度打开 themes/next/_config.yml，搜索关键字 scrollpercent,把 false 改为 true
+Local Search本地搜索安装插件hexo-generator-searchdb,执行以下命令:
+npm install hexo-generator-searchdb --save或者npm install -g npm@11.3.0
+
+修改hexo/_config.yml站点配置文件，新增以下内容到任意位置
+search:path: search.xmlfield: postformat: htmllimit: 10000
+
+编辑 主题配置文件，启用本地搜索功能：
+# Local searchlocal_search:enable: true
+
+设置网站图标找一张（32 * 32）的 ico 图标，或者去别的网站下载或者制作，并将图标名称改为 favicon.ico，然后把图标放在 ·&#x2F;themes&#x2F;next&#x2F;source&#x2F;images· 里，并且修改主题配置文件：
+Put your favicon.ico into `hexo-site/source/` directory.favicon: /favicon.ico
+
+
+修改文章底部标签修改文章底部的#号的标签，改为图标修改模板/themes/next/layout/_macro/post.swig
+搜索 rel&#x3D;“tag”&gt;#，将 # 换成&lt;i class=&quot;fa fa-tag&quot;&gt;&lt;/i&gt;
+[Read More]按钮样式修改themes\next\source\css\_custom\custom.styl文件，加入自定义样式
+// [Read More]按钮样式.post-button .btn &#123;    color: #555 !important;    background-color: rgb(255, 255, 255);    border-radius: 3px;    font-size: 15px;    box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.35);    border: none !important;    transition-property: unset;    padding: 0px 15px;&#125;.post-button .btn:hover &#123;    color: rgb(255, 255, 255) !important;    border-radius: 3px;    font-size: 15px;    box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.35);    background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);&#125;
+
+阅读全文设置修改 阅读全文 前显示文字数量即位置打开 themes/next/_config.yml,搜索关键字 auto_excerpt， 修改length即可修改阅读全文前显示文字数量
+auto_excerpt:  enable: true  length: 150
+
+或者在文章中任意位置添加&lt;!-- more --&gt;
+建议在文章中加入 &lt;!-- more --&gt;自定义 [Read More] 按钮之前要显示的内容！
+修改链接文字样式打开themes\next\source\css\_common\components\post\post.styl添加以下代码:
+.post-body p a&#123; color: #0593d3; border-bottom: none; &amp;:hover &#123;   color: #ff106c;   text-decoration: underline; &#125;&#125;
+连接颜色已变为彩色
+代码块复制选项Next6 中自带了复制代码按钮，Next5 需要自己手动配置。
+搜索 codeblock，找到如下配置：
+codeblock:border_radius: 8   # 按钮圆滑度copy_button:  # 设置是否开启代码块复制按钮	enable: true	show_result: true  # 是否显示复制成功信息
+修改加载特效由于网页不可能一直都秒进，总会等待一段时间的，所以可以设置顶部加载条。Next 已经集成了很多加载特效，可以在下面选项中在线调试测试一下。
+搜索pace，找到如下代码：
+# 页面顶部加载条# Progress bar in the top during page loading.pace: true# Themes list:#pace-theme-big-counter#pace-theme-bounce#pace-theme-barber-shop#pace-theme-center-atom#pace-theme-center-circle#pace-theme-center-radar#pace-theme-center-simple#pace-theme-corner-indicator#pace-theme-fill-left#pace-theme-flash#pace-theme-loading-bar#pace-theme-mac-osx#pace-theme-minimal# For example# pace_theme: pace-theme-center-simplepace_theme: pace-theme-minimal  #默认设置，可以修改为上述任何一个
+
+
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>主题</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>主题</tag>
+        <tag>next</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>了解计算机物理接口</title>
+    <url>/posts/15023.html</url>
+    <content><![CDATA[]]></content>
+      <tags>
+        <tag>PC</tag>
         <tag>windows</tag>
-        <tag>bat</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>禁止ipc默认共享</title>
-    <url>/posts/38974.html</url>
-    <content><![CDATA[ 
-禁止ipc$默认共享  把ipc$和默认共享都删除了。但重起后还会有。也可以放到一个批处理里面 把这个批处理文件设置开机启动 可以禁止共享
-在win10及以上系统中如使用的不是管理员账户 需要在批处理前添加获取管理员身份的权限代码如下：
-%1 %2ver|find &quot;5.&quot;&gt;nul&amp;&amp;goto :Adminmshta vbscript:createobject(&quot;shell.application&quot;).shellexecute(&quot;%~s0&quot;,&quot;goto :Admin&quot;,&quot;&quot;,&quot;runas&quot;,1)(window.close)&amp;goto :eof:Admin
-
-删除共享的代码
-net share ipc$ /delnet share admin$ /delnet share c$ /delnet share d$ /del# …………（有几个删几个）
-]]></content>
-      <categories>
-        <category>windows</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-        <tag>IPC</tag>
-        <tag>IP</tag>
-        <tag>共享</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Win10配置NTP服务器</title>
-    <url>/posts/14899.html</url>
-    <content><![CDATA[ 
-NTP服务器配置1.使用组合键WIN + R 启动运行窗口，在打开的窗口中输入regedit，点击确定按钮.
-2.在打开的注册表中输入HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Config，找到并打开Config目录，双击Config目录下的AnnounceFlags。3.把注册表项的值设定为5，点击确定按钮
-4.再次输入注册表路径HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpServer，双击NtpServer下的Enabled文件。5.把Enabled的值设定为1，点击确定按钮。
-6.打开命令提示符窗口（以管理员身份运行）。开始-找到windows系统-找到命令提示符-然后鼠标右键点击命令提示符-选择以管理员身份运行。
-7.输入net stop w32time停止服务，再输入net start w32time启动服务。8.输入命令w32tm /stripchart /computer:127.0.0.1，有时间回显说明配置成功。
-在win10上配置NTP时间同步服务器的方法就介绍完了。（也可以在局域网内的其他计算机上使用ntp服务功能进行ntp校时验证)
-]]></content>
-      <categories>
-        <category>windows</category>
-      </categories>
-      <tags>
-        <tag>NTP</tag>
-        <tag>win10</tag>
-        <tag>服务器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Github迁移到Gitee</title>
-    <url>/posts/49051.html</url>
-    <content><![CDATA[ 
-
-
-Git配置在blog文件夹下打开git输入
-git config --global user.email &quot;注册gitee时使用的邮箱&quot;git config --global user.name &quot;gitee的用户名&quot;
-
-
-生成git公钥 ssh-keygen -t rsa -C &quot;you email@126.com&quot;提示输入passphrase时可直接回车
-可通过查看.ssh/id_rsa.pub 文件内容，获取你的public key
-#  此命令在本地PC上执行cat ~/.ssh/id_rsa.pub# ssh-rsa AAAB3NzaC1yc2EAAAADAQABAAABgqcp2lvm....
-
-将公钥添加到Gitee首先进入设置页面在安全设置中,选择SSH公钥 ， 添加公钥后点击确定。
-在Git Bash中输入
-ssh -T git@gitee.com 
-
-出现Hi XXX! You’ve successfully authenticated, but Gitee.com does not provide shell access.则证明成功！
-打开_config.yml进行修改补全如下代码 repo即你的仓库https地址
-deploy:  type: git  repo: git@github.com:your_name/your_name.gitee.io.git  branch: master
-
-其中your_name需要替换为你的gitee的账号
-现在还需要创建一个首页访问地址不带二级目录的pages，如ipvb.gitee.io新建一个仓库，仓库地址为https://gitee.com/cas/cas.git,gitee pages地址为https://cas.gitee.io 这样配置就不存在二级目录的问题
-# URL## If your site is put in a subdirectory, set url as &#x27;http://yoursite.com/child&#x27; and root as &#x27;/child/&#x27;url: https://cas.gitee.io  // 这个地址为预览地址，即为gitee page服务地址root: /# Deployment## Docs: https://hexo.io/docs/deployment.htmldeploy:  type: git  repo: https://gitee.com/cas/.git  branch: master
-
-
-
-
-现在需要执行以下命令 就可以发布自己的博客了。每次新建完文章之后部署，也是相同命令
-hexo clean         # 清除本地缓存hexo g             # 重新生成静态页面hexo d             # 部署到git
-
-
-
-
-]]></content>
-      <categories>
-        <category>Gitee</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Gitee</tag>
       </tags>
   </entry>
   <entry>
@@ -1167,6 +1012,64 @@ EXI系统安装进PE系统后，双击运行桌面的“EIX系统安装”工具
       </tags>
   </entry>
   <entry>
+    <title>批处理命令</title>
+    <url>/posts/44656.html</url>
+    <content><![CDATA[ 
+批处理命令
+映射磁盘驱动器
+
+net use y: \\10.80.155.152\F /user:hp  “y”指定的驱动器号; &#x2F;user:”username”
+
+使用文件资源管理器打开FTP服务器登录窗口
+
+@echo offexplorer ftp://10.80.155.152
+使用浏览器打开对应网址
+@echo offstart www.baidu.com
+
+
+按任意键继续
+
+pause  按任意键继续
+
+启动磁盘里的可执行程序
+
+/@echo offe:cd\cd examClient-win32–x64examClient.exe
+
+
+打开共享文件夹
+
+@echo offrem 建立链接rem 打开共享文件夹explorer \\10.80.7.1\exit
+
+
+运行后删除自身文件    使用   del %0
+
+@echo offecho 按任意键后我将删除自身pausedel %0
+
+
+万能删除文件
+
+@echo offDEL /F /A /Q \\?\%1RD /S /Q \\?\%1
+
+ 批处理删除文件夹下所有文件和文件夹
+
+
+1、rd命令 rd &#x2F;s &#x2F;Q c:\temp 会将temp文件夹也删除
+2、rd命令+md命令rd &#x2F;s &#x2F;Q c:\temp md c:\Temp删除后再重建
+3、del命令 del &#x2F;s &#x2F;Q c:\temp 只能删除文件，而不能删除子文件夹
+4、del命令+rd命令，先刪除文件，再进入temp文件夹删除目录del &#x2F;s &#x2F;Q c:\temp cd C:\temp rd &#x2F;s &#x2F;q c:\temp
+
+
+]]></content>
+      <categories>
+        <category>bat</category>
+      </categories>
+      <tags>
+        <tag>bat</tag>
+        <tag>批处理</tag>
+        <tag>cmd</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>在GitHub上搭建Hexo</title>
     <url>/posts/62306.html</url>
     <content><![CDATA[ 
@@ -1258,6 +1161,89 @@ hexo clean         # 清除本地缓存hexo g             # 重新生成静态�
       </tags>
   </entry>
   <entry>
+    <title>神秘的C盘里面装了什么</title>
+    <url>/posts/28356.html</url>
+    <content><![CDATA[大家刚刚接触电脑时，都会被提醒“你可千万别动C盘！”点开一看，密密麻麻的文件夹 让人不知所云。所以，神秘的C盘里面到底藏了什么东西？下面将进行全面解读。
+C盘根目录常见文件夹Documents and Settings&#x2F;用户 ：Windows 7中的“用户”文件夹其实就是XP中的Documents and Settings文件夹， 这里储存了用户的设置，包括用户、文档、上网浏览信息、配置文件等数据。
+DownIoads ：这通常是下载软件的默认下载路径，建议修改软件设置改到其他硬盘分区。Drivers ：部分驱动程序的文件夹。Favorites ：收藏夹。Program Files ： 应用程序文件夹，一般软件默认都安装在这里，也有一些系统自带的应用 程序。在Windows 7系统中，64位用户会多出一个Program Files(X86） 文件夹，这是系统中32位软件的安装目录。Program Data ： Windows 7的系统文件夹，放置程序的使用数据、设置等文件，不建议删除。Windows ：存放操作系统主要文件，非常重要。Temp ：存放系统或其他软件临时文件，需经常清理。hiberfil.sys ： 系统的休眠功能所占用的硬盘空间的文件，不建议删除。pagefile.sys ： 虚拟内存页面文件，不建议删除。PerfLogs ： Windows Vista或Windows 7系统日志，记录如磁盘扫描错误等信息，没有必要删除。
+Document and settings&#x2F;用户常见文件夹
+默认情况下位于系统分区根目录下，包括： Administrator、All Users、Default User、用户文件夹等。All Users针对所有用户， 这里的更改对所有用户有效，Administrator针对系统管理员账户。
+
+桌面【开始】菜单Application Data ： 通用应用程序数据文件夹。Favorites ：收藏夹。Local Settings ：保存应用程序数据、历史和临时文件，可清理。MyDocuments ：我的文档。NetHood ：网络共享目录。PrintHood ：打印共享目录。Recent ：最近打开的文档。SendTo ：鼠标右键的“发送到”。Templates ：存储着常用程序的模板文件。Temp : 临时文件目录，在系统和软件的运行过程中产生的临时文件就存放于此。Temporary Internet Files ：IE下载文件的缓存区。
+ProgramFiles常见文件夹Common FileS ： 共用程序文件夹，用于同系列不同程序软件共同使用或调用数据，比如微软和Adobe的各种软件。ComPlus Applications ： 微软COM＋组件使用的文件夹，删除后可能引起COM＋组件不能运行。DIFX ： DIFX是一种高效的XML索引方法，此文件夹与数据索引有关，不可以删除。Internet Explorer ： 系统自带的IE浏览器，删除后可能导致部分程序不能正常运行。1nstallShield Installation Information ： 专门存储安装程序信息的文件夹，用于某些程序的卸载和更新。MSECache ：MS Office运行时自动创建。MSXML 6.0 ：微软XML解析器程序的文件夹。microsoft frontpage ： FrontPage是微软推出的一款网页设计软件，此文件夹通常为空。Movie Maker ：系统自带的一款视频编辑软件。MSN Gaming Zone ：一些系统自带的扑克牌等小游戏，可以删除。Netmeeting ：系统自带的网上聊天软件。0utlook Express ：Outlook Express是Windows内置的邮件收发端，不用可删。Online Services ：网络服务文件夹，不能删。Windows Media Player ：系统自带的一款多媒体播放器。WinRAR ：一款流行的压缩解压缩软件。Xerox ： 用作自带的一些图像处理软件的临时空间，文件夹不能删除，但通常为空。
+]]></content>
+      <categories>
+        <category>windows</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+        <tag>系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>添加今日诗词</title>
+    <url>/posts/38054.html</url>
+    <content><![CDATA[
+本文将介绍如何增添随机诗词的展示。
+具体效果如下：
+
+
+创建组件主题新建themes&#x2F;anzhiyu&#x2F;layout&#x2F;includes&#x2F;widget&#x2F;card_poem.pug，内容如下
+#card-poem.card-widget    #poem_sentence    #poem_info        #poem_dynasty        #poem_authorscript(src=&#x27;https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js&#x27;, charset=&#x27;utf-8&#x27;)script(type=&#x27;text/javascript&#x27;).  jinrishici.load(function(result) &#123;  var sentence = document.querySelector(&quot;#poem_sentence&quot;)  var author = document.querySelector(&quot;#poem_author&quot;)  var dynasty = document.querySelector(&quot;#poem_dynasty&quot;)  var sentenceText = result.data.content  sentenceText = sentenceText.substr(0, sentenceText.length - 1);  sentence.innerHTML = sentenceText  dynasty.innerHTML = result.data.origin.dynasty  author.innerHTML = result.data.origin.author + &#x27;《&#x27; + result.data.origin.title + &#x27;》&#x27;  &#125;);
+
+
+引入组件在themes/anzhiyu/layout/includes/widget/index.pug中你需要的位置添加以下内容
+!=partial(&#x27;includes/widget/card_poem&#x27;, &#123;&#125;, &#123;cache: true&#125;)
+
+
+引入CSS在主题配置文件中添加
+inject:head:-
+
+heoMainColor.css
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css&quot;&gt;
+
+引用主css
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css&quot;&gt;
+
+
+
+
+
+这里调用的是今日诗词API，是一个可以返回一句古诗词名句的接口。
+它可以通过图片和 JSON 格式调用。今日诗词 API 根据不同地点、时间、节日、季节、天气、景观、城市进行智能推荐。
+访问链接：https://www.jinrishici.com
+]]></content>
+      <categories>
+        <category>诗词</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>主题</tag>
+        <tag>诗词</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>禁止ipc默认共享</title>
+    <url>/posts/38974.html</url>
+    <content><![CDATA[ 
+禁止ipc$默认共享  把ipc$和默认共享都删除了。但重起后还会有。也可以放到一个批处理里面 把这个批处理文件设置开机启动 可以禁止共享
+在win10及以上系统中如使用的不是管理员账户 需要在批处理前添加获取管理员身份的权限代码如下：
+%1 %2ver|find &quot;5.&quot;&gt;nul&amp;&amp;goto :Adminmshta vbscript:createobject(&quot;shell.application&quot;).shellexecute(&quot;%~s0&quot;,&quot;goto :Admin&quot;,&quot;&quot;,&quot;runas&quot;,1)(window.close)&amp;goto :eof:Admin
+
+删除共享的代码
+net share ipc$ /delnet share admin$ /delnet share c$ /delnet share d$ /del# …………（有几个删几个）
+]]></content>
+      <categories>
+        <category>windows</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+        <tag>IPC</tag>
+        <tag>IP</tag>
+        <tag>共享</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>网线水晶头制作及标准接法</title>
     <url>/posts/13455.html</url>
     <content><![CDATA[
@@ -1322,77 +1308,74 @@ T568B 线序的接法
       </tags>
   </entry>
   <entry>
-    <title>神秘的C盘里面装了什么</title>
-    <url>/posts/28356.html</url>
-    <content><![CDATA[大家刚刚接触电脑时，都会被提醒“你可千万别动C盘！”点开一看，密密麻麻的文件夹 让人不知所云。所以，神秘的C盘里面到底藏了什么东西？下面将进行全面解读。
-C盘根目录常见文件夹Documents and Settings&#x2F;用户 ：Windows 7中的“用户”文件夹其实就是XP中的Documents and Settings文件夹， 这里储存了用户的设置，包括用户、文档、上网浏览信息、配置文件等数据。
-DownIoads ：这通常是下载软件的默认下载路径，建议修改软件设置改到其他硬盘分区。Drivers ：部分驱动程序的文件夹。Favorites ：收藏夹。Program Files ： 应用程序文件夹，一般软件默认都安装在这里，也有一些系统自带的应用 程序。在Windows 7系统中，64位用户会多出一个Program Files(X86） 文件夹，这是系统中32位软件的安装目录。Program Data ： Windows 7的系统文件夹，放置程序的使用数据、设置等文件，不建议删除。Windows ：存放操作系统主要文件，非常重要。Temp ：存放系统或其他软件临时文件，需经常清理。hiberfil.sys ： 系统的休眠功能所占用的硬盘空间的文件，不建议删除。pagefile.sys ： 虚拟内存页面文件，不建议删除。PerfLogs ： Windows Vista或Windows 7系统日志，记录如磁盘扫描错误等信息，没有必要删除。
-Document and settings&#x2F;用户常见文件夹
-默认情况下位于系统分区根目录下，包括： Administrator、All Users、Default User、用户文件夹等。All Users针对所有用户， 这里的更改对所有用户有效，Administrator针对系统管理员账户。
-
-桌面【开始】菜单Application Data ： 通用应用程序数据文件夹。Favorites ：收藏夹。Local Settings ：保存应用程序数据、历史和临时文件，可清理。MyDocuments ：我的文档。NetHood ：网络共享目录。PrintHood ：打印共享目录。Recent ：最近打开的文档。SendTo ：鼠标右键的“发送到”。Templates ：存储着常用程序的模板文件。Temp : 临时文件目录，在系统和软件的运行过程中产生的临时文件就存放于此。Temporary Internet Files ：IE下载文件的缓存区。
-ProgramFiles常见文件夹Common FileS ： 共用程序文件夹，用于同系列不同程序软件共同使用或调用数据，比如微软和Adobe的各种软件。ComPlus Applications ： 微软COM＋组件使用的文件夹，删除后可能引起COM＋组件不能运行。DIFX ： DIFX是一种高效的XML索引方法，此文件夹与数据索引有关，不可以删除。Internet Explorer ： 系统自带的IE浏览器，删除后可能导致部分程序不能正常运行。1nstallShield Installation Information ： 专门存储安装程序信息的文件夹，用于某些程序的卸载和更新。MSECache ：MS Office运行时自动创建。MSXML 6.0 ：微软XML解析器程序的文件夹。microsoft frontpage ： FrontPage是微软推出的一款网页设计软件，此文件夹通常为空。Movie Maker ：系统自带的一款视频编辑软件。MSN Gaming Zone ：一些系统自带的扑克牌等小游戏，可以删除。Netmeeting ：系统自带的网上聊天软件。0utlook Express ：Outlook Express是Windows内置的邮件收发端，不用可删。Online Services ：网络服务文件夹，不能删。Windows Media Player ：系统自带的一款多媒体播放器。WinRAR ：一款流行的压缩解压缩软件。Xerox ： 用作自带的一些图像处理软件的临时空间，文件夹不能删除，但通常为空。
-]]></content>
-      <categories>
-        <category>windows</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
-        <tag>系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UEFI+GPT与BIOS+MBR有什么区别</title>
-    <url>/posts/55889.html</url>
+    <title>计算机网络中的IP地址</title>
+    <url>/posts/29942.html</url>
     <content><![CDATA[
+特殊的IP地址
+0.0.0.0
 
-现在绝大多数系统都是UEFI+GPT或BIOS+MBR模式安装的，那么他们之间有什么区别呢?
+严格说来，这个奇葩的地址0.0.0.0已经不是一个真正意义上 的IP地址了。它表示的是这样一个集合：也就是说；所有不清 楚的主机和目的网络。这里的“不清楚”是指在本机的路由表里 没有特定条目指明如何到达。对本机来说，它就是一个“收容所”， 所有不认识的“三无”人员，一律送进去。如果你在网络设置中设 置了缺省网关，那么计算机系统会自动产生一个目的地址为0.0.0.0的缺省路由。
 
-首先是硬盘分区GPT与MBR的区别
-MBR磁盘最多支持4个主分区，再增加分区只能用逻辑分区; 微软设定GPT磁盘支持128个主分区(理论可支持无限多个)。
-MBR磁盘最大仅支持2TB硬盘，GPT磁盘最大支持18EB硬盘(1EB&#x3D;1048576TB)
-GPT分区磁盘有备份分区表来提高分区数据结构的完整性。
-GPT只能安装64位的系统，MBR可以安装32位与64位。
+255.255.255.255限制广播地址
 
-UEFI与BIOS的区别BIOS和UEFI都是引导操作系统启动的必须介质，传统BIOS启动系统 的过程中相比与UEFI启动多了一个BIOS自检环节，所以启动速度相对比较慢。
-BIOS下启动操作系统之前，必须从硬盘MBR主引导记录中读取系统启动代码， 然后从活动分区中引导启动操作系统，因为BIOS不能识别GPT分区，所以BIOS 模式下不能用GPT分区安装系统。
+对本机来说，这个地址指本网段内(同一广播域)的所有主机。
+然而它的意思很明确，使用人类语言来说意思就是“这里的所 有计算机都注意了”这个地址不能被路由器所转发。
 
-传统BIOS运行流程
+127.0.0.1本机地址
 
-    graph LR
-    A(开 机) --> B[BIOS初始化] --> C[BIOS自检] --> D[引导操作系统] --> E(进入系统)
+主要用于测试。用汉语表示，就是“我自己”。在Windows系统 中，这个地址有一个别名“Localhost”。寻址这样一个地址， 是不能把它发到网络接口的。除非出错，否则在传输介质上永 远不应该出现目的地址为“127.0.0.1”的数据包。
+
+224.0.0.1 组播地址
+
+注意它和广播的区别。从224.0.0.0到239.255.255.255都是 这样的地址。224.0.0.1特指所有主机，224.0.0.2特指所有 路由器。这样的地址多用于一些特定的程序以及多媒体程序。 如果你的主机开启了IRDP(Internet路由发现协议），使用组 播功能功能，那么你的主机路由表中应该有这样一条路由。
+
+169.254.x.x
+
+如果你的主机使用了DHCP功能自动获得一个IP地址，那么 当你的DHCP服务器发生故障，或响应时间太长而超出了一 个系统规定的时间，计算机操作系统会为你分配这样一个 地址。如果你发现你的主机IP地址是一个诸如此类的地址， 很不幸的是，现在你的网络不能正常运行了。
+
+10.x.x.x；172.16.0.0—172.31.255.254；192.168.x.x；私有地址
+
+这些地址被大量用于企业内部网络中。一些宽带路由器，也 往往使用192.168.1.1作为缺省地址。私有网络由于不与外 部互连，因而可能使用随意的IP地址。保留这样的地址供其 使用是为了避免以后接入公网时引起地址混乱。使用私有地 址的私有网络在接入Internet时，要使用地址翻译(NAT)， 将私有地址翻译成公用合法地址。在Internet上，这类地址 是不能出现的。对一台网络上的主机来说，它可以正常接收 的合法目的网络地址有三种：本机的IP地址、广播地址以及 组播地址。
+IP地址的分类
+A类地址
+
+A类IP地址 ：由1个字节的网络地址和3个字节的主机地址，网络地址的最高位必须是“0”。如：0XXXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）A类IP地址范围 ：1.0.0.1—126.255.255.254
+
+A类IP地址中的私有地址和保留地址： 
+
+10.X.X.X是私有地址（所谓的私有地址就是在互联网上不使用，而被用在局域网络中的地址）。范围（10.0.0.1—10.255.255.254）
+127.X.X.X是保留地址，用做循环测试用的。
 
 
 
-在UEFI下启动操作系统，不再需要主引导记录，也不再需要活动分区， 在开机方面相比BIOS少了自检这一步，因此它的启动速度更快。
-操作界面上UEFI采用的图形化界面，并且支持中文。而BIOS全部都是 英语。UEFI的图形化界面可以让用户更快的了解功能。
+B类地址
 
-UEFI运行流程
+B类IP地址： 由2个字节的网络地址和2个字节的主机地址，网络地址的最高位必须是“10”。
+如：10XXXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）B类IP地址范围： 128.0.0.1—191.255.255.254。
 
-    graph LR
-    A(开 机) --> B[UEFI初始化] --> D[引导操作系统]--> E(进入系统)
+B类IP地址的私有地址和保留地址：
+
+172.16.0.0—172.31.255.254是私有地址
+169.254.X.X是保留地址。如果你的IP地址是自动获取IP地址， 而在网络上又没有找到可用的DHCP服务器。就会得到其中一个IP。 191.255.255.255是广播地址，不能分配。
 
 
-现在大部分新电脑都是UEFI+GPT模式了，这种模式更适合现在的win10、 win8系统，这种模式不能直接安装win7系统，这也是为什么很多新电脑 安装win7前都要调整分区与设置BIOS的原因。
+
+C类地址
+
+C类IP地址： 由3个字节的网络地址和1个字节的主机地址，网络地址的最高位必须是“110”。如：110XXXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）C类IP地址范围： 192.0.0.1—223.255.255.254。
+
+C类地址中的私有地址：192.168.X.X是私有地址。（192.168.0.1—192.168.255.255)
+
+4、D类地址
+D类地址： 不分网络地址和主机地址，它的第1个字节的前四位固定为1110。如：1110XXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）D类地址范围： 224.0.0.1—239.255.255.254
+5、E类地址E类地址： 不分网络地址和主机地址，它的第1个字节的前四位固定为 1111。如：1111XXXX.XXXXXXXX.XXXXXXXX.XXXXXXXX（X代表0或1）E类地址范围： 240.0.0.1—255.255.255.254
 ]]></content>
       <categories>
-        <category>windows</category>
+        <category>IP</category>
       </categories>
       <tags>
-        <tag>UEFI</tag>
-        <tag>BIOS</tag>
-        <tag>主板</tag>
-        <tag>MBR</tag>
-        <tag>GPT</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>了解计算机物理接口</title>
-    <url>/posts/15023.html</url>
-    <content><![CDATA[]]></content>
-      <tags>
-        <tag>PC</tag>
-        <tag>windows</tag>
+        <tag>IP</tag>
+        <tag>网络</tag>
       </tags>
   </entry>
   <entry>
@@ -1413,6 +1396,23 @@ CPU 是计算机的核心，用于处理计算机软件中的数据，电脑运�
         <tag>windows</tag>
         <tag>系统</tag>
         <tag>硬件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>软件静默安装参数</title>
+    <url>/posts/10107.html</url>
+    <content><![CDATA[ 
+软件静默参数大部分软件的安装都能采取全自动或半自动的方式进行，只需要找到对应的静默参数
+Microsoft Windows Installer
+　　如果某个软件是用 Windows Installer 打包的，那你就应该能在文件夹中看到 *.msi 文件。这是最典型的特征，这些文件通常可以使用 &#x2F;QB 和 &#x2F;QN 参数进行自动安装。
+　　&#x2F;qb 会在窗口中显示一个基本的安装进程。　　&#x2F;qn 参数则不会显示任何窗口，直接在后台自动安装。 
+常用软件WinRAR.exe /S7-ZIP.exe /S搜狗输入法.exe /SQQ  /SVC++运行库  /SILENT 显示窗口直接安装]]></content>
+      <categories>
+        <category>windows</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+        <tag>bat</tag>
       </tags>
   </entry>
 </search>
